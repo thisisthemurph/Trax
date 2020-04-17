@@ -1,0 +1,48 @@
+@import '../variables.scss';
+
+.Navigation {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 1em;
+    box-shadow: 2px 2px 12px rgb(72, 76, 82);
+
+    a {
+        text-decoration: none;
+
+        h1 {
+            color: $primary-color;
+            font-size: 2rem;
+        }
+
+        &:hover, &:focus {
+            outline: none;
+        }
+    }
+
+    ul {
+        list-style-type: none;
+
+        li {
+            cursor: pointer;
+            display: inline-block;
+            padding: 1em;
+            border-radius: 4px;
+            background-color: $primary-color;
+            margin-left: 10px;
+            
+            a {
+                color: $secondary-font-color;
+            }
+
+            &:hover, &:focus {
+                background-color: lighten($primary-color, 10);
+            }
+        }
+    }
+
+    .user {
+
+    }
+}

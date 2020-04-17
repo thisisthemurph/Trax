@@ -1,0 +1,52 @@
+.GenderElement {
+    background-color: white;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+
+    display: flex;
+    justify-content: space-between;
+
+    font-size: 5rem;
+
+    .selector {
+        width: 50%;
+        margin: 1rem;
+        padding: .8rem;
+        background-color: rgba(150, 197, 238, .8);
+        border: solid 1px transparent;
+        border-radius: 4px;
+        text-align: center;
+        cursor: pointer;
+
+        .emoji {
+            display: block;
+
+            transition: all .8s;
+        }
+
+        .text {
+            font-size: 1.5rem;
+            padding: 1rem;
+        }
+
+        &:hover {
+            border-color: black;
+        }
+    }
+
+    .selected {
+        border: solid 1px black;
+
+        .emoji {
+            transform: rotate(360deg)
+        }
+    }
+
+    .maleSelector {
+        margin-right: .5rem;
+    }
+    
+    .femaleSelector {
+        margin-left: .5rem;
+    }
+}
