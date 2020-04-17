@@ -2,11 +2,13 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import Input from './Input'
 import Button from './Button'
+import GenderElement from './GenderElement'
 
 class RegistrationForm extends Component {
 	state = {
 		name: '',
 		email: '',
+		sex: 'f',
 		password: '',
 		password2: '',
 		buttonDisabled: false,
@@ -23,6 +25,7 @@ class RegistrationForm extends Component {
 		this.setState({
 			name: '',
 			email: '',
+			sex: 'f',
 			password: '',
 			password2: '',
 			buttonDisabled: false,
@@ -31,7 +34,7 @@ class RegistrationForm extends Component {
 	}
 
 	doRegistration = async () => {
-		const {name, email, password, password2} = this.state
+		const {name, email, sex, password, password2} = this.state
 		if (!name || !email || !password || !password2) {
 			console.log('One of the required input elements was blank')
 			return
@@ -46,7 +49,7 @@ class RegistrationForm extends Component {
 					'Accept': 'application/json',
 					'Content-Type': 'application/json'
 				},
-				body: JSON.stringify({ name, email, password, password2 })
+				body: JSON.stringify({ name, email, sex, password, password2 })
 			})
 
 			const result = await res.json()
@@ -80,8 +83,8 @@ class RegistrationForm extends Component {
 
 	render() {
 		return (
-			<div className="RegistrationForm">
-				<h1>Sign up</h1>
+			<form className="RegistrationForm">
+				<p className='heading'>Sign up</p>
 
 				{this.getErrorMessage()}
 
@@ -99,6 +102,13 @@ class RegistrationForm extends Component {
 					onChange={ (value) => this.setInputValue('email', value)}
 				/>
 
+				<GenderElement
+					sex={this.state.sex}
+					updateSelected={(sex) => {
+						this.setState({ sex })
+					}}
+				/>
+
 				<Input
 					type='password'
 					placeholder='Password'
@@ -114,13 +124,13 @@ class RegistrationForm extends Component {
 				/>
 
 				<Button
-					text='Sign up...'
+					text='Sign up'
 					disabled={this.state.buttonDisabled}
 					onClick={ () => this.doRegistration() }
 				/>
 
 				<Link to="/login">Log in instead</Link>
-			</div>
+			</form>
 		)
 	}
 }

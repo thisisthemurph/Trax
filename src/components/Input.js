@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class LoginForm extends Component {
+class Input extends Component {
 	state = {
 		value: ''
 	}
@@ -22,4 +22,4 @@ class LoginForm extends Component {
 	}
 }
 
-export default LoginForm;
+export default Input;

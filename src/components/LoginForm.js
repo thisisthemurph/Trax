@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import Input from './Input'
-import Button from './Button';
+import Button from './Button'
 
 import auth from '../auth/auth'
+
+import './Form.scss'
 
 class LoginForm extends Component {
 	constructor(props) {
@@ -89,8 +91,8 @@ class LoginForm extends Component {
 
 	render() {
 		return (
-			<div className="LoginForm">
-				<h1>Log in</h1>
+			<form className="LoginForm">
+				<p className='heading'>Log in</p>
 
 				{this.getAlertMessage()}
 
@@ -115,7 +117,7 @@ class LoginForm extends Component {
 				/>
 
 				<Link to='/signup'>Sign up...</Link>
-			</div>
+			</form>
 		)
 	}
 }

@@ -34,34 +34,36 @@ class App extends Component {
 						setLoggedIn={this.setLoggedIn}
 					/>
 
-					<Switch>
-						<Route exact path='/'>
-							<HomePage />
-						</Route>
+					<main>
+						<Switch>
+							<Route exact path='/'>
+								<HomePage />
+							</Route>
 
-						<Route
-							exact
-							path='/login'
-							render={(props) => <LoginForm {...props} setLoggedIn={this.setLoggedIn} />}
-						/>
+							<Route
+								exact
+								path='/login'
+								render={(props) => <LoginForm {...props} setLoggedIn={this.setLoggedIn} />}
+							/>
 
-						<Route
-							exact
-							path='/signup'
-							component={RegistrationForm}
-						/>
+							<Route
+								exact
+								path='/signup'
+								component={RegistrationForm}
+							/>
 
-						<ProtectedRoute
-							exact
-							path='/profile'
-							component={ProfilePage}
-							isLoggedIn={this.state.isLoggedIn}
-						/>
+							<ProtectedRoute
+								exact
+								path='/profile'
+								component={ProfilePage}
+								isLoggedIn={this.state.isLoggedIn}
+							/>
 
-						<Route path='*'>
-							<h1>404!</h1><h2>Ah Ah Ah!</h2><h2>You didn't say the magic word!</h2>
-						</Route>
-					</Switch>
+							<Route path='*'>
+								<h1>404!</h1><h2>Ah Ah Ah!</h2><h2>You didn't say the magic word!</h2>
+							</Route>
+						</Switch>
+					</main>
 				</div>
 			</Router>
 		)

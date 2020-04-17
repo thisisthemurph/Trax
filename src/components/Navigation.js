@@ -4,6 +4,8 @@ import Button from './Button'
 
 import auth from '../auth/auth'
 
+import './Navigation.scss'
+
 class Navigation extends Component {
 
 	render() {
