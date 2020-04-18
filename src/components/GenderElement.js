@@ -4,10 +4,6 @@ import './GenderElement.scss'
 
 class GenderElement extends Component {
 
-	// updateSelected = sex => {
-	// 	this.setState({ sex })
-	// }
-
 	getClassNames = sex => {
 		const specific = sex === 'f' ? 'femaleSelector' : 'maleSelector'
 
@@ -15,7 +11,7 @@ class GenderElement extends Component {
 			return `selected selector ${specific}`
 		}
 
-		return `selector ${specific}`
+		return `selector ${specific}`	
 	}
 
 	render() {
@@ -25,6 +21,7 @@ class GenderElement extends Component {
 					className={this.getClassNames('m')}
 					onClick={() => this.props.updateSelected('m')}
 				>
+					<input type='radio' name='sex' value='m' checked={this.props.sex === 'm'}/>
 					<span class='emoji' role='img' aria-label='male'>🧔</span>
 					<p className='text'>Male</p>
 				</div>
@@ -33,6 +30,7 @@ class GenderElement extends Component {
 					className={this.getClassNames('f')}
 					onClick={() => this.props.updateSelected('f')}
 				>
+					<input type='radio' name='sex' value='f' checked={this.props.sex === 'f'} />
 					<span class='emoji' role='img' aria-label='female'>👩‍🦰</span>
 					<p className='text'>Female</p>
 				</div>

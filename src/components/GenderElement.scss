@@ -1,3 +1,5 @@
+@import '../variables.scss';
+
 .GenderElement {
     background-color: white;
     border-radius: 4px;
@@ -9,10 +11,11 @@
     font-size: 5rem;
 
     .selector {
+        position: relative;
         width: 50%;
         margin: 1rem;
         padding: .8rem;
-        background-color: rgba(150, 197, 238, .8);
+        background-color: $primary-color-light;
         border: solid 1px transparent;
         border-radius: 4px;
         text-align: center;
@@ -20,8 +23,13 @@
 
         .emoji {
             display: block;
-
             transition: all .8s;
+        }
+
+        input[type=radio] {
+            position: absolute;
+            top: 0; left: 0;
+            opacity: 0;
         }
 
         .text {
@@ -29,8 +37,9 @@
             padding: 1rem;
         }
 
-        &:hover {
+        &:hover, &:focus {
             border-color: black;
+            background-color: darken($primary-color-light, 10)
         }
     }
 
