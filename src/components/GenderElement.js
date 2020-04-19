@@ -21,8 +21,8 @@ class GenderElement extends Component {
 					className={this.getClassNames('m')}
 					onClick={() => this.props.updateSelected('m')}
 				>
-					<input type='radio' name='sex' value='m' checked={this.props.sex === 'm'}/>
-					<span class='emoji' role='img' aria-label='male'>🧔</span>
+					<input type='radio' name='sex' value='m' checked={this.props.sex === 'm'} readOnly={true} />
+					<span className='emoji' role='img' aria-label='male'>🧔</span>
 					<p className='text'>Male</p>
 				</div>
 				
@@ -30,8 +30,8 @@ class GenderElement extends Component {
 					className={this.getClassNames('f')}
 					onClick={() => this.props.updateSelected('f')}
 				>
-					<input type='radio' name='sex' value='f' checked={this.props.sex === 'f'} />
-					<span class='emoji' role='img' aria-label='female'>👩‍🦰</span>
+					<input type='radio' name='sex' value='f' checked={this.props.sex === 'f'} readOnly={true} />
+					<span className='emoji' role='img' aria-label='female'>👩‍🦰</span>
 					<p className='text'>Female</p>
 				</div>
 			</div>
