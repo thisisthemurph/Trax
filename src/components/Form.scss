@@ -1,8 +1,25 @@
+@import '../variables.scss';
+
 .LoginForm, .RegistrationForm {
     .heading {
         font-weight: 700;
         font-size: 2rem;
         margin-bottom: 1.2rem;
+    }
+
+    .alert {
+        margin-bottom: 1rem;
+        padding: 1rem;
+        font-size: .9rem;
+        border-radius: 4px;
+    }
+
+    .notification {
+        background-color: $primary-color-light;
+    }
+
+    .error {
+        background-color: salmon;
     }
 
     .inputContainer {

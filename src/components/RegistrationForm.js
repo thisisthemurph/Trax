@@ -75,7 +75,7 @@ class RegistrationForm extends Component {
 
 	getErrorMessage = () => {
 		if (this.state.error) {
-			return <p className='error'>{this.state.error}</p>
+			return <p className='alert error'>{this.state.error}</p>
 		}
 
 		return null
