@@ -1,14 +1,20 @@
 @import '../variables.scss';
 
 .GenderElement {
+    font-size: 5rem;
     background-color: white;
-    border-radius: 4px;
+    border: solid 2px white;
+    border-radius: 8px;
     margin-bottom: 1rem;
 
     display: flex;
     justify-content: space-between;
 
-    font-size: 5rem;
+    transition: all .6s ease-in-out;
+
+    &.focused {
+        border-color: black;
+    }
 
     .selector {
         position: relative;
@@ -16,14 +22,15 @@
         margin: 1rem;
         padding: .8rem;
         background-color: $primary-color-light;
-        border: solid 1px transparent;
-        border-radius: 4px;
+        border-radius: 8px;
         text-align: center;
         cursor: pointer;
 
+        transition: all .8s ease-in-out;
+
         .emoji {
             display: block;
-            transition: all .8s;
+            transition: transform .8s ease-out;
         }
 
         input[type=radio] {
@@ -37,17 +44,17 @@
             padding: 1rem;
         }
 
+        &.selected {
+            background-color: darken($primary-color-light, 25);
+    
+            .emoji {
+                transform: rotate(360deg)
+            }
+        }
+
         &:hover, &:focus {
             border-color: black;
             background-color: darken($primary-color-light, 10)
-        }
-    }
-
-    .selected {
-        border: solid 1px black;
-
-        .emoji {
-            transform: rotate(360deg)
         }
     }
 
