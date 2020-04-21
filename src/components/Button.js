@@ -9,7 +9,7 @@ class Button extends Component {
 
 		return (
 			<button
-				className='Button'
+				className={`Button${disabled ? ' disabled' : ''}`}
 				onClick={onClick}
 				disabled={disabled ? disabled : false}
 			>

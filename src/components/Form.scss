@@ -12,6 +12,12 @@
         padding: 1rem;
         font-size: .9rem;
         border-radius: 4px;
+
+        animation: fadeIn ease 1s;
+
+        p {
+            line-height: 1.6rem;
+        }
     }
 
     .notification {
@@ -31,6 +37,12 @@
             font-size: 1.2rem;
             margin-bottom: 1rem;
 
+            transition: all .6s ease-in-out;
+
+            &.invalid {
+                border-color: salmon;
+            }
+
             &:focus {
                 outline: none;
                 border-color: black;
@@ -40,5 +52,14 @@
 
     .Button {
         margin-right: 1rem;
+
+        &:disabled {
+            background-color: grayscale($primary-color)
+        }
     }
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
 }
