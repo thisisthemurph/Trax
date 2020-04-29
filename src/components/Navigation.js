@@ -36,6 +36,7 @@ class Navigation extends Component {
                     
                     <Button
                         text='Logout'
+                        rightIcon='rightArrow'
                         onClick={ 
                             () => {
                                 auth.logout()
