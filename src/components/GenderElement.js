@@ -1,68 +1,76 @@
-import React, { Component } from 'react';
+import React, { useState } from "react"
 
-import './GenderElement.scss'
+import "./GenderElement.scss"
 
-class GenderElement extends Component {
-	state = {
-		elementHasFocus: false
-	}
+const GenderElement = (props) => {
+	const [hasFocus, setHasFocus] = useState(false)
 
-	getClassNames = sex => {
-		const specific = sex === 'f' ? 'femaleSelector' : 'maleSelector'
+	const getClassNames = (sex) => {
+		const specific = sex === "f" ? "femaleSelector" : "maleSelector"
 
-		if (this.props.sex === sex) {
-			return `selected selector ${specific}`
+		if (props.sex === sex) {
+			return `selector ${specific} selected`
 		}
 
-		return `selector ${specific}`	
+		return `selector ${specific}`
 	}
 
-	handleChange = event => {
-		event.preventDefault()
-		this.props.updateSelected(event.target.value)
+	const handleChange = (e) => {
+		e.preventDefault()
+		props.updateSelected(e.target.value)
 	}
 
-	render() {
-		return (
-			<div className={`GenderElement${this.state.elementHasFocus ? ' focused' : ''}`}>
-				<div className={this.getClassNames('m')} onClick={() => this.props.updateSelected('m')}>
-					<input
-						type='radio'
-						name='sex'
-						value='m'
-						checked={this.props.sex === 'm'}
-						onChange={this.handleChange}
-						onFocus={() => {
-							this.setState({ elementHasFocus: true })
-							this.props.updateSelected('m')
-						}}
-						onBlur={() => {this.setState({ elementHasFocus: false })}}
-					/>
-					<span className='emoji' role='img' aria-label='male'>🧔</span>
-					<p className='text'>Man</p>
-				</div>
-				
-				<div className={this.getClassNames('f')}
-					onClick={() => this.props.updateSelected('f')}>
-					<input 
-						type='radio'
-						name='sex' 
-						value='f' 
-						checked={this.props.sex === 'f'} 
-						// readOnly={true}
-						onChange={this.handleChange}
-						onFocus={() => {
-							this.setState({ elementHasFocus: true })
-							this.props.updateSelected('f')
-						}}
-						onBlur={() => {this.setState({ elementHasFocus: false })}}
-					/>
-					<span className='emoji' role='img' aria-label='female'>👩‍🦰</span>
-					<p className='text'>Woman</p>
-				</div>
+	return (
+		<div className={`GenderElement${hasFocus ? " focused" : ""}`}>
+			<div
+				className={getClassNames("m")}
+				onClick={() => props.updateSelected("m")}
+			>
+				<input
+					type="radio"
+					name="sex"
+					value="m"
+					checked={props.sex === "m"}
+					onChange={handleChange}
+					onFocus={() => {
+						setHasFocus(true)
+						props.updateSelected("m")
+					}}
+					onBlur={() => {
+						setHasFocus(false)
+					}}
+				/>
+				<span className="emoji" role="img" aria-label="male">
+					🧔
+				</span>
+				<p className="text">Man</p>
 			</div>
-		)
-	}
+
+			<div
+				className={getClassNames("f")}
+				onClick={() => props.updateSelected("f")}
+			>
+				<input
+					type="radio"
+					name="sex"
+					value="f"
+					checked={props.sex === "f"}
+					onChange={handleChange}
+					onFocus={() => {
+						setHasFocus(true)
+						props.updateSelected("f")
+					}}
+					onBlur={() => {
+						setHasFocus(false)
+					}}
+				/>
+				<span className="emoji" role="img" aria-label="female">
+					👩‍🦰
+				</span>
+				<p className="text">Woman</p>
+			</div>
+		</div>
+	)
 }
 
-export default GenderElement;
+export default GenderElement

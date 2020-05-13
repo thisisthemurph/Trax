@@ -1,301 +1,140 @@
-import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
-import Input from './Input'
-import Button from './Button'
-import GenderElement from './GenderElement'
+import React, { useState, useEffect } from "react"
+import { Link } from "react-router-dom"
+import Input from "./Input"
+import Button from "./Button"
+import GenderElement from "./GenderElement"
 
-class RegistrationForm extends Component {
-	state = {
-		error: null,
-
-		buttonDisabled: false,
-		formHasErrors: false,
-		formErrors: {
-			name: '',
-			email: '',
-			password: '',
-			password2: ''
-		},
-
-		name: {
-			value: '',
-			valid: false,
-			focused: false
-		},
-		email: {
-			value: '',
-			valid: true,
-			focused: false
-		},
-		sex: {
-			value: 'f'
-		},
-		password: {
-			value: '',
-			valid: true,
-			focused: false
-		},
-		password2: {
-			value: '',
-			valid: true,
-			focused: false
-		}
-	}
-
-	setInputValue = (property, value) => {
-		this.setState({
-			[property]: {
-				...this.state[property],
-				value: value
-			}
-		})
-	}
-
-	cleanInputValue = (property) => {
-		this.setState({
-			[property]: this.state[property].trim()
-		})
-	}
-
-	validateField = (fieldName) => {
-		const value = this.state[fieldName].value
-
-		let nameValid = this.state.name.valid
-		let emailValid = this.state.email.valid
-		let passwordValid = this.state.password.valid
-		let password2Valid = this.state.password2.valid
-		let formErrors = this.state.formErrors
-
-		switch(fieldName) {
-			case 'name':
-				nameValid = value.length >= 1
-				formErrors.name = nameValid ? '' : 'You forgot to tell us what to call you'
-				break
-
-			case 'email':
-				emailValid = Boolean(value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i))
-				formErrors.email = emailValid ? '' : 'There seems to be an issue with your email address'
-				break
-			
-			case 'password':
-				passwordValid = value.length >= 6
-				formErrors.password = passwordValid ? '' : 'The password must be at least 6 characters long'
-				break
-			
-			case 'password2':
-				password2Valid = value === this.state.password.value
-				formErrors.password2 = password2Valid ? '' : 'Those passwords don\'t look the same 👀'
-				break			
-
-			default:
-				break;
-		}
-
-		this.setState({
-			formErrors,
-			name: { ...this.state.name, valid: nameValid },
-			email: { ...this.state.email, valid: emailValid },
-			password: { ...this.state.password, valid: passwordValid },
-			password2: { ...this.state.password2, valid: password2Valid }
-		}, this.validateForm)
-	}
-
-	validateForm = () => {
-		const { name, email, password, password2 } = this.state
-
-		const allElementsFocused = name.focused && email.focused && password.focused && password2.focused
-		
-		let formIsValid = false
-		if (allElementsFocused) {
-			formIsValid = name.valid && email.valid && password.valid && password2.valid
-		} else {
-			formIsValid = false;
-		}
-
-		this.setState({ 
-			formHasErrors: !formIsValid
-		})
-
-		console.log({
-			formHasErrors: this.state.formHasErrors,
-			name: this.state.name,
-			email: this.state.email,
-			password: this.state.password,
-			password2: this.state.password2
-		})
-	}
-
-	resetForm = () => {
-		this.setState({
-			error: null,
-	
-			buttonDisabled: false,
-			formHasErrors: false,
-			formErrors: {
-				name: '',
-				email: '',
-				password: '',
-				password2: ''
-			},
-
-			password: {
-				value: '',
-				valid: true,
-				focused: false
-			},
-			password2: {
-				value: '',
-				valid: true,
-				focused: false
-			}
-		})
-	}
-
-	doRegistration = async () => {
-		const {name, email, sex, password, password2} = this.state
-		if (!name.value || !email.value || !password.value || !password2.value) {
-			alert('Please fill out the entrire form')
-			return
-		}
-
-		this.setState({ buttonDisabled: true })
-
-		try {
-			const res = await fetch('http://localhost:5000/trax/api/auth/register', {
-				method: 'post',
-				headers: {
-					'Accept': 'application/json',
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify({ name, email, sex, password, password2 })
-			})
-
-			const result = await res.json()
-
-			if (result && result.success) {
-				this.props.history.push({
-					pathname: '/login',
-					state: {
-						newUser: true
-					}
-				})
-			} else {
-				// The user is not logged in
-				console.log(result.msg)
-				this.resetForm()
-				this.setState({ error: result.msg })
-			}
-		} 
-		catch(e) {
-			this.resetForm()
-		}
-	}
-
-	getErrorMessage = () => {
-		if (this.state.error) {
-			return <p className='alert error'>{this.state.error}</p>
-		}
-
-		const allErrors = Object.values(this.state.formErrors).filter(errorMsg => errorMsg.length > 0)
-
-		if (allErrors.length > 0) {
-			return (
-				<div className='alert error'>
-					{allErrors.map((errorMsg, idx) => {
-						return <p key={idx}>{ errorMsg }</p>
-					})}
-				</div>
-			)
-		}
-
-		return null
-	}
-
-	isValid = property => {
-		const elem = this.state[property]
-
-		if (elem.valid)
-			return true
-		else
-			if (elem.focused)
-				return false
-			else
-				return true
-	}
-
-	setFocused = property => {
-		this.setState({
-			[property]: {
-				...this.state[property],
-				focused: true
-			}
-		})
-	}
-
-	render() {
-		return (
-			<form className="RegistrationForm">
-				<p className='heading'>Sign up</p>
-
-				{this.getErrorMessage()}
-
-				<Input
-					type='text'
-					placeholder='What is your name?'
-					value={this.state.name.value}
-					valid={this.isValid('name')}
-					onChange={ (value) => { this.setInputValue('name', value) } }
-					onFocus={ () => { this.setFocused('name') }}
-					onBlur={ () => { this.validateField('name') } }
-				/>
-
-				<Input
-					type='email'
-					placeholder='your@email.com'
-					value={this.state.email.value}
-					valid={this.isValid('email')}
-					onChange={ (value) => this.setInputValue('email', value)}
-					onFocus={ () => { this.setFocused('email') }}
-					onBlur={ () => { this.validateField('email') } }
-				/>
-
-				<GenderElement
-					sex={this.state.sex.value}
-					updateSelected={(sex) => {
-						this.setState({ 'sex': {value: sex} })
-					}}
-				/>
-
-				<Input
-					type='password'
-					placeholder='Password'
-					value={this.state.password.value}
-					valid={this.isValid('password')}
-					onChange={ (value) => this.setInputValue('password', value)}
-					onFocus={ () => { this.setFocused('password') }}
-					onBlur={ () => { this.validateField('password') } }
-				/>
-
-				<Input
-					type='password'
-					placeholder='Password again please'
-					value={this.state.password2.value}
-					valid={this.isValid('password2')}
-					onChange={ (value) => this.setInputValue('password2', value)}
-					onFocus={ () => { this.setFocused('password2') }}
-					onBlur={ () => { this.validateField('password2') } }
-				/>
-
-				<Button
-					text='Sign up'
-					disabled={this.buttonDisabled}
-					onClick={ () => this.doRegistration() }
-				/>
-
-				<Link to="/login">Log in instead</Link>
-			</form>
-		)
-	}
+const initailFormDataState = {
+	name: null,
+	email: null,
+	sex: null,
+	password: null,
+	password2: null,
 }
 
-export default RegistrationForm;
+const initailFormErrorState = {
+	name: { hasError: false, msg: null },
+	email: { hasError: false, msg: null },
+	sex: { hasError: false, msg: null },
+	password: { hasError: false, msg: null },
+	password2: { hasError: false, msg: null },
+}
+
+const RegistrationForm = () => {
+	const [buttonDisabled, setButtonDisabled] = useState(true)
+	const [formData, setFormData] = useState(initailFormDataState)
+	const [formErrors, setFormErrors] = useState(initailFormErrorState)
+
+	useEffect(() => {
+		const setError = (property, value, msg = null) => {
+			setFormErrors((prevState) => ({
+				...prevState,
+				[property]: { hasError: value, msg },
+			}))
+		}
+
+		const toggleFormSubmitButton = () => {
+			const values = [formData.name, formData.email, formData.password, formData.password2]
+
+			if (values.includes(null)) {
+				console.log("disabled")
+				setButtonDisabled(() => true)
+				return
+			}
+
+			console.log("ENABLED")
+			setButtonDisabled(() => false)
+		}
+
+		if (formData.name && formData.name.length < 2) {
+			setError("name", true, "Your name must be more than a single character")
+		} else if (formData.name && formData.name.length > 25) {
+			setError("name", true, "Your name must be 25 characters or less")
+		} else {
+			setError("name", false)
+		}
+
+		if (
+			formData.email &&
+			!Boolean(formData.email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i))
+		) {
+			setError("email", true, "This doesn't look like a real email address")
+		} else {
+			setError("email", false)
+		}
+
+		if (formData.password && formData.password.length < 8) {
+			setError("password", true, "Your password must be at least 8 characters in length")
+		} else {
+			setError("password", false)
+		}
+
+		if (formData.password2 && formData.password2 !== formData.password) {
+			setError("password2", true, "The passwords you have provided do not match")
+		} else {
+			setError("password2", false)
+		}
+
+		toggleFormSubmitButton()
+	}, [formData.name, formData.email, formData.password, formData.password2])
+
+	const setInputValue = (property, value) => {
+		setFormData({
+			...formData,
+			[property]: value ? value : null,
+		})
+	}
+
+	return (
+		<form className="RegistrationForm">
+			<h3 className="heading">Sign up</h3>
+
+			<Input
+				type="text"
+				placeholder="What is your name?"
+				value={formData.name}
+				hasError={formErrors.name.hasError}
+				onChange={(value) => setInputValue("name", value)}
+			/>
+
+			<Input
+				type="email"
+				placeholder="your@email.com"
+				value={formData.email}
+				hasError={formErrors.email.hasError}
+				onChange={(value) => setInputValue("email", value)}
+			/>
+
+			<GenderElement
+				sex={formData.sex ? formData.sex : "f"}
+				updateSelected={(value) => setInputValue("sex", value)}
+			/>
+
+			<Input
+				type="password"
+				placeholder="Password"
+				value={formData.password}
+				hasError={formErrors.password.hasError}
+				onChange={(value) => setInputValue("password", value)}
+			/>
+
+			<Input
+				type="password"
+				placeholder="Password again please"
+				value={formData.password2}
+				hasError={formErrors.password2.hasError}
+				onChange={(value) => setInputValue("password2", value)}
+			/>
+
+			<Button
+				text="Sign up"
+				disabled={buttonDisabled}
+				// onClick={() => this.doRegistration()}
+			/>
+
+			<Link to="/login">Log in instead</Link>
+		</form>
+	)
+}
+
+export default RegistrationForm
