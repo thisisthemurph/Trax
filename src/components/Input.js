@@ -1,18 +1,12 @@
 import React from "react"
 
-const Input = (props) => {
-	const {
-		type,
-		value,
-		placeholder,
-		onChange,
-		onFocus,
-		onBlur,
-		hasError,
-	} = props
+const Input = ({ type, value, placeholder, onChange, hasError, errorMessage }) => {
+	const getErrorAlert = () => {
+		if (errorMessage) {
+			return <div className="error">{errorMessage}</div>
+		}
 
-	if (hasError) {
-		console.log("there is an error")
+		return <div>{"\u00A0"}</div>
 	}
 
 	return (
@@ -23,9 +17,9 @@ const Input = (props) => {
 				value={value ? value : ""}
 				placeholder={placeholder ? placeholder : ""}
 				onChange={(e) => onChange(e.target.value)}
-				onFocus={onFocus}
-				onBlur={onBlur}
 			/>
+
+			{getErrorAlert()}
 		</div>
 	)
 }
