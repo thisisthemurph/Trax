@@ -37,12 +37,10 @@ const RegistrationForm = () => {
 			const values = [formData.name, formData.email, formData.password, formData.password2]
 
 			if (values.includes(null)) {
-				console.log("disabled")
 				setButtonDisabled(() => true)
 				return
 			}
 
-			console.log("ENABLED")
 			setButtonDisabled(() => false)
 		}
 
@@ -94,6 +92,7 @@ const RegistrationForm = () => {
 				placeholder="What is your name?"
 				value={formData.name}
 				hasError={formErrors.name.hasError}
+				errorMessage={formErrors.name.msg}
 				onChange={(value) => setInputValue("name", value)}
 			/>
 
@@ -102,6 +101,7 @@ const RegistrationForm = () => {
 				placeholder="your@email.com"
 				value={formData.email}
 				hasError={formErrors.email.hasError}
+				errorMessage={formErrors.email.msg}
 				onChange={(value) => setInputValue("email", value)}
 			/>
 
@@ -115,6 +115,7 @@ const RegistrationForm = () => {
 				placeholder="Password"
 				value={formData.password}
 				hasError={formErrors.password.hasError}
+				errorMessage={formErrors.password.msg}
 				onChange={(value) => setInputValue("password", value)}
 			/>
 
@@ -123,6 +124,7 @@ const RegistrationForm = () => {
 				placeholder="Password again please"
 				value={formData.password2}
 				hasError={formErrors.password2.hasError}
+				errorMessage={formErrors.password2.msg}
 				onChange={(value) => setInputValue("password2", value)}
 			/>
 
