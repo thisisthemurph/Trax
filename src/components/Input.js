@@ -1,12 +1,24 @@
 import React from "react"
 
 const Input = (props) => {
-	const { type, value, placeholder, onChange, onFocus, onBlur, valid } = props
+	const {
+		type,
+		value,
+		placeholder,
+		onChange,
+		onFocus,
+		onBlur,
+		hasError,
+	} = props
+
+	if (hasError) {
+		console.log("there is an error")
+	}
 
 	return (
 		<div className="inputContainer">
 			<input
-				className={valid === false ? "invalid" : "valid"}
+				className={hasError ? "invalid" : "valid"}
 				type={type}
 				value={value ? value : ""}
 				placeholder={placeholder ? placeholder : ""}
