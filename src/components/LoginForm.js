@@ -1,125 +1,101 @@
-import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
-import Input from './Input'
-import Button from './Button'
+import React, { useState, useEffect } from "react"
+import { Link } from "react-router-dom"
+import Input from "./Input"
+import Button from "./Button"
 
-import auth from '../auth/auth'
+import auth from "../auth/auth"
 
-import './Form.scss'
+import "./Form.scss"
 
-class LoginForm extends Component {
-	constructor(props) {
-		super(props)
-		this.state = {
-			email: '',
-			password: '',
-			buttonDisabled: false,
-			newUser: false
-		}
-	}
+const LoginForm = (props) => {
+	const [formData, setFormData] = useState({ email: null, password: null })
+	const [buttonDisabled, setButtonDisabled] = useState(true)
+	const [isNewUser, setIsNewUser] = useState(false)
 
-	async componentDidMount() {
-		const tokenIsAuthentic = await auth.authenticateCurrentToken()
-		console.log(`@LoginForm -> Authentic token? ${tokenIsAuthentic}`)
-
-		const hasState = typeof this.props.location.state !== 'undefined'
-		console.log({hasState})
-		console.log(this.props.location)
-		if (hasState && this.props.location.state.hasOwnProperty('newUser')) {
-			this.setState({	newUser: this.props.location.state.newUser })
+	useEffect(() => {
+		console.log(props.location)
+		if (props.location.state && props.location.state.hasOwnProperty("newUser")) {
+			setIsNewUser(() => props.location.state.newUser)
 		}
 
-		if (auth.isAuthenticated()) {
-			this.props.history.push('/profile')
+		const checkUserIsAuthenticated = async () => {
+			if (await auth.authenticateCurrentToken()) {
+				props.history.push("/profile")
+			}
 		}
-	}
 
-	setInputValue = (property, value) => {
-		this.setState({
-			[property]: value.trim()
+		checkUserIsAuthenticated()
+	}, [])
+
+	useEffect(() => {
+		const toggleFormSubmitButton = () => {
+			if ([formData.email, formData.password].includes(null)) {
+				setButtonDisabled(() => true)
+				return
+			}
+
+			setButtonDisabled(() => false)
+		}
+
+		toggleFormSubmitButton()
+	}, [formData.email, formData.password])
+
+	const setInputValue = (property, value) => {
+		setFormData({
+			...formData,
+			[property]: value ? value : null,
 		})
 	}
 
-	resetForm = () => {
-		this.setState({
-			email: '',
-			password: '',
-			buttonDisabled: false,
-			newUser: false
-		})
-	}
-
-	doLogin = async () => {
-
-		console.log('Login clicked')
-		console.log(auth.authenticated)
-
-		if (!this.state.email) {
+	const doLogin = async () => {
+		if (!formData.email) {
 			return
 		}
 
-		if (!this.state.password) {
+		if (!formData.password) {
 			return
 		}
 
-		this.setState({ buttonDisabled: true })
+		setButtonDisabled(true)
 
-		const success = await auth.login(this.state.email, this.state.password)
-		this.props.setLoggedIn(success)
-
-		console.log('Logging in...')
-		console.log(auth.authenticated)
+		const success = await auth.login(formData.email, formData.password)
+		props.setLoggedIn(success)
 
 		if (success) {
-			this.props.history.push('/profile')
+			props.history.push("/profile")
 		} else {
-			// There has been an issue logging in
-			this.resetForm()
-			this.props.history.push('/login')
-		}
-
-		
-	}
-
-	getAlertMessage = () => {
-		if (this.state.newUser) {
-			return <p className='alert'>Your account has been sucesfully created, you can now log in.</p>
-		} else {
-			return null
+			props.history.push("/login")
 		}
 	}
 
-	render() {
-		return (
-			<form className="LoginForm">
-				<p className='heading'>Log in</p>
+	return (
+		<form className="LoginForm">
+			<h3 className="heading">Log in</h3>
 
-				{this.getAlertMessage()}
+			{isNewUser && (
+				<p className="alert">
+					Your account has been sucesfully created, you can now log in.
+				</p>
+			)}
 
-				<Input
-					type='email'
-					placeholder='your@email.com'
-					value={this.state.email}
-					onChange={ (val) => this.setInputValue('email', val) }
-				/>
+			<Input
+				type="email"
+				placeholder="your@email.com"
+				value={formData.email}
+				onChange={(value) => setInputValue("email", value)}
+			/>
 
-				<Input
-					type='password'
-					value={this.state.password}
-					placeholder='Password'
-					onChange={ (val) => this.setInputValue('password', val) }
-				/>
+			<Input
+				type="password"
+				value={formData.password}
+				placeholder="Password"
+				onChange={(value) => setInputValue("password", value)}
+			/>
 
-				<Button
-					text='Log in'
-					disabled={this.state.buttonDisabled}
-					onClick={ () => this.doLogin() }
-				/>
-
-				<Link to='/signup'>Sign up...</Link>
-			</form>
-		)
-	}
+			<Button text="Log in" disabled={buttonDisabled} onClick={doLogin} />
+			<Link to="/signup">Sign up...</Link>
+		</form>
+	)
 }
 
-export default LoginForm;
+export default LoginForm
