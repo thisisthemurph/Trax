@@ -134,7 +134,7 @@ const RegistrationForm = () => {
 				// onClick={() => this.doRegistration()}
 			/>
 
-			<Link to="/login">Log in instead</Link>
+			<Link to="/login">Log in instead...</Link>
 		</form>
 	)
 }
