@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import { ProtectedRoute } from "./components/ProtectedRoute"
-import LoginForm from "./components/form/LoginForm"
-import RegistrationForm from "./components/form/RegistrationForm"
+import { LoginForm, RegistrationForm } from "./components/forms"
+import { HomePage, ProfilePage } from "./components/pages"
 import Header from "./components/header"
-import HomePage from "./components/pages/HomePage"
-import ProfilePage from "./components/pages/ProfilePage"
 import TrackChart from "./components/chart/TrackChart"
 
 import auth from "./auth/auth"
