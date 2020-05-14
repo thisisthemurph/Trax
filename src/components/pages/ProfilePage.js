@@ -1,16 +1,14 @@
-import React, { Component } from 'react'
+import React from 'react'
+import TrackList from '../TrackList'
 
-class ProfilePage extends Component {
+function ProfilePage()  {
 
-	render() {
-
-		return (
-			<>
-            	<h1>Profile Page</h1>
-				<p>This is the Profile page, you must be logged in to access this page.</p>
-			</>
-		)
-	}
+	return (
+		<>
+			<h1>Profile Page</h1>
+			<TrackList />
+		</>
+	)
 }
 
 export default ProfilePage
