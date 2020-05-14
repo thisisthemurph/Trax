@@ -1,6 +1,6 @@
 @import '../variables.scss';
 
-.LoginForm, .RegistrationForm {
+.LoginForm, .RegistrationForm, form {
     .heading {
         font-weight: 700;
         font-size: 2rem;
@@ -29,7 +29,7 @@
     }
 
     .inputContainer {
-        input {
+        input, select {
             width: 100%;
             border: solid 2px white;
             border-radius: 8px;
