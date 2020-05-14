@@ -1,96 +1,96 @@
 class Auth {
-    constructor() {
-        this.authenticated = false
-        this.user = null
-    }
+	constructor() {
+		this.authenticated = false
+		this.user = null
+	}
 
-    async login(email, password) {
-        if (!email || !password) {
-            return false
-        }
+	async login(email, password) {
+		if (!email || !password) {
+			return false
+		}
 
-        try {
-			const res = await fetch('http://localhost:5000/trax/api/auth/login', {
-				method: 'post',
+		try {
+			const res = await fetch("http://localhost:5000/trax/api/auth/login", {
+				method: "post",
 				headers: {
-					'Accept': 'application/json',
-					'Content-Type': 'application/json',
+					Accept: "application/json",
+					"Content-Type": "application/json",
 				},
-				body: JSON.stringify({ email, password })
+				body: JSON.stringify({ email, password }),
 			})
 
 			const result = await res.json()
 
 			if (result && result.success) {
-                localStorage.setItem('token', result.token)
-                this.authenticated = true
+				localStorage.setItem("token", result.token)
+				this.authenticated = true
 			} else {
-                this.logout()
+				this.logout()
 			}
-		} 
-		catch(e) {
-			console.error('There has been an ERROR')
-            this.logout()
+		} catch (e) {
+			this.logout()
 			throw e
-        }
+		}
 
-        return await this.authenticateCurrentToken()
-    }
+		return await this.authenticateCurrentToken()
+	}
 
-    async authenticateCurrentToken() {
-        const token = localStorage.getItem('token')
+	async authenticateCurrentToken() {
+		const token = localStorage.getItem("token")
 
-        if (token) {
-            console.log('Attempting login with current token')
-
-            try {	
-				const res = await fetch('http://localhost:5000/trax/api/auth/authenticate_token', {
-					method: 'post',
-					'headers': {
-						'Accept': 'application/json',
-						'Content-Type': 'application/json',
-						'auth-token': token
-					}
+		if (token) {
+			try {
+				const res = await fetch("http://localhost:5000/trax/api/auth/authenticate_token", {
+					method: "post",
+					headers: {
+						Accept: "application/json",
+						"Content-Type": "application/json",
+						"auth-token": token,
+					},
 				})
-	
+
 				const result = await res.json()
-	
+
 				if (result && result.success) {
-                    console.log('Token authenticated')
-                    this.authenticated = true
-                    this.user = result.user
+					this.authenticated = true
+					this.user = result.user
 				} else {
-                    console.log('Token is not authentic')
-                    this.logout()
+					this.logout()
 				}
-			} 
-			catch(e) {
-                console.error('Error authenticating token')
-                this.logout()
+			} catch (e) {
+				this.logout()
 				throw e
 			}
-        } else {
-            this.logout()
-        }
+		} else {
+			this.logout()
+		}
 
-        return this.isAuthenticated()
-    }
+		return this.isAuthenticated()
+	}
 
-    logout() {
-        localStorage.removeItem('token')
-        this.authenticated = false
-        this.user = null
-    }
+	logout() {
+		localStorage.removeItem("token")
+		this.authenticated = false
+		this.user = null
+	}
 
-    isAuthenticated() {
-        const token = localStorage.getItem('token')
+	isAuthenticated() {
+		const token = localStorage.getItem("token")
 
-        if (!token) {
-            this.logout()
-        }
+		if (!token) {
+			this.logout()
+		}
 
-        return this.authenticated
-    }
+		return this.authenticated
+	}
+
+	getToken() {
+		if (this.authenticateCurrentToken()) {
+			return localStorage.getItem("token")
+		}
+
+		return null
+	}
 }
 
 export default new Auth()
