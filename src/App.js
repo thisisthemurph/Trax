@@ -1,72 +1,58 @@
-import React, { Component } from "react"
+import React, { useState, useEffect } from "react"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import { ProtectedRoute } from "./components/ProtectedRoute"
 import LoginForm from "./components/form/LoginForm"
 import RegistrationForm from "./components/form/RegistrationForm"
-import Header from "./components/header/Header"
+import Header from "./components/header"
 import HomePage from "./components/pages/HomePage"
 import ProfilePage from "./components/pages/ProfilePage"
-import TrackChart from "./components/TrackChart"
+import TrackChart from "./components/chart/TrackChart"
 
 import auth from "./auth/auth"
 
-class App extends Component {
-	state = {
-		isLoggedIn: false,
-	}
+const App = () => {
+	const [isLoggedIn, setIsLoggedIn] = useState(false)
 
-	async componentDidMount() {
-		const success = await auth.authenticateCurrentToken()
-		this.setState({ isLoggedIn: success })
-	}
+	useEffect(() => {
+		;(async () => {
+			const success = await auth.authenticateCurrentToken()
+			setIsLoggedIn(success)
+		})()
+	})
 
-	setLoggedIn = (value) => {
-		this.setState({ isLoggedIn: value })
-	}
+	return (
+		<Router>
+			<div className="App">
+				<Header setLoggedIn={setIsLoggedIn} />
 
-	render() {
-		return (
-			<Router>
-				<div className="App">
-					<Header />
+				<main>
+					<Switch>
+						<Route exact path="/">
+							<HomePage />
+						</Route>
 
-					<main>
-						<Switch>
-							<Route exact path="/">
-								<HomePage />
-							</Route>
+						<Route
+							exact
+							path="/login"
+							render={(props) => <LoginForm {...props} setLoggedIn={setIsLoggedIn} />}
+						/>
 
-							<Route
-								exact
-								path="/login"
-								render={(props) => (
-									<LoginForm {...props} setLoggedIn={this.setLoggedIn} />
-								)}
-							/>
+						<Route exact path="/signup" component={RegistrationForm} />
 
-							<Route exact path="/signup" component={RegistrationForm} />
+						<ProtectedRoute exact path="/profile" component={ProfilePage} />
 
-							<ProtectedRoute exact path="/profile" component={ProfilePage} />
+						<ProtectedRoute exact path="/track/:trackId" component={TrackChart} />
 
-							<ProtectedRoute exact path="/track/:trackId" component={TrackChart} />
-
-							<ProtectedRoute exact path="/example" component={ExampleComponent} />
-
-							<Route path="*">
-								<h1>404!</h1>
-								<h2>Ah Ah Ah!</h2>
-								<h2>You didn't say the magic word!</h2>
-							</Route>
-						</Switch>
-					</main>
-				</div>
-			</Router>
-		)
-	}
-}
-
-function ExampleComponent() {
-	return <p>I'm an example!</p>
+						<Route path="*">
+							<h1>404!</h1>
+							<h2>Ah Ah Ah!</h2>
+							<h2>You didn't say the magic word!</h2>
+						</Route>
+					</Switch>
+				</main>
+			</div>
+		</Router>
+	)
 }
 
 export default App
