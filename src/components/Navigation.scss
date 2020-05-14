@@ -1,48 +1,34 @@
-@import '../variables.scss';
+@import "../variables.scss";
 
 .Navigation {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-end;
 
-    padding: 1em;
-    box-shadow: 2px 2px 12px rgb(72, 76, 82);
+    .Navigation__link {
+        padding: 0.75em 0.75em;
+        border-radius: 100px;
 
-    a {
+        &:hover,
+        &:focus {
+            text-decoration: underline;
+        }
+
+        & + .Navigation__link--button {
+            margin-left: 1.5em;
+        }
+    }
+
+    .Navigation__link--button {
+        padding: 1em 1.5em;
         text-decoration: none;
+        color: $secondary-font-color;
+        background-color: $primary-color;
 
-        h1 {
-            color: $primary-color;
-            font-size: 2rem;
+        &:hover,
+        &:focus {
+            text-decoration: none;
+            background-color: lighten($primary-color, 15);
         }
-
-        &:hover, &:focus {
-            outline: none;
-        }
-    }
-
-    ul {
-        list-style-type: none;
-
-        li {
-            cursor: pointer;
-            display: inline-block;
-            padding: 1em;
-            border-radius: 4px;
-            background-color: $primary-color;
-            margin-left: 10px;
-            
-            a {
-                color: $secondary-font-color;
-            }
-
-            &:hover, &:focus {
-                background-color: lighten($primary-color, 10);
-            }
-        }
-    }
-
-    .user {
-
     }
 }

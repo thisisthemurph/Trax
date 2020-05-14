@@ -1,72 +1,52 @@
-import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
-import Button from './Button'
+import React, { useState, useEffect } from "react"
+import { Link } from "react-router-dom"
+import auth from "../auth/auth"
 
-import auth from '../auth/auth'
+import "./Navigation.scss"
 
-import './Navigation.scss'
+const Navigation = (props) => {
+	const createNavigationLinks = () => {
+		if (auth.isAuthenticated()) {
+			return (
+				<>
+					<Link className="Navigation__link" to="/">
+						Home
+					</Link>
+					<a
+						href="/login"
+						className="Navigation__link"
+						onClick={(e) => {
+							e.preventDefault()
+							auth.logout()
+							props.setLoggedIn(false)
+						}}
+					>
+						Logout
+					</a>
+					<Link className="Navigation__link Navigation__link--button" to="/profile">
+						{auth.user.name} {auth.user.sex === "f" ? "👩‍🦰" : "🧔"}
+					</Link>
+				</>
+			)
+		} else {
+			return (
+				<>
+					<Link className="Navigation__link" to="/login">
+						Login
+					</Link>
+					<Link className="Navigation__link Navigation__link--button" to="/signup">
+						Sign up
+					</Link>
+				</>
+			)
+		}
+	}
 
-class Navigation extends Component {
-
-	render() {
-        return (
-			<nav className='Navigation'>
-                <Link to='/'>
-                    <h1>Trax</h1>
-                </Link>
-                <ul>
-                    <li>
-                        <Link to='/'>Home</Link>
-                    </li>
-                    {this.getLoginSignUpLinks()}
-                </ul>
-
-                {this.getUserElement()}
-            </nav>
-		)
-    }
-    
-    getUserElement = () => {  
-        if (auth.isAuthenticated()) {
-            return (
-                <div className='user'>
-                    <Link to='/profile'>
-                        <strong>{auth.user.name}</strong>
-                    </Link>
-                    
-                    <Button
-                        text='Logout'
-                        rightIcon='rightArrow'
-                        onClick={ 
-                            () => {
-                                auth.logout()
-                                this.props.setLoggedIn(false)
-                            }
-                        }
-                    />
-                </div>
-            )
-        }
-
-        return null
-    }
-
-    getLoginSignUpLinks = () => {
-        if (!auth.isAuthenticated()) {
-            return (
-                <>
-                    <li>
-                        <Link to='/login'>Login</Link>
-                    </li>
-                    <li>
-                        <Link to='/signup'>Sign up</Link>
-                    </li>
-                </>
-            )
-        }
-
-        return null
-    }
+	return (
+		<nav className="Navigation">
+			<div className="Navigation__links">{createNavigationLinks()}</div>
+		</nav>
+	)
 }
 
-export default Navigation;
+export default Navigation

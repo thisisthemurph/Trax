@@ -1,0 +1,25 @@
+@import "../variables.scss";
+
+.Header {
+    display: flex;
+    justify-content: space-between;
+
+    padding: 1em;
+    box-shadow: 2px 2px 12px rgb(72, 76, 82);
+
+    .logo {
+        a {
+            text-decoration: none;
+        }
+
+        h1 {
+            color: $primary-color;
+            font-size: 2rem;
+
+            &:hover,
+            &:focus {
+                color: lighten($primary-color, 15);
+            }
+        }
+    }
+}
