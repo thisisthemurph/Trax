@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react"
+import React from "react"
 import { Link } from "react-router-dom"
-import auth from "../auth/auth"
+import auth from "../../auth/auth"
 
 import "./Navigation.scss"
 

@@ -13,7 +13,7 @@ const Header = (props) => {
 				</Link>
 			</div>
 
-			<Navigation />
+			<Navigation setLoggedIn={props.setLoggedIn} />
 		</header>
 	)
 }

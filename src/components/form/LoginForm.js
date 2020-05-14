@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
-import Input from "./Input"
-import Button from "./Button"
+import { Input, Button } from "../form-components"
 
-import auth from "../auth/auth"
+import auth from "../../auth/auth"
 
 import "./Form.scss"
 

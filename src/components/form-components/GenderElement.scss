@@ -1,4 +1,4 @@
-@import '../variables.scss';
+@import "../../variables.scss";
 
 .GenderElement {
     font-size: 5rem;
@@ -10,7 +10,7 @@
     display: flex;
     justify-content: space-between;
 
-    transition: all .6s ease-in-out;
+    transition: all 0.6s ease-in-out;
 
     &.focused {
         border-color: black;
@@ -20,22 +20,23 @@
         position: relative;
         width: 50%;
         margin: 1rem;
-        padding: .8rem;
+        padding: 0.8rem;
         background-color: $primary-color-light;
         border-radius: 8px;
         text-align: center;
         cursor: pointer;
 
-        transition: all .8s ease-in-out;
+        transition: all 0.8s ease-in-out;
 
         .emoji {
             display: block;
-            transition: transform .8s ease-out;
+            transition: transform 0.8s ease-out;
         }
 
-        input[type=radio] {
+        input[type="radio"] {
             position: absolute;
-            top: 0; left: 0;
+            top: 0;
+            left: 0;
             opacity: 0;
         }
 
@@ -46,23 +47,24 @@
 
         &.selected {
             background-color: darken($primary-color-light, 25);
-    
+
             .emoji {
-                transform: rotate(360deg)
+                transform: rotate(360deg);
             }
         }
 
-        &:hover, &:focus {
+        &:hover,
+        &:focus {
             border-color: black;
-            background-color: darken($primary-color-light, 10)
+            background-color: darken($primary-color-light, 10);
         }
     }
 
     .maleSelector {
-        margin-right: .5rem;
+        margin-right: 0.5rem;
     }
-    
+
     .femaleSelector {
-        margin-left: .5rem;
+        margin-left: 0.5rem;
     }
 }
