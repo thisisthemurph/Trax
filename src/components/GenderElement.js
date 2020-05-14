@@ -22,10 +22,7 @@ const GenderElement = (props) => {
 
 	return (
 		<div className={`GenderElement${hasFocus ? " focused" : ""}`}>
-			<div
-				className={getClassNames("m")}
-				onClick={() => props.updateSelected("m")}
-			>
+			<div className={getClassNames("m")} onClick={() => props.updateSelected("m")}>
 				<input
 					type="radio"
 					name="sex"
@@ -46,10 +43,7 @@ const GenderElement = (props) => {
 				<p className="text">Man</p>
 			</div>
 
-			<div
-				className={getClassNames("f")}
-				onClick={() => props.updateSelected("f")}
-			>
+			<div className={getClassNames("f")} onClick={() => props.updateSelected("f")}>
 				<input
 					type="radio"
 					name="sex"
