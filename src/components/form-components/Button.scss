@@ -38,4 +38,37 @@
         outline: none;
         background-color: lighten($primary-color, 10);
     }
+
+    &.Button__circle {
+        background-color: palegoldenrod;
+    }
+}
+
+.FilterButtons {
+    .Button {
+        margin: 0;
+        border-radius: 0;
+
+        background-color: grayscale($primary-color);
+        transition: background-color 0.3s;
+
+        &.active {
+            background-color: $primary-color;
+        }
+
+        &:hover,
+        &:focus {
+            background-color: lighten($primary-color, 10);
+        }
+
+        &:first-child {
+            border-top-left-radius: 60px;
+            border-bottom-left-radius: 60px;
+        }
+
+        &:last-child {
+            border-top-right-radius: 60px;
+            border-bottom-right-radius: 60px;
+        }
+    }
 }
