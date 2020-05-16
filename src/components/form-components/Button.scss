@@ -40,7 +40,10 @@
     }
 
     &.Button__circle {
-        background-color: palegoldenrod;
+        margin: 0 1em 0 0;
+        border-radius: 50%;
+        height: 3rem;
+        width: 3rem;
     }
 }
 
