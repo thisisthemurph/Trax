@@ -1,4 +1,4 @@
-import HomePage from "./HomePage"
-import ProfilePage from "./ProfilePage"
+import Home from "./Home"
+import Profile from "./Profile"
 
-export { HomePage, ProfilePage }
+export { Home, Profile }

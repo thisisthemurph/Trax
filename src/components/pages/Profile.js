@@ -1,8 +1,7 @@
-import React from 'react'
-import TrackList from '../TrackList'
+import React from "react"
+import TrackList from "../TrackList"
 
-function ProfilePage()  {
-
+const ProfilePage = () => {
 	return (
 		<>
 			<h1>Profile Page</h1>
