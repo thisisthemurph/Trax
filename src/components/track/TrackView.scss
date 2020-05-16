@@ -1,0 +1,9 @@
+.TrackViewHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .TrackViewHeader__button-container {
+        display: flex;
+    }
+}
