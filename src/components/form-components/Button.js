@@ -1,8 +1,13 @@
 import React from "react"
 import "./Button.scss"
 
-const Button = ({ text, onClick, disabled, active }) => {
-	const classes = ["Button", disabled ? "disabled" : null, active ? "active" : null]
+const Button = ({ text, onClick, disabled, active, circle = false }) => {
+	const classes = [
+		"Button",
+		circle ? "Button__circle" : null,
+		disabled ? "disabled" : null,
+		active ? "active" : null,
+	]
 		.filter((c) => c)
 		.join(" ")
 
