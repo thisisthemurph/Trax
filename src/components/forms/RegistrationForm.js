@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 import { Input, Button, GenderElement } from "../form-components"
-// import GenderElement from "./GenderElement"
 
 const initailFormDataState = {
 	name: null,

@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import { ProtectedRoute } from "./components/ProtectedRoute"
 import { LoginForm, RegistrationForm } from "./components/forms"
-import { HomePage, ProfilePage } from "./components/pages"
+import { Home, Profile } from "./components/pages"
+import TrackView from "./components/track"
 import Header from "./components/header"
-import TrackChart from "./components/chart/TrackChart"
 
 import auth from "./auth/auth"
 
@@ -26,7 +26,7 @@ const App = () => {
 				<main>
 					<Switch>
 						<Route exact path="/">
-							<HomePage />
+							<Home />
 						</Route>
 
 						<Route
@@ -37,9 +37,9 @@ const App = () => {
 
 						<Route exact path="/signup" component={RegistrationForm} />
 
-						<ProtectedRoute exact path="/profile" component={ProfilePage} />
+						<ProtectedRoute exact path="/profile" component={Profile} />
 
-						<ProtectedRoute exact path="/track/:trackId" component={TrackChart} />
+						<ProtectedRoute exact path="/track/:trackId" component={TrackView} />
 
 						<Route path="*">
 							<h1>404!</h1>
