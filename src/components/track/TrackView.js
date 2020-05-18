@@ -37,9 +37,11 @@ const TrackView = () => {
 					setTrack(_track)
 					setData(_track.data.dataPoints)
 
-					const target = _track.data.target
-					const lastPoint = _track.data.dataPoints[_track.data.dataPoints.length - 1]
-					setTrackProgress((lastPoint.value / target) * 100)
+					if ("target" in _track.data) {
+						const target = _track.data.target
+						const lastPoint = _track.data.dataPoints[_track.data.dataPoints.length - 1]
+						setTrackProgress((lastPoint.value / target) * 100)
+					}
 				}
 
 				setLoading(false)
@@ -83,47 +85,51 @@ const TrackView = () => {
 		)
 	}
 
-	return (
-		<>
-			<div className="TrackViewHeader">
-				<h2>{track.name}</h2>
-				<div className="TrackViewHeader__button-container">
-					<Button circle text="+" onClick={() => {}} />
+	if (track.data.dataPoints.length > 1) {
+		return (
+			<>
+				<div className="TrackViewHeader">
+					<h2>{track.name}</h2>
+					<div className="TrackViewHeader__button-container">
+						<Button circle text="+" onClick={() => {}} />
 
-					<div className="FilterButtons">
-						<Button
-							text="30d"
-							active={activeButton === "30days"}
-							onClick={() => filterData(30, "days")}
-						/>
-						<Button
-							text="3m"
-							active={activeButton === "3months"}
-							onClick={() => filterData(3, "months")}
-						/>
-						<Button
-							text="6m"
-							active={activeButton === "6months"}
-							onClick={() => filterData(6, "months")}
-						/>
-						<Button
-							text="1y"
-							active={activeButton === "1years"}
-							onClick={() => filterData(1, "years")}
-						/>
-						<Button
-							text="max"
-							active={activeButton === "max"}
-							onClick={() => resetData()}
-						/>
+						<div className="FilterButtons">
+							<Button
+								text="30d"
+								active={activeButton === "30days"}
+								onClick={() => filterData(30, "days")}
+							/>
+							<Button
+								text="3m"
+								active={activeButton === "3months"}
+								onClick={() => filterData(3, "months")}
+							/>
+							<Button
+								text="6m"
+								active={activeButton === "6months"}
+								onClick={() => filterData(6, "months")}
+							/>
+							<Button
+								text="1y"
+								active={activeButton === "1years"}
+								onClick={() => filterData(1, "years")}
+							/>
+							<Button
+								text="max"
+								active={activeButton === "max"}
+								onClick={() => resetData()}
+							/>
+						</div>
 					</div>
 				</div>
-			</div>
-			<TrackChart data={data} />
-			<ProgressBar percentage={trackProgress} />
-			<TrackTable data={data} />
-		</>
-	)
+				<TrackChart data={data} />
+				{trackProgress !== null ? <ProgressBar percentage={trackProgress} /> : null}
+				<TrackTable data={data} />
+			</>
+		)
+	} else {
+		return <p>You need to add some points to this Track</p>
+	}
 }
 
 export default TrackView
