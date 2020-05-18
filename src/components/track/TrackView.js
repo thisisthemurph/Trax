@@ -8,6 +8,7 @@ import auth from "../../auth/auth"
 
 import "./TrackView.scss"
 import "../form-components/Button.scss"
+import ProgressBar from "./ProgressBar"
 
 const TrackView = () => {
 	const { trackId } = useParams()
@@ -15,9 +16,10 @@ const TrackView = () => {
 	const [loading, setLoading] = useState(true)
 	const [track, setTrack] = useState({})
 	const [data, setData] = useState([])
+	const [trackProgress, setTrackProgress] = useState(null)
 	const [activeButton, setActiveButton] = useState("max")
+	const [error, setError] = useState("")
 
-	// <Button text="30d" onClick={} />
 	useEffect(() => {
 		const getTrack = async (trackId, token) => {
 			try {
@@ -34,11 +36,18 @@ const TrackView = () => {
 				if (_track) {
 					setTrack(_track)
 					setData(_track.data.dataPoints)
+
+					const target = _track.data.target
+					const lastPoint = _track.data.dataPoints[_track.data.dataPoints.length - 1]
+					setTrackProgress((lastPoint.value / target) * 100)
 				}
 
 				setLoading(false)
 			} catch (err) {
 				setLoading(false)
+				setError(
+					"There has been a problem loading your data at this time, please ensure that this Track still exists."
+				)
 			}
 		}
 
@@ -63,6 +72,15 @@ const TrackView = () => {
 
 	if (loading) {
 		return <p>Loading...</p>
+	}
+
+	if (error) {
+		return (
+			<>
+				<h2>Oops, somethings up...</h2>
+				<p>{error}</p>
+			</>
+		)
 	}
 
 	return (
@@ -102,6 +120,7 @@ const TrackView = () => {
 				</div>
 			</div>
 			<TrackChart data={data} />
+			<ProgressBar percentage={trackProgress} />
 			<TrackTable data={data} />
 		</>
 	)

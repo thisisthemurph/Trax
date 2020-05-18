@@ -1,0 +1,23 @@
+@import "../../variables.scss";
+
+$progress-bar-border-radius: 25px;
+
+.ProgressBar {
+    margin: 1em 0;
+    background-color: rgb(169, 177, 185);
+    border-radius: $progress-bar-border-radius;
+
+    &__progress {
+        transition: width 1s;
+        border-radius: $progress-bar-border-radius;
+        background-color: $primary-color;
+        padding: 1em 1.8em;
+        text-align: right;
+    }
+
+    &__value {
+        color: white;
+        font-size: 0.8rem;
+        font-weight: bold;
+    }
+}
