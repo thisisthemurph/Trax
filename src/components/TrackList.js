@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useContext } from "react"
 import TrackListItem from "./TrackListItem"
-import auth from "../auth/auth"
+import { UserContext } from "../context/UserContext"
 
 const TrackList = () => {
 	const [loading, setLoading] = useState(true)
 	const [trackItems, setTrackItems] = useState([])
+
+	const [user] = useContext(UserContext)
 
 	useEffect(() => {
 		const getTracks = async (userId, token) => {
@@ -24,19 +26,16 @@ const TrackList = () => {
 				} else {
 					setTrackItems([])
 				}
-
-				setLoading(false)
 			} catch (e) {
 				setTrackItems([])
 			}
 		}
 
-		const token = auth.getToken()
-		if (token !== null) {
-			getTracks(auth.user.id, token)
-		} else {
-			setLoading(false)
+		if (user && user.token) {
+			getTracks(user.id, user.token)
 		}
+
+		setLoading(false)
 	}, [])
 
 	return (

@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useContext } from "react"
 import { Link } from "react-router-dom"
 import { Input, Button } from "../form-components"
-
-import auth from "../../auth/auth"
+import { UserContext } from "../../context/UserContext"
+import { login } from "../../auth/Auth"
 
 import "./Form.scss"
 
@@ -11,20 +11,17 @@ const LoginForm = (props) => {
 	const [buttonDisabled, setButtonDisabled] = useState(true)
 	const [isNewUser, setIsNewUser] = useState(false)
 
+	const [user, setUser] = useContext(UserContext)
+
 	useEffect(() => {
-		console.log(props.location)
 		if (props.location.state && props.location.state.hasOwnProperty("newUser")) {
 			setIsNewUser(() => props.location.state.newUser)
 		}
 
-		const checkUserIsAuthenticated = async () => {
-			if (await auth.authenticateCurrentToken()) {
-				props.history.push("/profile")
-			}
+		if (user) {
+			props.history.push("/profile")
 		}
-
-		checkUserIsAuthenticated()
-	}, [])
+	}, [user])
 
 	useEffect(() => {
 		const toggleFormSubmitButton = () => {
@@ -46,7 +43,7 @@ const LoginForm = (props) => {
 		})
 	}
 
-	const doLogin = async () => {
+	const loginHandler = async () => {
 		if (!formData.email) {
 			return
 		}
@@ -57,10 +54,10 @@ const LoginForm = (props) => {
 
 		setButtonDisabled(true)
 
-		const success = await auth.login(formData.email, formData.password)
-		props.setLoggedIn(success)
+		const user = await login(formData.email, formData.password)
 
-		if (success) {
+		if (user) {
+			setUser(user)
 			props.history.push("/profile")
 		} else {
 			props.history.push("/login")
@@ -91,7 +88,7 @@ const LoginForm = (props) => {
 				onChange={(value) => setInputValue("password", value)}
 			/>
 
-			<Button text="Log in" disabled={buttonDisabled} onClick={doLogin} />
+			<Button text="Log in" disabled={buttonDisabled} onClick={loginHandler} />
 			<Link to="/signup">Sign up...</Link>
 		</form>
 	)

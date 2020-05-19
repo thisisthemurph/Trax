@@ -4,7 +4,7 @@ import Navigation from "./Navigation"
 
 import "./Header.scss"
 
-const Header = (props) => {
+const Header = () => {
 	return (
 		<header className="Header">
 			<div className="logo">
@@ -13,7 +13,7 @@ const Header = (props) => {
 				</Link>
 			</div>
 
-			<Navigation setLoggedIn={props.setLoggedIn} />
+			<Navigation />
 		</header>
 	)
 }

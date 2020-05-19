@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useContext } from "react"
 import { useParams } from "react-router-dom"
 import moment from "moment"
 import { Button } from "../form-components"
 import TrackChart from "./TrackChart"
 import TrackTable from "./TrackTable"
-import auth from "../../auth/auth"
+import { UserContext } from "../../context/UserContext"
 
 import "./TrackView.scss"
 import "../form-components/Button.scss"
@@ -19,6 +19,8 @@ const TrackView = () => {
 	const [trackProgress, setTrackProgress] = useState(null)
 	const [activeButton, setActiveButton] = useState("max")
 	const [error, setError] = useState("")
+
+	const [user] = useContext(UserContext)
 
 	useEffect(() => {
 		const getTrack = async (trackId, token) => {
@@ -46,18 +48,15 @@ const TrackView = () => {
 
 				setLoading(false)
 			} catch (err) {
-				setLoading(false)
 				setError(
 					"There has been a problem loading your data at this time, please ensure that this Track still exists."
 				)
+				setLoading(false)
 			}
 		}
 
-		const token = auth.getToken()
-		if (token) {
-			getTrack(trackId, token)
-		} else {
-			console.log("There is an issue with authentication!")
+		if (user && user.token) {
+			getTrack(trackId, user.token)
 		}
 	}, [trackId])
 

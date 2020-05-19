@@ -1,30 +1,31 @@
-import React from "react"
-import { Link } from "react-router-dom"
-import auth from "../../auth/auth"
+import React, { useContext } from "react"
+import { Link, withRouter } from "react-router-dom"
+import { UserContext } from "../../context/UserContext"
+import { logout } from "../../auth/Auth"
 
 import "./Navigation.scss"
 
 const Navigation = (props) => {
+	const [user] = useContext(UserContext)
+
+	const logoutHandler = (e) => {
+		e.preventDefault()
+		logout()
+		props.history.go("/login")
+	}
+
 	const createNavigationLinks = () => {
-		if (auth.isAuthenticated()) {
+		if (user) {
 			return (
 				<>
 					<Link className="Navigation__link" to="/">
 						Home
 					</Link>
-					<a
-						href="/login"
-						className="Navigation__link"
-						onClick={(e) => {
-							e.preventDefault()
-							auth.logout()
-							props.setLoggedIn(false)
-						}}
-					>
+					<a href="/login" className="Navigation__link" onClick={logoutHandler}>
 						Logout
 					</a>
 					<Link className="Navigation__link Navigation__link--button" to="/profile">
-						{auth.user.name} {auth.user.sex === "f" ? "👩‍🦰" : "🧔"}
+						{user.name} {user.sex === "f" ? "👩‍🦰" : "🧔"}
 					</Link>
 				</>
 			)
@@ -49,4 +50,4 @@ const Navigation = (props) => {
 	)
 }
 
-export default Navigation
+export default withRouter(Navigation)
