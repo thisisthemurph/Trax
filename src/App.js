@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import { Switch, Route } from "react-router-dom"
 import { ProtectedRoute } from "./components/ProtectedRoute"
 import { LoginForm, RegistrationForm } from "./components/forms"
@@ -7,22 +7,9 @@ import TrackView from "./components/track"
 import Header from "./components/header"
 
 import { UserContext } from "./context/UserContext"
-import { verifyUserToken } from "./auth/Auth"
 
 const App = () => {
 	const [user, setUser] = useState(null)
-
-	useEffect(() => {
-		const token = localStorage.getItem("token")
-
-		if (user === null && token) {
-			// Authenticate the user token where there is no user
-			;(async () => {
-				const user = await verifyUserToken()
-				setUser(user)
-			})()
-		}
-	})
 
 	return (
 		<UserContext.Provider value={[user, setUser]}>

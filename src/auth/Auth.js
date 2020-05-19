@@ -39,7 +39,7 @@ export const login = async (email, password) => {
 
 export const verifyUserToken = async (verifyToken = null) => {
 	let token = verifyToken
-	if (verifyToken === null) {
+	if (token === null) {
 		token = localStorage.getItem("token")
 	}
 
