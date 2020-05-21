@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react"
-import { Link } from "react-router-dom"
+import { Link, Redirect } from "react-router-dom"
 import { Input, Button } from "../form-components"
 import { UserContext } from "../../context/UserContext"
 import { login } from "../../auth/Auth"
@@ -17,11 +17,7 @@ const LoginForm = (props) => {
 		if (props.location.state && props.location.state.hasOwnProperty("newUser")) {
 			setIsNewUser(() => props.location.state.newUser)
 		}
-
-		if (user) {
-			props.history.push("/profile")
-		}
-	}, [user])
+	}, [user, props.history, props.location.state])
 
 	useEffect(() => {
 		const toggleFormSubmitButton = () => {
@@ -62,6 +58,10 @@ const LoginForm = (props) => {
 		} else {
 			props.history.push("/login")
 		}
+	}
+
+	if (user) {
+		return <Redirect to="/profile" />
 	}
 
 	return (
