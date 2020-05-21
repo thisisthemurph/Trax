@@ -8,7 +8,6 @@ export const ProtectedRoute = ({ component: Component, ...rest }) => {
 	const [user, setUser] = useContext(UserContext)
 
 	if (!user) {
-		console.log("No user detected")
 		const token = localStorage.getItem("token")
 
 		if (token) {
@@ -18,8 +17,6 @@ export const ProtectedRoute = ({ component: Component, ...rest }) => {
 			})()
 		}
 	}
-
-	console.log(user)
 
 	return (
 		<Route
