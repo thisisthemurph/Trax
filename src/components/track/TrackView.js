@@ -5,6 +5,8 @@ import { Button } from "../form-components"
 import TrackChart from "./TrackChart"
 import TrackTable from "./TrackTable"
 import { UserContext } from "../../context/UserContext"
+import NewTrackPointForm from "../forms/NewTrackPointForm"
+import Popup from "../Popup"
 
 import "./TrackView.scss"
 import "../form-components/Button.scss"
@@ -18,6 +20,7 @@ const TrackView = () => {
 	const [data, setData] = useState([])
 	const [trackProgress, setTrackProgress] = useState(null)
 	const [activeButton, setActiveButton] = useState("max")
+	const [showTrackPointPopup, setShowTrackPointPopup] = useState(false)
 	const [error, setError] = useState("")
 
 	const [user] = useContext(UserContext)
@@ -58,7 +61,7 @@ const TrackView = () => {
 		if (user && user.token) {
 			getTrack(trackId, user.token)
 		}
-	}, [trackId])
+	}, [trackId, user])
 
 	const filterData = (number, measurement) => {
 		const past = moment().subtract(number, measurement)
@@ -87,10 +90,26 @@ const TrackView = () => {
 	if (track.data.dataPoints.length > 1) {
 		return (
 			<>
+				<Popup
+					heading="Add a new point..."
+					show={showTrackPointPopup}
+					onClose={() => {
+						setShowTrackPointPopup(false)
+					}}
+				>
+					<NewTrackPointForm />
+				</Popup>
+
 				<div className="TrackViewHeader">
-					<h2>{track.name}</h2>
+					<h1>{track.name}</h1>
 					<div className="TrackViewHeader__button-container">
-						<Button circle text="+" onClick={() => {}} />
+						<Button
+							circle
+							text="+"
+							onClick={() => {
+								setShowTrackPointPopup(true)
+							}}
+						/>
 
 						<div className="FilterButtons">
 							<Button
@@ -121,8 +140,11 @@ const TrackView = () => {
 						</div>
 					</div>
 				</div>
+
 				<TrackChart data={data} />
+
 				{trackProgress !== null ? <ProgressBar percentage={trackProgress} /> : null}
+
 				<TrackTable data={data} />
 			</>
 		)

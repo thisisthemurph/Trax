@@ -4,8 +4,8 @@ import { Link } from "react-router-dom"
 import "./TrackListItem.scss"
 
 function TrackDetail({ track }) {
-	const { _id: id, name, updatedAt } = track
-	const { dataPoints, target } = track.data
+	const { _id: id, name } = track
+	const { dataPoints } = track.data
 
 	const pluralise = (num) => (num === 1 ? "" : "s")
 

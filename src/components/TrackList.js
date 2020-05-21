@@ -36,7 +36,7 @@ const TrackList = () => {
 		}
 
 		setLoading(false)
-	}, [])
+	}, [user])
 
 	return (
 		<div className="TrackList">
