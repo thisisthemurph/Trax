@@ -61,7 +61,7 @@ const TrackView = () => {
 		if (user && user.token) {
 			getTrack(trackId, user.token)
 		}
-	}, [trackId, user])
+	}, [trackId, user, loading])
 
 	const filterData = (number, measurement) => {
 		const past = moment().subtract(number, measurement)
@@ -87,22 +87,34 @@ const TrackView = () => {
 		)
 	}
 
+	const renderPopupForm = () => {
+		return (
+			<Popup
+				heading="Add a new point..."
+				show={showTrackPointPopup}
+				onClose={() => {
+					setShowTrackPointPopup(false)
+				}}
+			>
+				<NewTrackPointForm
+					trackId={trackId}
+					onSuccess={() => {
+						setShowTrackPointPopup(false)
+						setLoading(true)
+					}}
+				/>
+			</Popup>
+		)
+	}
+
 	if (track.data.dataPoints.length > 1) {
 		return (
 			<>
-				<Popup
-					heading="Add a new point..."
-					show={showTrackPointPopup}
-					onClose={() => {
-						setShowTrackPointPopup(false)
-					}}
-				>
-					<NewTrackPointForm />
-				</Popup>
+				{renderPopupForm()}
 
-				<div className="TrackViewHeader">
-					<h1>{track.name}</h1>
-					<div className="TrackViewHeader__button-container">
+				<div className="trackheader">
+					<h1 className="trackheader__title">{track.name}</h1>
+					<div className="trackheader__buttons">
 						<Button
 							circle
 							text="+"
@@ -111,7 +123,7 @@ const TrackView = () => {
 							}}
 						/>
 
-						<div className="FilterButtons">
+						<div className="filter-buttons">
 							<Button
 								text="30d"
 								active={activeButton === "30days"}
