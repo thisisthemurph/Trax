@@ -56,10 +56,10 @@ const NewTrackPointForm = ({ trackId, onSuccess }) => {
 	}
 
 	return (
-		<div>
+		<div className="form">
 			<Input type="number" value={value} onChange={(value) => setValue(value)} />
 			<div>
-				<input
+				<Input
 					type="date"
 					value={date}
 					onChange={(e) => {

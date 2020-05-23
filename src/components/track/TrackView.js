@@ -44,8 +44,12 @@ const TrackView = () => {
 
 					if ("target" in _track.data) {
 						const target = _track.data.target
+						const firstPoint = _track.data.dataPoints[0]
 						const lastPoint = _track.data.dataPoints[_track.data.dataPoints.length - 1]
-						setTrackProgress((lastPoint.value / target) * 100)
+
+						const diff = firstPoint.value - target
+						const progress = (lastPoint.value - firstPoint.value) * -1
+						setTrackProgress((progress / diff) * 100)
 					}
 				}
 

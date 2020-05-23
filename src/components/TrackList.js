@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react"
 import TrackListItem from "./TrackListItem"
 import { UserContext } from "../context/UserContext"
 
-const TrackList = () => {
+const TrackList = ({ refresh }) => {
 	const [loading, setLoading] = useState(true)
 	const [trackItems, setTrackItems] = useState([])
 
@@ -31,12 +31,14 @@ const TrackList = () => {
 			}
 		}
 
+		setLoading(true)
+
 		if (user && user.token) {
 			getTracks(user.id, user.token)
 		}
 
 		setLoading(false)
-	}, [user])
+	}, [user, refresh])
 
 	return (
 		<div className="TrackList">
