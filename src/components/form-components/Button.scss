@@ -39,11 +39,25 @@
         background-color: lighten($primary-color, 10);
     }
 
-    &.Button__circle {
+    &__circle {
         margin: 0 1em 0 0;
         border-radius: 50%;
         height: 3rem;
         width: 3rem;
+    }
+
+    &__floatingaction {
+        position: fixed;
+        bottom: 3em;
+        right: 2em;
+        height: 5rem;
+        width: 5rem;
+
+        .content {
+            display: block;
+        }
+
+        box-shadow: 7px 7px 7px grey, -8px -8px 7px white;
     }
 }
 
