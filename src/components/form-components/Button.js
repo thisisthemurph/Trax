@@ -1,7 +1,7 @@
 import React from "react"
 import "./Button.scss"
 
-const Button = ({ text, onClick, disabled, active, circle = false }) => {
+const Button = ({ text, children, onClick, disabled, active, circle = false }) => {
 	const classes = [
 		"Button",
 		circle ? "Button__circle" : null,
@@ -11,9 +11,12 @@ const Button = ({ text, onClick, disabled, active, circle = false }) => {
 		.filter((c) => c)
 		.join(" ")
 
+	console.log(text)
+	console.log(children)
+
 	return (
 		<button className={classes} onClick={onClick} disabled={disabled ? disabled : false}>
-			<span className="content">{text}</span>
+			<span className="content">{text ? text : children}</span>
 		</button>
 	)
 }
