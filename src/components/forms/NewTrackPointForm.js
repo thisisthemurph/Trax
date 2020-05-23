@@ -62,8 +62,8 @@ const NewTrackPointForm = ({ trackId, onSuccess }) => {
 				<Input
 					type="date"
 					value={date}
-					onChange={(e) => {
-						setDate(e.target.value)
+					onChange={(value) => {
+						setDate(value)
 					}}
 				/>
 			</div>
