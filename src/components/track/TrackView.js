@@ -111,7 +111,24 @@ const TrackView = () => {
 		)
 	}
 
-	if (track.data.dataPoints.length > 1) {
+	if (track.data.dataPoints.length < 1) {
+		return (
+			<>
+				<div className="trackheader">
+					<h1 className="trackheader__title">{track.name}</h1>
+					<p>Enter your forst point to get this track going...</p>
+				</div>
+
+				<NewTrackPointForm
+					trackId={trackId}
+					onSuccess={() => {
+						setShowTrackPointPopup(false)
+						setLoading(true)
+					}}
+				/>
+			</>
+		)
+	} else {
 		return (
 			<>
 				{renderPopupForm()}
@@ -164,8 +181,6 @@ const TrackView = () => {
 				<TrackTable data={data} />
 			</>
 		)
-	} else {
-		return <p>You need to add some points to this Track</p>
 	}
 }
 
