@@ -1,10 +1,14 @@
 import React, { useState, useEffect, useContext } from "react"
 import TrackListItem from "./TrackListItem"
+import Popup from "../components/Popup"
+import { Button } from "../components/form-components"
 import { UserContext } from "../context/UserContext"
 
 const TrackList = ({ refresh }) => {
 	const [loading, setLoading] = useState(true)
 	const [trackItems, setTrackItems] = useState([])
+	const [showConfirmDelete, setShowConfirmDelete] = useState(false)
+	const [deleteTrackId, setDeleteTrackId] = useState(null)
 
 	const [user] = useContext(UserContext)
 
@@ -38,7 +42,34 @@ const TrackList = ({ refresh }) => {
 		}
 
 		setLoading(false)
-	}, [user, refresh])
+	}, [user, refresh, loading])
+
+	const handleDelete = async (trackId) => {
+		setDeleteTrackId(() => trackId)
+		setShowConfirmDelete(true)
+	}
+
+	const completeDeletion = async (trackId) => {
+		const res = await fetch(`http://localhost:5000/trax/api/tracks/${trackId}`, {
+			method: "DELETE",
+			headers: {
+				Accepts: "application/json",
+				"Content-Type": "application/json",
+				"auth-token": user.token,
+			},
+		})
+
+		const response = await res.json()
+
+		if (response.success) {
+			setLoading(true)
+		} else {
+			alert("It has not been possible to delete this track!")
+		}
+
+		setShowConfirmDelete(false)
+		setDeleteTrackId(null)
+	}
 
 	return (
 		<div className="TrackList">
@@ -49,9 +80,30 @@ const TrackList = ({ refresh }) => {
 			) : trackItems.length === 0 ? (
 				<p>Make a new Track to see it here</p>
 			) : (
-				trackItems.map((track) => <TrackListItem key={track._id} track={track} />)
+				trackItems.map((track) => (
+					<TrackListItem key={track._id} track={track} handleDelete={handleDelete} />
+				))
 			)}
+
+			<ConfirmDelete
+				show={showConfirmDelete}
+				onClose={() => setShowConfirmDelete(false)}
+				onCalcel={() => setShowConfirmDelete(false)}
+				onConfirm={() => completeDeletion(deleteTrackId)}
+			/>
 		</div>
+	)
+}
+
+const ConfirmDelete = ({ show, onClose, onCancel, onConfirm }) => {
+	return (
+		<Popup heading="You sure?" show={show} onClose={onClose}>
+			<div>
+				<p>Are you sure you want to delete that?</p>
+				<Button text="Cancel" onClick={onCancel} />
+				<Button text="Yes" onClick={onConfirm} />
+			</div>
+		</Popup>
 	)
 }
 

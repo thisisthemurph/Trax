@@ -26,11 +26,13 @@
     &__floatingaction {
         position: fixed;
         bottom: 3em;
-        right: 2em;
-        height: 5rem;
-        width: 5rem;
+        right: 1em;
+        height: 4rem;
+        width: 4rem;
 
-        box-shadow: 7px 7px 7px grey, -8px -8px 7px white;
+        background: black;
+
+        // box-shadow: 7px 7px 7px grey, -8px -8px 7px white;
     }
 }
 
