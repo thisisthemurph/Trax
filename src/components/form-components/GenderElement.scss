@@ -3,8 +3,8 @@
 .GenderElement {
     font-size: 5rem;
     background-color: white;
-    border: solid 2px white;
-    border-radius: 8px;
+    border-bottom: solid 2px transparent;
+    border-radius: 4px;
     margin-bottom: 1rem;
 
     display: flex;
@@ -12,21 +12,21 @@
 
     transition: all 0.6s ease-in-out;
 
-    &.focused {
-        border-color: black;
+    &:focus-within {
+        border-bottom: solid 2px $primary-color;
     }
 
     .selector {
         position: relative;
         width: 50%;
-        margin: 1rem;
+        margin: 0.75rem;
         padding: 0.8rem;
         background-color: $primary-color-light;
-        border-radius: 8px;
+        border-radius: 4px;
         text-align: center;
         cursor: pointer;
 
-        transition: all 0.8s ease-in-out;
+        transition: all 0.8s ease;
 
         .emoji {
             display: block;
@@ -35,36 +35,29 @@
 
         input[type="radio"] {
             position: absolute;
-            top: 0;
-            left: 0;
+            top: 50%;
+            left: 50%;
+            z-index: -1;
             opacity: 0;
+            outline: none;
         }
 
         .text {
+            color: rgb(240, 230, 230);
             font-size: 1.5rem;
-            padding: 1rem;
+            padding: 1rem 1rem 0.4rem 1rem;
         }
 
         &.selected {
-            background-color: darken($primary-color-light, 25);
+            background-color: $primary-color;
 
             .emoji {
                 transform: rotate(360deg);
             }
         }
-
-        &:hover,
-        &:focus {
-            border-color: black;
-            background-color: darken($primary-color-light, 10);
-        }
     }
 
-    .maleSelector {
-        margin-right: 0.5rem;
-    }
-
-    .femaleSelector {
-        margin-left: 0.5rem;
+    .selector + .selector {
+        margin-left: 0;
     }
 }

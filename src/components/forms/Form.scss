@@ -1,57 +1,97 @@
 @import "../../variables.scss";
 
-.LoginForm,
-.RegistrationForm,
-form,
 .form {
-    .heading {
+    &__heading {
         font-weight: 700;
         font-size: 2rem;
         margin-bottom: 1.2rem;
     }
+}
 
-    .alert {
-        margin-bottom: 1rem;
-        padding: 1rem;
-        font-size: 0.9rem;
-        border-radius: 4px;
+.InputContainer {
+    $pad: 1rem;
 
-        animation: fadeIn ease 1s;
+    display: block;
+    margin-bottom: 1rem;
+    background: white;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    border-bottom: solid 2px transparent;
+    transition: all 500ms;
 
-        p {
-            line-height: 1.6rem;
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        padding: $pad $pad 0 $pad;
+        border-left: solid 2px transparent;
+
+        label {
+            display: block;
+            width: 100%;
+            color: rgba(0, 0, 0, 0.6);
+            cursor: text;
+        }
+
+        .InputContainer__error {
+            transition: all 500ms;
+            opacity: 0;
+
+            .svg-icon {
+                width: 1.25rem;
+                height: 1.25rem;
+
+                path {
+                    fill: orangered;
+                }
+            }
+
+            &--show {
+                cursor: pointer;
+                opacity: 1;
+                animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) 500ms both;
+            }
         }
     }
 
-    .notification {
-        background-color: $primary-color-light;
+    &__info {
+        padding: $pad;
+        background-color: rgba(255, 68, 0, 0.514);
+        color: white;
+        border-left: 2px solid orangered;
+
+        display: none;
+        max-height: 500px;
+
+        &--show {
+            display: block;
+            animation: slideOut 1s ease;
+        }
     }
 
-    .error {
-        background-color: salmon;
-    }
-}
-
-.inputContainer {
     input,
     select {
         width: 100%;
-        border: solid 2px white;
-        border-radius: 8px;
-        padding: 1rem;
-        font-size: 1.2rem;
-        margin-bottom: 1rem;
+        font-size: 1.25rem;
+        padding: 0 $pad $pad $pad;
+        border: none;
+        border-radius: 4px;
+        outline: none;
+    }
 
-        transition: all 0.6s ease-in-out;
+    select {
+        padding-top: $pad / 2;
+    }
 
-        &.invalid {
-            border-color: salmon;
+    &:focus-within {
+        border-color: $primary-color;
+
+        label {
+            color: $primary-color;
         }
+    }
 
-        &:focus {
-            outline: none;
-            border-color: black;
-        }
+    &.invalid {
+        border-color: orangered;
     }
 }
 
@@ -59,15 +99,42 @@ form,
     margin-right: 1rem;
 
     &:disabled {
+        cursor: not-allowed;
         background-color: grayscale($primary-color);
     }
 }
 
-@keyframes fadeIn {
-    0% {
-        opacity: 0;
+@keyframes slideOut {
+    from {
+        background-color: white;
+        max-height: 0;
     }
-    100% {
-        opacity: 1;
+
+    to {
+        background-color: rgba(255, 68, 0, 0.514);
+        max-height: 1000px;
+    }
+}
+
+@keyframes shake {
+    10%,
+    90% {
+        transform: translate3d(-1px, 0, 0);
+    }
+
+    20%,
+    80% {
+        transform: translate3d(2px, 0, 0);
+    }
+
+    30%,
+    50%,
+    70% {
+        transform: translate3d(-4px, 0, 0);
+    }
+
+    40%,
+    60% {
+        transform: translate3d(4px, 0, 0);
     }
 }

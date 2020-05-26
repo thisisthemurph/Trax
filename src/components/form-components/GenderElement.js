@@ -1,40 +1,39 @@
-import React, { useState } from "react"
+import React from "react"
 
 import "./GenderElement.scss"
 
-const GenderElement = (props) => {
-	const [hasFocus, setHasFocus] = useState(false)
+const GenderElement = ({ sex, updateSelected }) => {
+	const maleFocusRef = React.createRef()
+	const femaleFocusRef = React.createRef()
 
-	const getClassNames = (sex) => {
-		const specific = sex === "f" ? "femaleSelector" : "maleSelector"
-
-		if (props.sex === sex) {
-			return `selector ${specific} selected`
+	const getClassNames = (selectorType) => {
+		if (selectorType === sex) {
+			return `selector selected`
 		}
 
-		return `selector ${specific}`
+		return `selector`
 	}
 
 	const handleChange = (e) => {
 		e.preventDefault()
-		props.updateSelected(e.target.value)
+		updateSelected(e.target.value)
 	}
 
 	return (
-		<div className={`GenderElement${hasFocus ? " focused" : ""}`}>
-			<div className={getClassNames("m")} onClick={() => props.updateSelected("m")}>
+		<div className={"GenderElement"}>
+			<div
+				className={getClassNames("m")}
+				onClick={() => maleFocusRef.current && maleFocusRef.current.focus()}
+			>
 				<input
+					ref={maleFocusRef}
 					type="radio"
 					name="sex"
 					value="m"
-					checked={props.sex === "m"}
+					checked={sex === "m"}
 					onChange={handleChange}
 					onFocus={() => {
-						setHasFocus(true)
-						props.updateSelected("m")
-					}}
-					onBlur={() => {
-						setHasFocus(false)
+						updateSelected("m")
 					}}
 				/>
 				<span className="emoji" role="img" aria-label="male">
@@ -43,19 +42,19 @@ const GenderElement = (props) => {
 				<p className="text">Man</p>
 			</div>
 
-			<div className={getClassNames("f")} onClick={() => props.updateSelected("f")}>
+			<div
+				className={getClassNames("f")}
+				onClick={() => femaleFocusRef.current && femaleFocusRef.current.focus()}
+			>
 				<input
+					ref={femaleFocusRef}
 					type="radio"
 					name="sex"
 					value="f"
-					checked={props.sex === "f"}
+					checked={sex === "f"}
 					onChange={handleChange}
 					onFocus={() => {
-						setHasFocus(true)
-						props.updateSelected("f")
-					}}
-					onBlur={() => {
-						setHasFocus(false)
+						updateSelected("f")
 					}}
 				/>
 				<span className="emoji" role="img" aria-label="female">

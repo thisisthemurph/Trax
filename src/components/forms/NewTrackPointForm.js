@@ -57,11 +57,17 @@ const NewTrackPointForm = ({ trackId, onSuccess }) => {
 
 	return (
 		<div className="form">
-			<Input type="number" value={value} onChange={(value) => setValue(value)} />
+			<Input
+				type="number"
+				value={value}
+				label="Point value"
+				onChange={(value) => setValue(value)}
+			/>
 			<div>
 				<Input
 					type="date"
 					value={date}
+					label="Date"
 					onChange={(value) => {
 						setDate(value)
 					}}

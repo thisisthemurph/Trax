@@ -44,14 +44,26 @@ const NewTrackForm = ({ onSuccess }) => {
 
 	return (
 		<div className="form">
-			<Input placeholder="Name" value={name} onChange={(value) => setName(value)} />
-			<div className="inputContainer">
-				<select name="track-type-select" onChange={(e) => setTrackType(e.target.value)}>
-					<option value="weight">Weight</option>
-					<option value="distance">Distance</option>
-					<option value="time">Time</option>
-				</select>
+			<Input
+				label="Track name"
+				autoFocus={true}
+				value={name}
+				onChange={(value) => setName(value)}
+			/>
+
+			<div className="InputContainer">
+				<div className="InputContainer__header">
+					<label htmlFor="new-track-select">New track type</label>
+				</div>
+				<div className="input-wrapper">
+					<select name="track-type-select" onChange={(e) => setTrackType(e.target.value)}>
+						<option value="weight">Weight</option>
+						<option value="distance">Distance</option>
+						<option value="time">Time</option>
+					</select>
+				</div>
 			</div>
+
 			<Button text="Create" onClick={() => submitHandler()} />
 		</div>
 	)

@@ -65,8 +65,8 @@ const LoginForm = (props) => {
 	}
 
 	return (
-		<form className="LoginForm">
-			<h3 className="heading">Log in</h3>
+		<form className="form">
+			<h2 className="form__heading">Log in</h2>
 
 			{isNewUser && (
 				<p className="alert">
@@ -76,15 +76,16 @@ const LoginForm = (props) => {
 
 			<Input
 				type="email"
-				placeholder="your@email.com"
+				label="Email address"
+				autoFocus={true}
 				value={formData.email}
 				onChange={(value) => setInputValue("email", value)}
 			/>
 
 			<Input
 				type="password"
+				label="Password"
 				value={formData.password}
-				placeholder="Password"
 				onChange={(value) => setInputValue("password", value)}
 			/>
 

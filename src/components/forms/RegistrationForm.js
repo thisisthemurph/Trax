@@ -82,13 +82,14 @@ const RegistrationForm = () => {
 	}
 
 	return (
-		<form className="RegistrationForm">
-			<h3 className="heading">Sign up</h3>
+		<form className="form">
+			<h2 className="form__heading">Sign up</h2>
 
 			<Input
 				type="text"
-				placeholder="What is your name?"
+				label="Name"
 				value={formData.name}
+				autoFocus={true}
 				hasError={formErrors.name.hasError}
 				errorMessage={formErrors.name.msg}
 				onChange={(value) => setInputValue("name", value)}
@@ -96,7 +97,7 @@ const RegistrationForm = () => {
 
 			<Input
 				type="email"
-				placeholder="your@email.com"
+				label="Email address"
 				value={formData.email}
 				hasError={formErrors.email.hasError}
 				errorMessage={formErrors.email.msg}
@@ -110,7 +111,7 @@ const RegistrationForm = () => {
 
 			<Input
 				type="password"
-				placeholder="Password"
+				label="Password"
 				value={formData.password}
 				hasError={formErrors.password.hasError}
 				errorMessage={formErrors.password.msg}
@@ -119,7 +120,7 @@ const RegistrationForm = () => {
 
 			<Input
 				type="password"
-				placeholder="Password again please"
+				label="Password again"
 				value={formData.password2}
 				hasError={formErrors.password2.hasError}
 				errorMessage={formErrors.password2.msg}
@@ -129,7 +130,7 @@ const RegistrationForm = () => {
 			<Button
 				text="Sign up"
 				disabled={buttonDisabled}
-				// onClick={() => this.doRegistration()}
+				onClick={() => this.doRegistration()}
 			/>
 
 			<Link to="/login">Log in instead...</Link>
