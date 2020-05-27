@@ -65,7 +65,7 @@ const TrackListItemNavigation = ({ trackId, handleDelete }) => {
 			</Link>
 			<Link className="TrackListItem__nav-item" to={`track/${trackId}`}>
 				<svg
-					class="icon chevron-right-icon"
+					className="icon chevron-right-icon"
 					viewBox="0 0 16 16"
 					fill="black"
 					xmlns="http://www.w3.org/2000/svg"
