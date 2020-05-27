@@ -11,9 +11,6 @@ const Button = ({ text, children, onClick, disabled, active, circle = false }) =
 		.filter((c) => c)
 		.join(" ")
 
-	console.log(text)
-	console.log(children)
-
 	return (
 		<button className={classes} onClick={onClick} disabled={disabled ? disabled : false}>
 			<span className="content">{text ? text : children}</span>

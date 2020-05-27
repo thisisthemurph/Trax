@@ -39,7 +39,6 @@ const Input = ({
 					autoFocus={autoFocus}
 					onChange={(e) => {
 						onChange(e.target.value)
-						console.log(hasError)
 					}}
 				/>
 			</div>
