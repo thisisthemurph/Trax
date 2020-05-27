@@ -1,4 +1,41 @@
-$primary-color: #0074D9;
-$primary-color-light: rgba(150, 197, 238, .8);
-$primary-font-color: #111;
-$secondary-font-color: white;
+//
+// Colours
+//
+
+$-c-accent: rgb(62, 185, 103);
+$-c-accent-highlight: rgb(10, 181, 57);
+$-c-neutral: rgba(62, 185, 103, 0.3);
+$-c-background: rgb(240, 240, 243);
+$-c-text: black;
+
+// Error colours
+$-c-error: rgb(248, 172, 179);
+$-c-error-text: rgb(115, 28, 37);
+$-c-error-background: rgb(248, 215, 215);
+
+// Heading / navigation colours
+$-c-header-background: rgb(25, 25, 25);
+$-c-header-text: white;
+
+// Button colours
+$-c-button-background-inactive: rgb(169, 177, 185);
+$-c-button-text: white;
+$-c-button-text-highlight: $-c-accent;
+$-c-actionbtn-background: black;
+$-c-actionbtn-background-highlight: white;
+
+//
+// Mixins
+//
+
+@mixin shadow {
+    box-shadow: 12px 12px 25px #aeaec0;
+}
+
+@mixin neumorphism {
+    box-shadow: 12px 12px 25px #aeaec0, -12px -12px 25px white;
+}
+
+@mixin neumorphism--hover {
+    box-shadow: 8px 8px 15px #aeaec0, -8px -8px 15px white;
+}

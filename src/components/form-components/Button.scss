@@ -3,16 +3,23 @@
 .Button {
     padding: 1rem;
     border: none;
-    color: $secondary-font-color;
-    background-color: $primary-color;
+    color: $-c-button-text;
+    background: $-c-accent;
     text-transform: uppercase;
     border-radius: 4px;
     cursor: pointer;
 
+    transition: background 200ms ease-in-out;
+
     &:hover,
     &:focus {
         outline: none;
-        background-color: lighten($primary-color, 10);
+        background: $-c-accent-highlight;
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        background: $-c-button-background-inactive;
     }
 
     &__circle {
@@ -29,7 +36,16 @@
         height: 4rem;
         width: 4rem;
 
-        background: black;
+        background: $-c-actionbtn-background;
+        stroke: $-c-button-text;
+
+        transition: all 300ms ease-in-out;
+
+        &:hover,
+        &:focus {
+            stroke: $-c-button-text-highlight;
+            background: $-c-actionbtn-background-highlight;
+        }
     }
 }
 
@@ -38,17 +54,17 @@
         margin: 0;
         border-radius: 0;
 
-        background-color: rgb(169, 177, 185);
-        transition: background-color 0.3s;
+        background-color: $-c-button-background-inactive;
+        transition: background-color 300ms;
 
         &.active {
             font-weight: bold;
-            background-color: $primary-color;
+            background-color: $-c-accent;
         }
 
         &:hover,
         &:focus {
-            background-color: lighten($primary-color, 10);
+            background-color: lighten($-c-accent, 5);
         }
 
         &:first-child {

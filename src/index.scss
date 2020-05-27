@@ -11,8 +11,8 @@
 
 body {
     font-family: "Montserrat", sans-serif;
-    background: #f0f0f3;
-    color: $primary-font-color;
+    background: $-c-background;
+    color: $-c-text;
 }
 
 main {
@@ -23,7 +23,7 @@ main {
     }
 
     a {
-        color: $primary-font-color;
+        color: $-c-text;
         text-decoration: none;
 
         &:hover {
@@ -31,12 +31,16 @@ main {
         }
     }
 
+    p {
+        line-height: 2;
+    }
+
     .error {
-        color: white;
-        background: rgba(255, 68, 0, 0.521);
+        color: $-c-error-text;
+        background: $-c-error-background;
         padding: 1em;
         margin: 1em 0;
-        border: solid 1px orangered;
+        border: solid 1px $-c-error;
         border-radius: 8px;
 
         animation: fadeIn 500ms ease-in;

@@ -3,21 +3,32 @@
 $progress-bar-border-radius: 25px;
 
 .ProgressBar {
-    // margin: 4em 0;
-    background-color: rgb(169, 177, 185);
+    background: $-c-neutral;
     border-radius: $progress-bar-border-radius;
 
     &__progress {
         transition: width 1s;
         border-radius: $progress-bar-border-radius;
-        background-color: $primary-color;
+        background-color: $-c-accent-highlight;
         padding: 1em 1.8em;
         text-align: right;
+
+        animation: slideIn_leftToRight 3s ease;
     }
 
     &__value {
-        color: white;
+        color: $-c-button-text;
         font-size: 0.8rem;
         font-weight: bold;
+    }
+}
+
+@keyframes slideIn_leftToRight {
+    from {
+        max-width: 0;
+    }
+
+    to {
+        max-width: 1000px;
     }
 }

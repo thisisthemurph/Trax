@@ -1,3 +1,5 @@
+@import "../variables.scss";
+
 .TrackListItem {
     display: grid;
     grid-template-columns: 4.5fr 0.5fr;
@@ -10,8 +12,9 @@
     border-radius: 1em;
     cursor: pointer;
 
-    background: linear-gradient(-45deg, #f0f0f3, white);
-    box-shadow: 12px 12px 25px #aeaec0, -12px -12px 25px white;
+    background: linear-gradient(-45deg, $-c-background, white);
+
+    @include neumorphism;
 
     transition: all 0.2 ease;
 
@@ -55,20 +58,20 @@
             &:hover,
             &:focus {
                 .icon {
-                    fill: black;
+                    fill: $-c-accent;
                 }
 
                 .chevron-right-icon {
-                    fill: blue;
+                    fill: $-c-accent;
                     transform: translateX(0.2em);
                 }
             }
         }
 
-        border-left: dashed 1px #aeaec0;
+        border-left: dashed 1px $-c-neutral;
     }
 
     &:hover {
-        box-shadow: 8px 8px 15px #aeaec0, -8px -8px 15px white;
+        @include neumorphism--hover;
     }
 }
