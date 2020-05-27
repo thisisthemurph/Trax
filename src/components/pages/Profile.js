@@ -10,8 +10,6 @@ const ProfilePage = () => {
 
 	return (
 		<>
-			<h1>Profile Page</h1>
-
 			<TrackList refresh={refreshTrackList} />
 
 			<FloatingActionButton onClick={() => setShowNewTrackForm(true)}>

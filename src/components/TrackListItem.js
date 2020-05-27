@@ -1,15 +1,12 @@
-import React, { useContext } from "react"
+import React from "react"
 import { Link } from "react-router-dom"
 import moment from "moment"
-// import { UserContext } from "../context/UserContext"
 
 import "./TrackListItem.scss"
 
 function TrackDetail({ track, handleDelete }) {
 	const { _id: trackId, name, type, updatedAt } = track
 	const { dataPoints } = track.data
-
-	// const [user] = useContext(UserContext)
 
 	const pluralise = (num) => (num === 1 ? "" : "s")
 

@@ -5,7 +5,7 @@
     justify-content: space-between;
 
     padding: 1em;
-    box-shadow: 2px 2px 12px rgb(72, 76, 82);
+    background: rgb(25, 25, 25);
 
     .logo {
         a {
@@ -13,8 +13,9 @@
         }
 
         h1 {
-            color: $primary-color;
+            color: white;
             font-size: 2rem;
+            transition: color 500ms ease;
 
             &:hover,
             &:focus {

@@ -73,7 +73,7 @@ const TrackList = ({ refresh }) => {
 
 	return (
 		<div className="TrackList">
-			<h2>Your Current Tracks</h2>
+			<h1>Your Tracks</h1>
 
 			{loading ? (
 				<p>Loading...</p>

@@ -6,8 +6,11 @@
     justify-content: flex-end;
 
     .Navigation__link {
+        color: white;
         padding: 0.75em 0.75em;
         border-radius: 100px;
+
+        text-decoration: none;
 
         &:hover,
         &:focus {
@@ -22,8 +25,8 @@
     .Navigation__link--button {
         padding: 1em 1.5em;
         text-decoration: none;
-        color: $secondary-font-color;
         background-color: $primary-color;
+        transition: background-color 500ms ease;
 
         &:hover,
         &:focus {
