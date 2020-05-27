@@ -2,14 +2,19 @@ export const logout = () => {
 	localStorage.removeItem("token")
 }
 
+const genericLoginError = {
+	success: false,
+	error: "There has been an error logging you in, please check your details and try again.",
+}
+
 export const login = async (email, password) => {
 	if (!email || !password) {
-		return false
+		return { success: false, error: "You must enter both the email address and password." }
 	}
 
 	try {
 		const res = await fetch("http://localhost:5000/trax/api/auth/login", {
-			method: "post",
+			method: "POST",
 			headers: {
 				Accept: "application/json",
 				"Content-Type": "application/json",
@@ -17,23 +22,39 @@ export const login = async (email, password) => {
 			body: JSON.stringify({ email, password }),
 		})
 
-		const result = await res.json()
+		if (res.ok) {
+			const result = await res.json()
 
-		if (result && result.success) {
-			localStorage.setItem("token", result.token)
+			if (result && result.success) {
+				localStorage.setItem("token", result.token)
 
-			return {
-				...result.user,
-				token: result.token,
+				return {
+					success: true,
+					user: {
+						...result.user,
+						token: result.token,
+					},
+				}
+			} else {
+				logout()
+				return genericLoginError
 			}
 		} else {
+			// The credentials did not match any in the database
 			logout()
-			return null
+			if (res.status === 404 || res.status === 401) {
+				return {
+					success: false,
+					error:
+						"An account cannot be found with the given email and password combination.",
+				}
+			}
+
+			return genericLoginError
 		}
 	} catch (err) {
 		logout()
-		console.error(err)
-		return null
+		return genericLoginError
 	}
 }
 

@@ -10,12 +10,19 @@ const LoginForm = (props) => {
 	const [formData, setFormData] = useState({ email: null, password: null })
 	const [buttonDisabled, setButtonDisabled] = useState(true)
 	const [isNewUser, setIsNewUser] = useState(false)
+	const [error, setError] = useState(null)
 
 	const [user, setUser] = useContext(UserContext)
 
 	useEffect(() => {
-		if (props.location.state && props.location.state.hasOwnProperty("newUser")) {
-			setIsNewUser(() => props.location.state.newUser)
+		if (props.location.state) {
+			if (props.location.state.hasOwnProperty("newUser")) {
+				setIsNewUser(() => props.location.state.newUser)
+			}
+
+			if (props.location.state.hasOwnProperty("error")) {
+				setError(() => props.location.state.error)
+			}
 		}
 	}, [user, props.history, props.location.state])
 
@@ -40,23 +47,23 @@ const LoginForm = (props) => {
 	}
 
 	const loginHandler = async () => {
-		if (!formData.email) {
-			return
-		}
-
-		if (!formData.password) {
+		if (!(formData.email && formData.password)) {
+			setError("An email address and a password are required to log in.")
 			return
 		}
 
 		setButtonDisabled(true)
 
-		const user = await login(formData.email, formData.password)
+		const result = await login(formData.email, formData.password)
 
-		if (user) {
-			setUser(user)
+		if (result.success) {
+			setUser(result.user)
 			props.history.push("/profile")
 		} else {
-			props.history.push("/login")
+			props.history.push({
+				pathname: "/login",
+				state: { error: result.error },
+			})
 		}
 	}
 
@@ -67,6 +74,8 @@ const LoginForm = (props) => {
 	return (
 		<form className="form">
 			<h2 className="form__heading">Log in</h2>
+
+			{error && <p className="error">{error}</p>}
 
 			{isNewUser && (
 				<p className="alert">

@@ -30,4 +30,25 @@ main {
             text-decoration: underline;
         }
     }
+
+    .error {
+        color: white;
+        background: rgba(255, 68, 0, 0.521);
+        padding: 1em;
+        margin: 1em 0;
+        border: solid 1px orangered;
+        border-radius: 8px;
+
+        animation: fadeIn 500ms ease-in;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
