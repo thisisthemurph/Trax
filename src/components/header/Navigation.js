@@ -1,17 +1,21 @@
 import React, { useContext } from "react"
-import { Link, withRouter } from "react-router-dom"
+import { Link, useHistory } from "react-router-dom"
 import { UserContext } from "../../context/UserContext"
 import { logout } from "../../auth/Auth"
 
 import "./Navigation.scss"
 
-const Navigation = (props) => {
-	const [user] = useContext(UserContext)
+const Navigation = () => {
+	const history = useHistory()
+	const [user, setUser] = useContext(UserContext)
 
 	const logoutHandler = (e) => {
 		e.preventDefault()
+
 		logout()
-		props.history.go("/login")
+		setUser(null)
+
+		history.push("/login")
 	}
 
 	const createNavigationLinks = () => {
@@ -50,4 +54,4 @@ const Navigation = (props) => {
 	)
 }
 
-export default withRouter(Navigation)
+export default Navigation
