@@ -11,9 +11,8 @@ function TrackChart({ data }) {
 				labels: points.map((point) => moment(point.timestamp).format("MMMM Do")),
 				datasets: [
 					{
-						label: "TEST",
-						borderColor: "#0074D9",
-						backgroundColor: "rgba(150, 197, 238, .6)",
+						borderColor: "rgb(62, 185, 103)",
+						backgroundColor: "transparent",
 						data: points.map((point) => point.value),
 					},
 				],
@@ -25,7 +24,32 @@ function TrackChart({ data }) {
 
 	return (
 		<div className="TrackChart">
-			<Line data={chartData} />
+			<Line
+				data={chartData}
+				options={{
+					legend: {
+						display: false,
+					},
+					scales: {
+						xAxes: [
+							{
+								gridLines: {
+									display: false,
+									drawBorder: false,
+								},
+							},
+						],
+						yAxes: [
+							{
+								gridLines: {
+									display: false,
+									drawBorder: false,
+								},
+							},
+						],
+					},
+				}}
+			/>
 		</div>
 	)
 }

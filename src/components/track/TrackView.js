@@ -91,26 +91,6 @@ const TrackView = () => {
 		)
 	}
 
-	const renderPopupForm = () => {
-		return (
-			<Popup
-				heading="Add a new point..."
-				show={showTrackPointPopup}
-				onClose={() => {
-					setShowTrackPointPopup(false)
-				}}
-			>
-				<NewTrackPointForm
-					trackId={trackId}
-					onSuccess={() => {
-						setShowTrackPointPopup(false)
-						setLoading(true)
-					}}
-				/>
-			</Popup>
-		)
-	}
-
 	if (track.data.dataPoints.length < 1) {
 		return (
 			<>
@@ -122,67 +102,82 @@ const TrackView = () => {
 				<NewTrackPointForm
 					trackId={trackId}
 					onSuccess={() => {
-						setShowTrackPointPopup(false)
 						setLoading(true)
 					}}
 				/>
 			</>
 		)
-	} else {
-		return (
-			<>
-				{renderPopupForm()}
+	}
 
-				<div className="trackheader">
-					<h1 className="trackheader__title">{track.name}</h1>
-					<div className="trackheader__buttons">
+	return (
+		<>
+			<div className="trackheader">
+				<h1 className="trackheader__title">{track.name}</h1>
+				<div className="trackheader__buttons">
+					<Button
+						circle
+						onClick={() => {
+							setShowTrackPointPopup(true)
+						}}
+					>
+						<PlusIcon />
+					</Button>
+
+					<div className="filter-buttons">
 						<Button
-							circle
-							onClick={() => {
-								setShowTrackPointPopup(true)
-							}}
-						>
-							<PlusIcon />
-						</Button>
-
-						<div className="filter-buttons">
-							<Button
-								text="30d"
-								active={activeButton === "30days"}
-								onClick={() => filterData(30, "days")}
-							/>
-							<Button
-								text="3m"
-								active={activeButton === "3months"}
-								onClick={() => filterData(3, "months")}
-							/>
-							<Button
-								text="6m"
-								active={activeButton === "6months"}
-								onClick={() => filterData(6, "months")}
-							/>
-							<Button
-								text="1y"
-								active={activeButton === "1years"}
-								onClick={() => filterData(1, "years")}
-							/>
-							<Button
-								text="max"
-								active={activeButton === "max"}
-								onClick={() => resetData()}
-							/>
-						</div>
+							text="30d"
+							active={activeButton === "30days"}
+							onClick={() => filterData(30, "days")}
+						/>
+						<Button
+							text="3m"
+							active={activeButton === "3months"}
+							onClick={() => filterData(3, "months")}
+						/>
+						<Button
+							text="6m"
+							active={activeButton === "6months"}
+							onClick={() => filterData(6, "months")}
+						/>
+						<Button
+							text="1y"
+							active={activeButton === "1years"}
+							onClick={() => filterData(1, "years")}
+						/>
+						<Button
+							text="max"
+							active={activeButton === "max"}
+							onClick={() => resetData()}
+						/>
 					</div>
 				</div>
+			</div>
 
-				<TrackChart data={data} />
+			<TrackChart data={data} />
 
-				{trackProgress !== null ? <ProgressBar percentage={trackProgress} /> : null}
+			{trackProgress && <ProgressBar percentage={trackProgress} />}
 
-				<TrackTable data={data} />
-			</>
-		)
-	}
+			<TrackTable data={data} />
+
+			<NewTrackPointPopup
+				show={showTrackPointPopup}
+				trackId={trackId}
+				onClose={() => setShowTrackPointPopup(false)}
+				onSuccess={() => {
+					setShowTrackPointPopup(false)
+					setLoading(true)
+				}}
+			/>
+		</>
+	)
+}
+
+const NewTrackPointPopup = ({ show, trackId, onClose, onSuccess }) => {
+	return (
+		<Popup heading="Add a new point..." show={show} onClose={onClose}>
+			<NewTrackPointForm trackId={trackId} onSuccess={onSuccess} />
+		</Popup>
+	)
 }
 
 const PlusIcon = () => {
