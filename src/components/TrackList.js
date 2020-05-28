@@ -71,10 +71,25 @@ const TrackList = ({ refresh }) => {
 		setDeleteTrackId(null)
 	}
 
+	const getTrackById = (trackId) => {
+		if (!trackItems) return null
+		console.log(1)
+		console.log(trackId)
+		console.log(deleteTrackId)
+
+		const items = trackItems.filter((track) => track._id === trackId)
+		if (items.length) {
+			console.log(2)
+			return items[0]
+		} else {
+			console.log(3)
+			return null
+		}
+	}
+
 	return (
 		<div className="TrackList">
 			<h1>Your Tracks</h1>
-
 			{loading ? (
 				<p>Loading...</p>
 			) : trackItems.length === 0 ? (
@@ -87,24 +102,30 @@ const TrackList = ({ refresh }) => {
 
 			<ConfirmDelete
 				show={showConfirmDelete}
+				item={getTrackById(deleteTrackId)}
 				onClose={() => setShowConfirmDelete(false)}
-				onCalcel={() => setShowConfirmDelete(false)}
+				onCancel={() => setShowConfirmDelete(false)}
 				onConfirm={() => completeDeletion(deleteTrackId)}
 			/>
 		</div>
 	)
 }
 
-const ConfirmDelete = ({ show, onClose, onCancel, onConfirm }) => {
-	return (
-		<Popup heading="You sure?" show={show} onClose={onClose}>
-			<div>
-				<p>Are you sure you want to delete that?</p>
+const ConfirmDelete = ({ show, item, onClose, onCancel, onConfirm }) => {
+	if (item !== null) {
+		return (
+			<Popup heading="You sure?" show={show} onClose={onClose}>
+				<p>Are you sure you want to delete the Track:</p>
+				<p>
+					<em>{item.name}</em>
+				</p>
 				<Button text="Cancel" onClick={onCancel} />
 				<Button text="Yes" onClick={onConfirm} />
-			</div>
-		</Popup>
-	)
+			</Popup>
+		)
+	} else {
+		return null
+	}
 }
 
 export default TrackList
