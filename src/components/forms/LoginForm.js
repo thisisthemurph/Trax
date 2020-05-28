@@ -14,6 +14,8 @@ const LoginForm = (props) => {
 
 	const [user, setUser] = useContext(UserContext)
 
+	console.log({ login: user })
+
 	useEffect(() => {
 		if (props.location.state) {
 			if (props.location.state.hasOwnProperty("newUser")) {

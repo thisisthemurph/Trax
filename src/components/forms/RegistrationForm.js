@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from "react"
-import { Link } from "react-router-dom"
+import React, { useState, useEffect, useContext } from "react"
+import { Link, Redirect } from "react-router-dom"
 import { Input, Button, GenderElement } from "../form-components"
+
+import { UserContext } from "../../context/UserContext"
 
 const initailFormDataState = {
 	name: null,
@@ -22,6 +24,8 @@ const RegistrationForm = () => {
 	const [buttonDisabled, setButtonDisabled] = useState(true)
 	const [formData, setFormData] = useState(initailFormDataState)
 	const [formErrors, setFormErrors] = useState(initailFormErrorState)
+
+	const [user] = useContext(UserContext)
 
 	useEffect(() => {
 		const setError = (property, value, msg = null) => {
@@ -79,6 +83,10 @@ const RegistrationForm = () => {
 			...formData,
 			[property]: value ? value : null,
 		})
+	}
+
+	if (user) {
+		return <Redirect to="/profile" />
 	}
 
 	return (

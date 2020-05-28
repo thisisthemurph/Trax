@@ -5,11 +5,23 @@ import { LoginForm, RegistrationForm } from "./components/forms"
 import { Home, Profile } from "./components/pages"
 import TrackView from "./components/track"
 import Header from "./components/header"
+import { verifyUserToken } from "./auth/Auth"
 
 import { UserContext } from "./context/UserContext"
 
 const App = () => {
 	const [user, setUser] = useState(null)
+
+	if (!user) {
+		const token = localStorage.getItem("token")
+
+		if (token) {
+			;(async () => {
+				const user = await verifyUserToken(token)
+				setUser(() => user)
+			})()
+		}
+	}
 
 	return (
 		<UserContext.Provider value={[user, setUser]}>
