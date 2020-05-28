@@ -21,7 +21,7 @@
         width: 50%;
         margin: 0.75rem;
         padding: 0.8rem;
-        background-color: $-c-accent-highlight;
+        background-color: $-c-neutral;
         border-radius: 4px;
         text-align: center;
         cursor: pointer;
@@ -46,9 +46,9 @@
             color: $-c-button-text;
             font-size: 1.2rem;
             padding: 1rem 1rem 0.4rem 1rem;
-            opacity: 0;
+            color: black;
 
-            transition: opacity 900ms ease-in;
+            transition: color 900ms ease-in;
         }
 
         &.selected {
@@ -59,12 +59,12 @@
             }
 
             .text {
-                opacity: 1;
+                color: white;
             }
         }
 
         &:hover {
-            background: $-c-accent;
+            background: $-c-accent-highlight;
         }
     }
 
