@@ -2,7 +2,7 @@
 
 .Button {
     padding: 1rem;
-    border: none;
+    border: solid 1px $-c-accent;
     color: $-c-button-text;
     background: $-c-accent;
     text-transform: uppercase;
@@ -47,11 +47,32 @@
             background: $-c-actionbtn-background-highlight;
         }
     }
+
+    &__ghost {
+        background: none;
+        border-color: $-c-accent;
+        color: $-c-accent;
+
+        &:hover,
+        &:focus {
+            color: $-c-button-text;
+        }
+    }
+
+    &.warning {
+        border-color: $-c-button-warning-background;
+        background: $-c-button-warning-background;
+
+        &:hover {
+            background: $-c-button-warning-background-highlight;
+        }
+    }
 }
 
 .filter-buttons {
     .Button {
         margin: 0;
+        border: none;
         border-radius: 0;
 
         background-color: $-c-button-background-inactive;

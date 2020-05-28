@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react"
 import TrackListItem from "./TrackListItem"
 import Popup from "../components/Popup"
-import { Button } from "../components/form-components"
+import { Button, GhostButton } from "../components/form-components"
 import { UserContext } from "../context/UserContext"
 
 const TrackList = ({ refresh }) => {
@@ -73,16 +73,11 @@ const TrackList = ({ refresh }) => {
 
 	const getTrackById = (trackId) => {
 		if (!trackItems) return null
-		console.log(1)
-		console.log(trackId)
-		console.log(deleteTrackId)
 
 		const items = trackItems.filter((track) => track._id === trackId)
 		if (items.length) {
-			console.log(2)
 			return items[0]
 		} else {
-			console.log(3)
 			return null
 		}
 	}
@@ -119,8 +114,8 @@ const ConfirmDelete = ({ show, item, onClose, onCancel, onConfirm }) => {
 				<p>
 					<em>{item.name}</em>
 				</p>
-				<Button text="Cancel" onClick={onCancel} />
-				<Button text="Yes" onClick={onConfirm} />
+				<GhostButton text="Cancel" onClick={onCancel} />
+				<Button text="Yes" onClick={onConfirm} color="warning" />
 			</Popup>
 		)
 	} else {
