@@ -12,7 +12,10 @@ const ProfilePage = () => {
 		<>
 			<TrackList refresh={refreshTrackList} />
 
-			<FloatingActionButton onClick={() => setShowNewTrackForm(true)}>
+			<FloatingActionButton
+				onClick={() => setShowNewTrackForm(true)}
+				hidden={showNewTrackForm}
+			>
 				<PlusIcon />
 			</FloatingActionButton>
 
