@@ -1,15 +1,28 @@
 @import "../variables.scss";
 
+$-c-overlay-background: rgba(90, 90, 90, 0.7);
+
 .overlay {
     position: fixed;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
-    background: transparent;
-    transform: translateY(-100vh);
 
+    transform: translateY(-1000px);
+    animation: fade 200ms;
+    background: $-c-overlay-background;
     z-index: 1;
+
+    overflow: scroll;
+
+    &--show {
+        transform: translateY(0%);
+    }
+
+    &--hide {
+        animation: fadeout 1.2s ease;
+    }
 }
 
 .Popup {
@@ -45,34 +58,60 @@
             transform: translateY(-0.15em);
         }
     }
+
+    &--show {
+        transform: translateY(0%);
+        animation: slidein 1s;
+    }
+
+    &--hide {
+        transform: translateY(-1000px);
+        animation: slideout 1s;
+    }
 }
 
-.show {
-    transform: translateY(0%);
-    animation: 1s slidein;
-}
-
-.hide {
-    transform: translateY(-100vh);
-    animation: slideout 1s;
-}
-
-@keyframes slidein {
+@keyframes fade {
     from {
-        transform: translateY(-100vh);
+        background: change-color($color: $-c-overlay-background, $alpha: 0);
     }
 
     to {
+        background: change-color($color: $-c-overlay-background, $alpha: 1);
+    }
+}
+
+@keyframes fadeout {
+    0% {
+        background: change-color($color: $-c-overlay-background, $alpha: 1);
+        transform: translateY(0%);
+    }
+
+    99% {
+        transform: translateY(0%);
+    }
+
+    100% {
+        background: change-color($color: $-c-overlay-background, $alpha: 0);
+        transform: translateY(-1000px);
+    }
+}
+
+@keyframes slidein {
+    0% {
+        transform: translateY(-100vh);
+    }
+
+    100% {
         transform: translateY(0%);
     }
 }
 
 @keyframes slideout {
-    from {
+    0% {
         transform: translateY(0%);
     }
 
-    to {
-        transform: translateY(-100vh);
+    100% {
+        transform: translateY(-1000px);
     }
 }

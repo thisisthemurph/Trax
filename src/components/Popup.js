@@ -4,9 +4,15 @@ import "./Popup.scss"
 const Popup = ({ heading, children, show, onClose }) => {
 	const [animateHide, setAnimateHide] = useState(false) // Don't animate the hide on the first instance
 
-	const classes = ["overlay", show ? "show" : null, animateHide ? (show ? null : "hide") : null]
+	const overlayClasses = [
+		"overlay",
+		show ? "overlay--show" : null,
+		animateHide ? (show ? null : "overlay--hide") : null,
+	]
 		.filter((c) => c)
 		.join(" ")
+
+	const pupupClasses = ["Popup", show ? "Popup--show" : "Popup--hide"].filter((c) => c).join(" ")
 
 	const onCloseHandler = () => {
 		setAnimateHide(() => true)
@@ -14,8 +20,8 @@ const Popup = ({ heading, children, show, onClose }) => {
 	}
 
 	return (
-		<div className={classes}>
-			<div className="Popup">
+		<div className={overlayClasses}>
+			<div className={pupupClasses}>
 				<div className="Popup__top">
 					<h1 className="Popup__heading">{heading}</h1>
 				</div>
