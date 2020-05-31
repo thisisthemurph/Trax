@@ -32,31 +32,44 @@
             cursor: text;
         }
 
-        .InputContainer__error {
-            transition: all 500ms;
-            opacity: 0;
+        .svg-icon {
+            cursor: pointer;
+            width: 1.25rem;
+            height: 1.25rem;
 
-            .svg-icon {
-                width: 1.25rem;
-                height: 1.25rem;
-
-                path {
+            &__error {
+                path,
+                line,
+                circle {
                     fill: $-c-error;
+                }
+
+                transition: all 500ms;
+                opacity: 0;
+
+                &--show {
+                    opacity: 1;
+                    animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) 500ms both;
                 }
             }
 
-            &--show {
-                cursor: pointer;
-                opacity: 1;
-                animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) 500ms both;
+            &__info {
+                path,
+                line,
+                circle {
+                    fill: none;
+                    stroke: rgb(73, 185, 202);
+                }
             }
         }
     }
 
+    &__error,
     &__info {
         padding: $pad;
-        background-color: $-c-error-background;
+        margin-bottom: 1em;
         color: white;
+        background: $-c-error-background;
         border-left: 2px solid $-c-error;
 
         display: none;
@@ -65,6 +78,11 @@
             display: block;
             animation: slideOut 1s ease;
         }
+    }
+
+    &__info {
+        background: rgb(73, 185, 202);
+        border-color: rgb(0, 53, 199);
     }
 
     input,

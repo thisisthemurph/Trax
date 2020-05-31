@@ -5,7 +5,7 @@ import Popup from "../Popup"
 import NewTrackForm from "../forms/NewTrackForm"
 
 const ProfilePage = () => {
-	const [showNewTrackForm, setShowNewTrackForm] = useState(false)
+	const [showNewTrackForm, setShowNewTrackForm] = useState(true)
 	const [refreshTrackList, setRefreshTrackList] = useState(false)
 
 	return (

@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react"
-import { Input, Button } from "../form-components"
+import { Input, Button, SelectInput } from "../form-components"
 import { UserContext } from "../../context/UserContext"
 
 const NewTrackForm = ({ onSuccess }) => {
@@ -51,22 +51,45 @@ const NewTrackForm = ({ onSuccess }) => {
 				onChange={(value) => setName(value)}
 			/>
 
-			<div className="InputContainer">
-				<div className="InputContainer__header">
-					<label htmlFor="new-track-select">New track type</label>
-				</div>
-				<div className="input-wrapper">
-					<select name="track-type-select" onChange={(e) => setTrackType(e.target.value)}>
-						<option value="weight">Weight</option>
-						<option value="distance">Distance</option>
-						<option value="time">Time</option>
-					</select>
-				</div>
-			</div>
+			<SelectInput
+				label="New track type"
+				name="track-type-select"
+				onChange={(value) => setTrackType(value)}
+				options={{
+					weight: "Weight",
+					distance: "Distance",
+					time: "Time",
+				}}
+			/>
+
+			<SubForm type={trackType} />
 
 			<Button text="Create" onClick={() => submitHandler()} />
 		</div>
 	)
+}
+
+const SubForm = ({ type }) => {
+	switch (type) {
+		case "distance":
+			return <DistanceSubForm />
+		case "time":
+			return <TimeSubForm />
+		default:
+			return <WeightSubForm />
+	}
+}
+
+const WeightSubForm = () => {
+	return <Input label="Track Aim" />
+}
+
+const DistanceSubForm = () => {
+	return <p>DISTANCE SUB FORM</p>
+}
+
+const TimeSubForm = () => {
+	return <p>Time SUB FORM</p>
 }
 
 export default NewTrackForm
