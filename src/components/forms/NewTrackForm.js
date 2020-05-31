@@ -1,12 +1,26 @@
-import React, { useState, useContext } from "react"
+import React, { useState, useEffect, useContext } from "react"
 import { Input, Button, SelectInput } from "../form-components"
 import { UserContext } from "../../context/UserContext"
 
 const NewTrackForm = ({ onSuccess }) => {
 	const [name, setName] = useState("")
 	const [trackType, setTrackType] = useState("weight")
+	const [metric, setMetric] = useState("g")
+	const [target, setTarget] = useState("")
+	const [incOrDec, setIncOrDec] = useState("decrease")
 
 	const [user] = useContext(UserContext)
+
+	const metrics = {
+		weight: { g: "g", kg: "KG", lb: "lb", stone: "Stone" },
+		distance: { m: "Metres", km: "Km", ft: "ft", miles: "Miles" },
+		time: { s: "Seconds", m: "Minutes", h: "Hours" },
+	}
+
+	useEffect(() => {
+		const firstMetric = Object.keys(metrics[trackType])[0]
+		setMetric(firstMetric)
+	}, [trackType])
 
 	const submitHandler = async () => {
 		if (!name) {
@@ -45,14 +59,15 @@ const NewTrackForm = ({ onSuccess }) => {
 	return (
 		<div className="form">
 			<Input
+				type="text"
 				label="Track name"
-				autoFocus={true}
 				value={name}
 				onChange={(value) => setName(value)}
+				autoFocus={true}
 			/>
 
 			<SelectInput
-				label="New track type"
+				label="Track type"
 				name="track-type-select"
 				onChange={(value) => setTrackType(value)}
 				options={{
@@ -60,36 +75,42 @@ const NewTrackForm = ({ onSuccess }) => {
 					distance: "Distance",
 					time: "Time",
 				}}
+				value={trackType}
 			/>
 
-			<SubForm type={trackType} />
+			<SelectInput
+				label="Metric"
+				name="metric-select"
+				value={metric}
+				onChange={(value) => {
+					setMetric(value)
+				}}
+				options={metrics[trackType]}
+			/>
+
+			<Input
+				type="number"
+				label={`Target (${metrics[trackType][metric]})`}
+				value={target}
+				infoMessage={`Enter your target goal in ${metrics[trackType][metric]}. If you don't have a specific target in mind, you can leave this blank and create one later.`}
+				onChange={(value) => setTarget(value)}
+			/>
+
+			<SelectInput
+				label="Increase or decrease"
+				name="increase-decrease-select"
+				infoMessage="Please select if you are aiming to increase or decrease weight"
+				onChange={(value) => setIncOrDec(value)}
+				value={incOrDec}
+				options={{
+					decrease: "Decrease",
+					increase: "Increase",
+				}}
+			/>
 
 			<Button text="Create" onClick={() => submitHandler()} />
 		</div>
 	)
-}
-
-const SubForm = ({ type }) => {
-	switch (type) {
-		case "distance":
-			return <DistanceSubForm />
-		case "time":
-			return <TimeSubForm />
-		default:
-			return <WeightSubForm />
-	}
-}
-
-const WeightSubForm = () => {
-	return <Input label="Track Aim" />
-}
-
-const DistanceSubForm = () => {
-	return <p>DISTANCE SUB FORM</p>
-}
-
-const TimeSubForm = () => {
-	return <p>Time SUB FORM</p>
 }
 
 export default NewTrackForm
