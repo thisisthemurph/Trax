@@ -14,7 +14,7 @@ $-c-overlay-background: rgba(90, 90, 90, 0.7);
     background: $-c-overlay-background;
     z-index: 1;
 
-    overflow: scroll;
+    overflow: auto;
 
     &--show {
         transform: translateY(0%);

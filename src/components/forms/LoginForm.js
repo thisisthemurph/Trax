@@ -72,7 +72,7 @@ const LoginForm = (props) => {
 	}
 
 	return (
-		<form className="form">
+		<form className="form container">
 			<h2 className="form__heading">Log in</h2>
 
 			{error && <p className="error">{error}</p>}

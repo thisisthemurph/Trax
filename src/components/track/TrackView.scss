@@ -1,3 +1,5 @@
+@import "../../variables.scss";
+
 .trackheader {
     display: flex;
     flex-direction: column;
@@ -6,15 +8,11 @@
     margin-bottom: 2em;
 
     &__title {
-        margin: 1em 0;
     }
 
     &__buttons {
+        width: 100%;
         display: flex;
+        justify-content: space-between;
     }
-}
-
-.TrackChart,
-.ProgressBar {
-    margin-bottom: 3em;
 }

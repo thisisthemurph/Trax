@@ -111,53 +111,61 @@ const TrackView = () => {
 
 	return (
 		<>
-			<div className="trackheader">
-				<h1 className="trackheader__title">{track.name}</h1>
-				<div className="trackheader__buttons">
-					<Button
-						circle
-						onClick={() => {
-							setShowTrackPointPopup(true)
-						}}
-					>
-						<PlusIcon />
-					</Button>
+			<section>
+				<div className="trackheader">
+					<h1 className="trackheader__title">{track.name}</h1>
+					<div className="trackheader__buttons">
+						<Button
+							circle
+							onClick={() => {
+								setShowTrackPointPopup(true)
+							}}
+						>
+							<PlusIcon />
+						</Button>
 
-					<div className="filter-buttons">
-						<Button
-							text="30d"
-							active={activeButton === "30days"}
-							onClick={() => filterData(30, "days")}
-						/>
-						<Button
-							text="3m"
-							active={activeButton === "3months"}
-							onClick={() => filterData(3, "months")}
-						/>
-						<Button
-							text="6m"
-							active={activeButton === "6months"}
-							onClick={() => filterData(6, "months")}
-						/>
-						<Button
-							text="1y"
-							active={activeButton === "1years"}
-							onClick={() => filterData(1, "years")}
-						/>
-						<Button
-							text="max"
-							active={activeButton === "max"}
-							onClick={() => resetData()}
-						/>
+						<div className="filter-buttons">
+							<Button
+								text="30d"
+								active={activeButton === "30days"}
+								onClick={() => filterData(30, "days")}
+							/>
+							<Button
+								text="3m"
+								active={activeButton === "3months"}
+								onClick={() => filterData(3, "months")}
+							/>
+							<Button
+								text="6m"
+								active={activeButton === "6months"}
+								onClick={() => filterData(6, "months")}
+							/>
+							<Button
+								text="1y"
+								active={activeButton === "1years"}
+								onClick={() => filterData(1, "years")}
+							/>
+							<Button
+								text="max"
+								active={activeButton === "max"}
+								onClick={() => resetData()}
+							/>
+						</div>
 					</div>
 				</div>
-			</div>
 
-			<TrackChart data={data} />
+				<TrackChart data={data} />
+			</section>
 
-			{trackProgress && <ProgressBar percentage={trackProgress} />}
+			{trackProgress && (
+				<section>
+					<ProgressBar percentage={trackProgress} />
+				</section>
+			)}
 
-			<TrackTable data={data} />
+			<section>
+				<TrackTable data={data} />
+			</section>
 
 			<NewTrackPointPopup
 				show={showTrackPointPopup}

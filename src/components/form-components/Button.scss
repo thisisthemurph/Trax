@@ -1,7 +1,7 @@
 @import "../../variables.scss";
 
 .Button {
-    padding: 1rem;
+    padding: 1em;
     border: solid 1px $-c-accent;
     color: $-c-button-text;
     background: $-c-accent;
@@ -25,7 +25,7 @@
 
     &__circle {
         margin: 0 1em 0 0;
-        border-radius: 50%;
+        border-radius: 100vh;
         height: 3rem;
         width: 3rem;
     }
@@ -80,6 +80,7 @@
         margin: 0;
         border: none;
         border-radius: 0;
+        height: 100%;
 
         background-color: $-c-button-background-inactive;
         transition: background-color 300ms;
@@ -95,13 +96,13 @@
         }
 
         &:first-child {
-            border-top-left-radius: 60px;
-            border-bottom-left-radius: 60px;
+            border-top-left-radius: 100vh;
+            border-bottom-left-radius: 100vh;
         }
 
         &:last-child {
-            border-top-right-radius: 60px;
-            border-bottom-right-radius: 60px;
+            border-top-right-radius: 100vh;
+            border-bottom-right-radius: 100vh;
         }
     }
 }

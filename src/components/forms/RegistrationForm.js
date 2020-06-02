@@ -90,7 +90,7 @@ const RegistrationForm = () => {
 	}
 
 	return (
-		<form className="form">
+		<form className="form container">
 			<h2 className="form__heading">Sign up</h2>
 
 			<Input
