@@ -111,7 +111,7 @@ const TrackView = () => {
 
 	return (
 		<>
-			<section>
+			<section className="container">
 				<div className="trackheader">
 					<h1 className="trackheader__title">{track.name}</h1>
 					<div className="trackheader__buttons">
@@ -158,12 +158,12 @@ const TrackView = () => {
 			</section>
 
 			{trackProgress && (
-				<section>
+				<section className="container">
 					<ProgressBar percentage={trackProgress} />
 				</section>
 			)}
 
-			<section>
+			<section className="container">
 				<TrackTable data={data} />
 			</section>
 
