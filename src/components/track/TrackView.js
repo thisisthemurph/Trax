@@ -190,7 +190,12 @@ const TrackView = () => {
 			)}
 
 			<section className="container">
-				<TrackTable data={data} deleteHandler={deletePointHandler} />
+				<TrackTable
+					trackId={trackId}
+					data={data}
+					deleteHandler={deletePointHandler}
+					setLoading={setLoading}
+				/>
 			</section>
 
 			<NewTrackPointPopup
