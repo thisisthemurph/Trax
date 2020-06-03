@@ -67,6 +67,32 @@ const TrackView = () => {
 		}
 	}, [trackId, user, loading])
 
+	const deletePointHandler = async (pointId) => {
+		try {
+			const res = await fetch(
+				`http://localhost:5000/trax/api/tracks/${trackId}/point/${pointId}`,
+				{
+					method: "DELETE",
+					headers: {
+						Accept: "application/json",
+						"Content-Type": "application/json",
+						"auth-token": user.token,
+					},
+				}
+			)
+
+			const response = await res.json()
+
+			if (response && response.success) {
+				setLoading(true)
+			} else {
+				alert("There has been an issue deleting this Track point!")
+			}
+		} catch (err) {
+			alert("It has not been possible to delete the Track point at this time...")
+		}
+	}
+
 	const filterData = (number, measurement) => {
 		const past = moment().subtract(number, measurement)
 		setData(track.data.dataPoints.filter((point) => moment(point.timestamp) > past))
@@ -164,7 +190,7 @@ const TrackView = () => {
 			)}
 
 			<section className="container">
-				<TrackTable data={data} />
+				<TrackTable data={data} deleteHandler={deletePointHandler} />
 			</section>
 
 			<NewTrackPointPopup

@@ -3,8 +3,15 @@ import moment from "moment"
 
 import "./TrackTable.scss"
 
-function TrackTable({ data }) {
+function TrackTable({ data, deleteHandler }) {
 	const [checked, setChecked] = useState({})
+
+	const clickHandler = (pointId) => {
+		setChecked({
+			...checked,
+			[pointId]: checked[pointId] ? !checked[pointId] : true,
+		})
+	}
 
 	return (
 		<div className="TrackTable">
@@ -14,8 +21,9 @@ function TrackTable({ data }) {
 						<th className="checkbox">
 							<input type="checkbox" />
 						</th>
-						<th>DATE</th>
-						<th>VALUE</th>
+						<th>Date</th>
+						<th>Value</th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -27,20 +35,24 @@ function TrackTable({ data }) {
 							<tr
 								key={point._id}
 								className={checked[point._id] ? "checked" : "unchecked"}
-								onClick={() => {
-									setChecked({
-										...checked,
-										[point._id]: checked[point._id]
-											? !checked[point._id]
-											: true,
-									})
-								}}
+								onClick={() => clickHandler(point._id)}
 							>
 								<td className="checkbox">
 									<input type="checkbox" />
 								</td>
 								<td>{date}</td>
 								<td>{value}</td>
+								<td>
+									<a
+										href="/profile"
+										onClick={(e) => {
+											e.preventDefault()
+											deleteHandler(point._id)
+										}}
+									>
+										del
+									</a>
+								</td>
 							</tr>
 						)
 					})}
