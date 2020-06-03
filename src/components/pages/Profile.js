@@ -9,7 +9,7 @@ const ProfilePage = () => {
 	const [refreshTrackList, setRefreshTrackList] = useState(false)
 
 	return (
-		<div class="container">
+		<div className="container">
 			<TrackList refresh={refreshTrackList} />
 
 			<FloatingActionButton
