@@ -10,6 +10,8 @@
     display: flex;
     justify-content: space-between;
 
+    @include neumorphism;
+
     transition: all 500ms ease-in;
 
     &:focus-within {

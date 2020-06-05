@@ -5,7 +5,9 @@
     align-items: center;
     justify-content: space-between;
 
-    // padding: 1em;
+    position: relative;
+    z-index: 1;
+
     background: $-c-header-background;
 
     .logo {

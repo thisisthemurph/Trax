@@ -76,10 +76,10 @@ function TrackTable({ trackId, data, deleteHandler, setLoading }) {
 				</div>
 
 				<div className="table__header">
-					<div></div>
-					<div>Date</div>
-					<div>Value</div>
-					<div></div>
+					<div className="table__col"></div>
+					<div className="table__col">Date</div>
+					<div className="table__col">Value</div>
+					<div className="table__col"></div>
 				</div>
 
 				{data.map((point) => {
@@ -113,7 +113,7 @@ function TrackTable({ trackId, data, deleteHandler, setLoading }) {
 										setPointToUpdate(data.filter((p) => p._id === point._id)[0])
 									}
 								/>
-								{/* <TrashButton onClick={() => deleteHandler(point._id)} /> */}
+
 								<TrashButton onClick={() => setPointToDelete(point)} />
 							</div>
 						</div>

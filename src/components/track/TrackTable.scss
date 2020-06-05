@@ -1,56 +1,5 @@
 @import "../../variables.scss";
 
-.TrackTable {
-    table {
-        width: 100%;
-        position: relative;
-        border-collapse: collapse;
-        border: solid 1px $-c-neutral;
-
-        tr {
-            border-bottom: solid 1px $-c-neutral;
-
-            th,
-            td {
-                padding: 1em;
-                text-align: left;
-
-                &.checkbox {
-                    text-align: center;
-                    cursor: pointer;
-                }
-            }
-        }
-
-        thead {
-            color: $-c-header-text;
-            background: $-c-accent-highlight;
-        }
-
-        tbody {
-            tr {
-                cursor: pointer;
-
-                transition: all 500ms ease;
-
-                &:hover {
-                    color: $-c-header-text;
-                    background: $-c-neutral;
-                    border-radius: 4px;
-
-                    @include shadow;
-                }
-
-                &.checked {
-                    color: $-c-header-text;
-                    font-weight: bold;
-                    background: $-c-neutral;
-                }
-            }
-        }
-    }
-}
-
 .table {
     font-size: 0.8em;
 
@@ -58,16 +7,16 @@
         color: rgb(156, 156, 156);
         font-weight: bold;
         background: #ebebeb;
-    }
 
-    &__options,
-    &__header {
-        padding: 1em;
+        .table__col {
+            padding: 1em;
+        }
     }
 
     &__options {
         display: flex;
         align-items: center;
+        padding: 1em;
 
         &-items {
             opacity: 0;
@@ -97,14 +46,24 @@
     }
 
     &__row {
-        &:nth-child(even) {
-            background: #f7f7f7;
-        }
-
         label {
             cursor: pointer;
             display: block;
             padding: 1em;
+        }
+
+        &:nth-child(even) {
+            background: #f7f7f7;
+        }
+
+        .table__col:nth-child(1) {
+            label {
+                padding: 1em;
+            }
+        }
+
+        &:hover {
+            background: rgba($-c-neutral, $alpha: 0.1);
         }
     }
 

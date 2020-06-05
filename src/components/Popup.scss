@@ -37,7 +37,12 @@ $-c-overlay-background: rgba(90, 90, 90, 0.7);
 
     &__heading {
         font-size: 2rem;
-        margin-bottom: 0.75em;
+    }
+
+    &__content {
+        p + button {
+            margin-top: 2em;
+        }
     }
 
     &__close-button {
