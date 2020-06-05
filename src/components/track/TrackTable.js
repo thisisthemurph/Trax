@@ -4,12 +4,15 @@ import Popup from "../Popup"
 import NewTrackPointForm from "../forms/NewTrackPointForm"
 
 import "./TrackTable.scss"
+import { Button, GhostButton } from "../form-components"
 
 function TrackTable({ trackId, data, deleteHandler, setLoading }) {
 	const [checked, setChecked] = useState({})
 	const [checkedCount, setCheckedCount] = useState(0)
 	const [allChecked, setAllChecked] = useState(false)
 	const [pointToUpdate, setPointToUpdate] = useState(null)
+	const [pointToDelete, setPointToDelete] = useState(null)
+	const [pointsToDelete, setPointsToDelete] = useState(false)
 
 	const checkChangeHandler = (pointId) => {
 		if (checked[pointId] === undefined || checked[pointId] === false) {
@@ -63,7 +66,8 @@ function TrackTable({ trackId, data, deleteHandler, setLoading }) {
 							onClick={() => {
 								for (const pointId in checked) {
 									if (checked[pointId]) {
-										deleteHandler(pointId)
+										// deleteHandler(pointId)
+										setPointsToDelete(true)
 									}
 								}
 							}}
@@ -109,7 +113,8 @@ function TrackTable({ trackId, data, deleteHandler, setLoading }) {
 										setPointToUpdate(data.filter((p) => p._id === point._id)[0])
 									}
 								/>
-								<TrashButton onClick={() => deleteHandler(point._id)} />
+								{/* <TrashButton onClick={() => deleteHandler(point._id)} /> */}
+								<TrashButton onClick={() => setPointToDelete(point)} />
 							</div>
 						</div>
 					)
@@ -125,7 +130,43 @@ function TrackTable({ trackId, data, deleteHandler, setLoading }) {
 					onSuccess={() => setLoading(true)}
 				/>
 			)}
+
+			{pointToDelete && (
+				<DeletePointPopupForm
+					show={true}
+					text="Once the point is delete, there is no turning back."
+					cancel={() => setPointToDelete(null)}
+					confirm={() => deleteHandler(pointToDelete._id)}
+				/>
+			)}
+
+			<DeletePointPopupForm
+				show={pointsToDelete}
+				text={`Are you sure you want to delete ${checkedCount} points?`}
+				cancel={() => setPointsToDelete(false)}
+				confirm={() => {
+					for (const pointId in checked) {
+						if (checked[pointId]) {
+							deleteHandler(pointId)
+						}
+					}
+				}}
+			/>
 		</div>
+	)
+}
+
+const DeletePointPopupForm = ({ show, text, cancel, confirm }) => {
+	return (
+		<Popup heading="Are you sure?" show={show} onClose={cancel}>
+			<div>
+				<p>{text}</p>
+				<GhostButton onClick={cancel}>Cancel</GhostButton>
+				<Button color="warning" onClick={confirm}>
+					Delete
+				</Button>
+			</div>
+		</Popup>
 	)
 }
 
