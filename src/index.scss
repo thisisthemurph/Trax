@@ -60,6 +60,44 @@ section {
     animation: fadeIn 500ms ease-in;
 }
 
+.iconbtn {
+    border: 0;
+    background: none;
+    cursor: pointer;
+    transition: all 250ms ease-in;
+
+    &__content {
+        display: flex;
+        align-items: center;
+
+        font-size: 0.8em;
+        text-decoration: underline;
+        color: gray;
+
+        .icon {
+            fill: lightgrey;
+            stroke: grey;
+            cursor: pointer;
+        }
+    }
+
+    & + .iconbtn {
+        margin-left: 1em;
+    }
+
+    &:hover {
+        transform: scale(1.1);
+
+        .iconbtn__content {
+            color: black;
+
+            .icon {
+                stroke: black;
+            }
+        }
+    }
+}
+
 @keyframes fadeIn {
     from {
         opacity: 0;
