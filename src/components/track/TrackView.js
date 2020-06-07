@@ -36,16 +36,18 @@ const TrackView = () => {
 					},
 				})
 
-				const _track = await res.json()
+				const response = await res.json()
 
-				if (_track) {
-					setTrack(_track)
-					setData(_track.data.dataPoints)
+				if (response && response.success) {
+					const trk = response.track
 
-					if ("target" in _track.data) {
-						const target = _track.data.target
-						const firstPoint = _track.data.dataPoints[0]
-						const lastPoint = _track.data.dataPoints[_track.data.dataPoints.length - 1]
+					setTrack(trk)
+					setData(trk.data.dataPoints)
+
+					if ("target" in trk.data && trk.data.dataPoints.length > 1) {
+						const target = trk.data.target
+						const firstPoint = trk.data.dataPoints[0]
+						const lastPoint = trk.data.dataPoints[trk.data.dataPoints.length - 1]
 
 						const diff = firstPoint.value - target
 						const progress = (lastPoint.value - firstPoint.value) * -1
@@ -185,7 +187,10 @@ const TrackView = () => {
 
 			{trackProgress && (
 				<section className="container">
-					<ProgressBar percentage={trackProgress} />
+					<ProgressBar
+						percentage={trackProgress}
+						target={`${track.data.target}${track.data.metric}`}
+					/>
 				</section>
 			)}
 

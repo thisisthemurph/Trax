@@ -7,16 +7,29 @@ const NewTrackForm = ({ onSuccess }) => {
 	const [trackType, setTrackType] = useState("weight")
 	const [metric, setMetric] = useState("g")
 	const [target, setTarget] = useState("")
-	const [incOrDec, setIncOrDec] = useState("decrease")
+	const [increaseOrDecrease, setIncreaseOrDecrease] = useState("decrease")
 
 	const [user] = useContext(UserContext)
 
 	const metrics = {
-		weight: { g: "g", kg: "KG", lb: "lb", stone: "Stone" },
-		distance: { m: "Metres", km: "Km", ft: "ft", miles: "Miles" },
+		weight: {
+			g: "g",
+			kg: "KG",
+			lb: "lb",
+			stone: "Stone",
+		},
+		distance: {
+			m: "Metres",
+			km: "Km",
+			ft: "ft",
+			miles: "Miles",
+		},
 		time: { s: "Seconds", m: "Minutes", h: "Hours" },
 	}
 
+	/**
+	 * Chooses the appropriate initial metric when the trackType is changed
+	 */
 	useEffect(() => {
 		const firstMetric = Object.keys(metrics[trackType])[0]
 		setMetric(firstMetric)
@@ -39,6 +52,7 @@ const NewTrackForm = ({ onSuccess }) => {
 				body: JSON.stringify({
 					name,
 					type: trackType,
+					data: { metric, target, increaseOrDecrease },
 				}),
 			})
 
@@ -51,6 +65,7 @@ const NewTrackForm = ({ onSuccess }) => {
 				alert("There has been an issue creating your track")
 			}
 		} catch (e) {
+			alert("There has been an issue creating your track")
 			console.error("There has been an error!")
 			console.error(e)
 		}
@@ -100,8 +115,8 @@ const NewTrackForm = ({ onSuccess }) => {
 				label="Increase or decrease"
 				name="increase-decrease-select"
 				infoMessage="Please select if you are aiming to increase or decrease weight"
-				onChange={(value) => setIncOrDec(value)}
-				value={incOrDec}
+				onChange={(value) => setIncreaseOrDecrease(value)}
+				value={increaseOrDecrease}
 				options={{
 					decrease: "Decrease",
 					increase: "Increase",
