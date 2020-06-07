@@ -5,6 +5,7 @@ $progress-bar-border-radius: 25px;
 .ProgressBar {
     background: $-c-neutral;
     border-radius: $progress-bar-border-radius;
+    margin-bottom: 1em;
 
     &__progress {
         transition: width 1s;
@@ -20,6 +21,11 @@ $progress-bar-border-radius: 25px;
         color: $-c-button-text;
         font-size: 0.8rem;
         font-weight: bold;
+    }
+
+    &__text {
+        font-size: 0.8rem;
+        text-align: center;
     }
 }
 
