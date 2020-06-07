@@ -1,0 +1,24 @@
+.profile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    &__button {
+        display: none;
+    }
+
+    .Button__floatingaction {
+        display: absolute;
+    }
+}
+
+@media (min-width: 600px) {
+    .profile-header {
+        &__button {
+            display: block;
+        }
+
+        .Button__floatingaction {
+            display: none;
+        }
+    }
+}
