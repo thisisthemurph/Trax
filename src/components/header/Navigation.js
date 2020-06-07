@@ -39,7 +39,7 @@ const Navigation = () => {
 
 const MainNavigation = ({ hidden, setHidden, user, logoutHandler }) => {
 	return (
-		<nav className="Navigation">
+		<nav className="navigation">
 			<NavigationLinks
 				hidden={hidden}
 				setHidden={setHidden}
@@ -51,13 +51,13 @@ const MainNavigation = ({ hidden, setHidden, user, logoutHandler }) => {
 }
 
 const SideNavigation = ({ hidden, setHidden, user, logoutHandler }) => {
-	const navClasses = ["Navigation", "SideNavigation", hidden ? "SideNavigation--hidden" : null]
+	const navClasses = ["navigation", "side-navigation", hidden ? "side-navigation--hidden" : null]
 		.map((c) => c)
 		.join(" ")
 
 	return (
 		<nav className={navClasses}>
-			<div className="Navigation__container SideNavigation__heading">
+			<div className="navigation__container side-navigation__heading">
 				<div>
 					<h2>{`${user?.name}!` || "Hey!"}</h2>
 				</div>
@@ -81,10 +81,10 @@ const SideNavigation = ({ hidden, setHidden, user, logoutHandler }) => {
 const NavigationLinks = ({ user, hidden, setHidden, logoutHandler, navigationType = "MAIN" }) => {
 	const linkFactory = (title, to, isButton = false, onClick = null, burger = false) => {
 		const classes = [
-			"Navigation__link",
-			"Navigation__container",
-			isButton ? "Navigation__link--button" : null,
-			burger ? "Navigation__burger" : null,
+			"navigation__link",
+			"navigation__container",
+			isButton ? "navigation__link--button" : null,
+			burger ? "navigation__burger" : null,
 		]
 			.map((c) => c)
 			.join(" ")
@@ -117,7 +117,7 @@ const NavigationLinks = ({ user, hidden, setHidden, logoutHandler, navigationTyp
 
 	if (!user) {
 		return (
-			<div className="Navigation__links">
+			<div className="navigation__links navigation__links--persist">
 				{login}
 				{register}
 			</div>
@@ -126,7 +126,7 @@ const NavigationLinks = ({ user, hidden, setHidden, logoutHandler, navigationTyp
 
 	if (navigationType === "HAMBURGER") {
 		return (
-			<div className="Navigation__links">
+			<div className="navigation__links">
 				{home}
 				{linkFactory("Profile", "/profile")}
 				{logout}
@@ -134,7 +134,7 @@ const NavigationLinks = ({ user, hidden, setHidden, logoutHandler, navigationTyp
 		)
 	} else {
 		return (
-			<div className="Navigation__links">
+			<div className="navigation__links">
 				{home}
 				{logout}
 				{linkFactory(`${user.name} ${user.sex === "f" ? "👩‍🦰" : "🧔"}`, "/profile", true)}

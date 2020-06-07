@@ -25,27 +25,39 @@ a {
 }
 
 h1 {
-    font-size: 2em;
-    padding: 0.5em 0 1em;
+    font-size: 2rem;
+    padding: 1em 0;
 }
 
 p {
     line-height: 1.7;
 }
 
-section {
-    @include neumorphism;
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1em;
 
-    background: rgb(248, 248, 255);
-
-    & + section {
-        margin-top: 1.5em;
+    &__max {
+        padding: 0;
+        max-width: 1200px;
     }
 }
 
-.container {
-    background: $-c-background;
-    padding: 1em;
+section {
+    @include neumorphism;
+
+    width: 100%;
+    max-width: 600px;
+    background: rgb(248, 248, 255);
+
+    margin-bottom: 2em;
+
+    &.primary {
+        max-width: 100%;
+        padding: 1em;
+    }
 }
 
 .error {
@@ -59,6 +71,16 @@ section {
     animation: fadeIn 500ms ease-in;
 }
 
+.icon {
+    fill: lightgrey;
+    stroke: grey;
+    cursor: pointer;
+
+    &:hover {
+        stroke: black;
+    }
+}
+
 .iconbtn {
     border: 0;
     background: none;
@@ -69,15 +91,9 @@ section {
         display: flex;
         align-items: center;
 
-        font-size: 0.8em;
+        font-size: 0.8rem;
         text-decoration: underline;
         color: gray;
-
-        .icon {
-            fill: lightgrey;
-            stroke: grey;
-            cursor: pointer;
-        }
     }
 
     & + .iconbtn {
@@ -104,5 +120,13 @@ section {
 
     to {
         opacity: 1;
+    }
+}
+
+@media (min-width: 600px) {
+    section {
+        margin-top: 2em;
+        margin-bottom: 0;
+        border-radius: 0.5em;
     }
 }

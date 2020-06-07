@@ -33,7 +33,7 @@ const NewTrackForm = ({ onSuccess }) => {
 	useEffect(() => {
 		const firstMetric = Object.keys(metrics[trackType])[0]
 		setMetric(firstMetric)
-	}, [trackType])
+	}, [metrics, trackType])
 
 	const submitHandler = async () => {
 		if (!name) {
@@ -66,64 +66,73 @@ const NewTrackForm = ({ onSuccess }) => {
 			}
 		} catch (e) {
 			alert("There has been an issue creating your track")
-			console.error("There has been an error!")
-			console.error(e)
 		}
 	}
 
 	return (
-		<div className="form">
-			<Input
-				type="text"
-				label="Track name"
-				value={name}
-				onChange={(value) => setName(value)}
-				autoFocus={true}
-			/>
+		<div className="form f-container">
+			<div className="f-container__span-full">
+				<Input
+					type="text"
+					label="Track name"
+					value={name}
+					onChange={(value) => setName(value)}
+					autoFocus={true}
+					tabIndex={1}
+				/>
+			</div>
+			<div className="f-container__span-half">
+				<SelectInput
+					label="Track type"
+					name="track-type-select"
+					onChange={(value) => setTrackType(value)}
+					options={{
+						weight: "Weight",
+						distance: "Distance",
+						time: "Time",
+					}}
+					value={trackType}
+					tabIndex={2}
+				/>
 
-			<SelectInput
-				label="Track type"
-				name="track-type-select"
-				onChange={(value) => setTrackType(value)}
-				options={{
-					weight: "Weight",
-					distance: "Distance",
-					time: "Time",
-				}}
-				value={trackType}
-			/>
+				<SelectInput
+					label="Metric"
+					name="metric-select"
+					value={metric}
+					onChange={(value) => {
+						setMetric(value)
+					}}
+					options={metrics[trackType]}
+					tabIndex={3}
+				/>
+			</div>
 
-			<SelectInput
-				label="Metric"
-				name="metric-select"
-				value={metric}
-				onChange={(value) => {
-					setMetric(value)
-				}}
-				options={metrics[trackType]}
-			/>
+			<div className="f-container__span-half">
+				<Input
+					type="number"
+					label={`Target (${metrics[trackType][metric]})`}
+					value={target}
+					infoMessage={`Enter your target goal in ${metrics[trackType][metric]}. If you don't have a specific target in mind, you can leave this blank and create one later.`}
+					onChange={(value) => setTarget(value)}
+					tabIndex={4}
+				/>
 
-			<Input
-				type="number"
-				label={`Target (${metrics[trackType][metric]})`}
-				value={target}
-				infoMessage={`Enter your target goal in ${metrics[trackType][metric]}. If you don't have a specific target in mind, you can leave this blank and create one later.`}
-				onChange={(value) => setTarget(value)}
-			/>
-
-			<SelectInput
-				label="Increase or decrease"
-				name="increase-decrease-select"
-				infoMessage="Please select if you are aiming to increase or decrease weight"
-				onChange={(value) => setIncreaseOrDecrease(value)}
-				value={increaseOrDecrease}
-				options={{
-					decrease: "Decrease",
-					increase: "Increase",
-				}}
-			/>
-
-			<Button text="Create" onClick={() => submitHandler()} />
+				<SelectInput
+					label="Increase or decrease"
+					name="increase-decrease-select"
+					infoMessage="Please select if you are aiming to increase or decrease weight"
+					onChange={(value) => setIncreaseOrDecrease(value)}
+					value={increaseOrDecrease}
+					options={{
+						decrease: "Decrease",
+						increase: "Increase",
+					}}
+					tabIndex={5}
+				/>
+			</div>
+			<div className="f-container__span-full">
+				<Button text="Create" onClick={() => submitHandler()} />
+			</div>
 		</div>
 	)
 }

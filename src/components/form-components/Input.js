@@ -6,6 +6,7 @@ const Input = ({
 	label,
 	value,
 	onChange,
+	tabIndex = null,
 	placeholder = null,
 	hasError = false,
 	infoMessage = null,
@@ -31,6 +32,7 @@ const Input = ({
 				onChange={(e) => {
 					onChange(e.target.value)
 				}}
+				tabIndex={tabIndex}
 			/>
 		</InputContainer>
 	)

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react"
 import moment from "moment"
 import Popup from "../Popup"
 import NewTrackPointForm from "../forms/NewTrackPointForm"
+import { TrashIcon, EditIcon } from "../icons"
 
 import "./TrackTable.scss"
 import { Button, GhostButton } from "../form-components"
@@ -125,20 +126,18 @@ function TrackTable({ trackId, data, deleteHandler, setLoading }) {
 				<UpdatePointPopupForm
 					trackId={trackId}
 					point={pointToUpdate}
-					show={pointToUpdate !== null}
+					show={true}
 					onClose={() => setPointToUpdate(null)}
 					onSuccess={() => setLoading(true)}
 				/>
 			)}
 
-			{pointToDelete && (
-				<DeletePointPopupForm
-					show={true}
-					text="Once the point is delete, there is no turning back."
-					cancel={() => setPointToDelete(null)}
-					confirm={() => deleteHandler(pointToDelete._id)}
-				/>
-			)}
+			<DeletePointPopupForm
+				show={pointToDelete}
+				text="Once the point is delete, there is no turning back."
+				cancel={() => setPointToDelete(null)}
+				confirm={() => deleteHandler(pointToDelete._id)}
+			/>
 
 			<DeletePointPopupForm
 				show={pointsToDelete}
@@ -172,7 +171,7 @@ const DeletePointPopupForm = ({ show, text, cancel, confirm }) => {
 
 const UpdatePointPopupForm = ({ trackId, point, show, onClose, onSuccess }) => {
 	return (
-		<Popup heading="Add a new point..." show={show} onClose={onClose}>
+		<Popup heading="Edit this point" show={show} onClose={onClose}>
 			<NewTrackPointForm
 				trackId={trackId}
 				onSuccess={onSuccess}
@@ -188,19 +187,7 @@ const EditButton = ({ onClick }) => {
 	return (
 		<button className="iconbtn" onClick={onClick}>
 			<span className="iconbtn__content">
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					width="18"
-					height="18"
-					viewBox="0 0 24 24"
-					strokeWidth="1.5"
-					strokeLinecap="round"
-					strokeLinejoin="round"
-					className="icon edit-icon"
-				>
-					<path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-					<path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-				</svg>
+				<EditIcon />
 			</span>
 		</button>
 	)
@@ -210,19 +197,7 @@ const TrashButton = ({ text, onClick }) => {
 	return (
 		<button className="iconbtn" onClick={onClick}>
 			<span className="iconbtn__content">
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					width="18"
-					height="18"
-					viewBox="0 0 24 24"
-					strokeWidth="1.5"
-					strokeLinecap="round"
-					strokeLinejoin="round"
-					className="icon trash-icon"
-				>
-					<polyline points="3 6 5 6 21 6"></polyline>
-					<path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-				</svg>
+				<TrashIcon />
 				{text && <span>{text}</span>}
 			</span>
 		</button>

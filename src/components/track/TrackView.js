@@ -138,8 +138,8 @@ const TrackView = () => {
 	}
 
 	return (
-		<>
-			<section className="container">
+		<div className="container container__max">
+			<section className="primary">
 				<div className="trackheader">
 					<h1 className="trackheader__title">{track.name}</h1>
 					<div className="trackheader__buttons">
@@ -186,7 +186,7 @@ const TrackView = () => {
 			</section>
 
 			{trackProgress && (
-				<section className="container">
+				<section className="primary">
 					<ProgressBar
 						percentage={trackProgress}
 						target={`${track.data.target}${track.data.metric}`}
@@ -194,7 +194,7 @@ const TrackView = () => {
 				</section>
 			)}
 
-			<section className="container">
+			<section className="primary">
 				<TrackTable
 					trackId={trackId}
 					data={data}
@@ -212,7 +212,7 @@ const TrackView = () => {
 					setLoading(true)
 				}}
 			/>
-		</>
+		</div>
 	)
 }
 

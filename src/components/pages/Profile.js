@@ -3,6 +3,9 @@ import { FloatingActionButton } from "../form-components"
 import TrackList from "../TrackList"
 import Popup from "../Popup"
 import NewTrackForm from "../forms/NewTrackForm"
+import { Button } from "../form-components"
+
+import "./Profile.scss"
 
 const ProfilePage = () => {
 	const [showNewTrackForm, setShowNewTrackForm] = useState(false)
@@ -10,14 +13,20 @@ const ProfilePage = () => {
 
 	return (
 		<div className="container">
-			<TrackList refresh={refreshTrackList} />
+			<div className="profile-header">
+				<h1>Track Profile</h1>
+				<div className="profile-header__button">
+					<Button onClick={() => setShowNewTrackForm(true)}>New track</Button>
+				</div>
+				<FloatingActionButton
+					onClick={() => setShowNewTrackForm(true)}
+					hidden={showNewTrackForm}
+				>
+					<PlusIcon />
+				</FloatingActionButton>
+			</div>
 
-			<FloatingActionButton
-				onClick={() => setShowNewTrackForm(true)}
-				hidden={showNewTrackForm}
-			>
-				<PlusIcon />
-			</FloatingActionButton>
+			<TrackList refresh={refreshTrackList} />
 
 			<Popup
 				heading="Create a new track"

@@ -1,77 +1,105 @@
 @import "../variables.scss";
 
-.TrackListItem {
-    display: grid;
-    grid-template-columns: 4.5fr 0.5fr;
-    grid-template-areas:
-        "title nav"
-        "content nav";
-
-    padding: 1rem;
-    margin-top: 1em;
-    border-radius: 1em;
-    cursor: pointer;
-
-    background: linear-gradient(-45deg, $-c-background, white);
-
-    @include neumorphism;
-
-    transition: all 0.2 ease;
-
-    &__title {
-        grid-area: title;
-
+.tracklist {
+    &__items {
         display: flex;
-        flex-direction: column;
-        justify-content: space-evenly;
+        justify-content: space-between;
+        flex-wrap: wrap;
 
-        font-weight: bold;
-        text-transform: capitalize;
-    }
+        .list-item {
+            display: grid;
+            grid-template-columns: 5fr 0.75fr;
+            grid-template-rows: 1fr 2fr auto;
+            grid-template-areas:
+                "title nav"
+                "content nav"
+                "timestamp nav";
 
-    &__content {
-        grid-area: content;
-
-        display: flex;
-        flex-direction: column;
-        justify-content: space-evenly;
-    }
-
-    &__nav {
-        grid-area: nav;
-
-        display: flex;
-        flex-direction: column;
-        justify-content: space-evenly;
-        align-items: flex-end;
-
-        padding-left: 0.7em;
-
-        &-item {
-            border-radius: 50%;
             padding: 1em;
+            border-radius: 0.5em;
 
-            .icon {
-                width: 1.25em;
+            transition: all 0.2 ease;
+
+            &__title {
+                grid-area: title;
+
+                display: flex;
+                align-items: center;
+
+                text-transform: capitalize;
             }
 
-            &:hover,
-            &:focus {
-                .icon {
-                    fill: $-c-accent;
+            &__title,
+            &__content,
+            &__timestamp {
+                margin-right: 1rem;
+            }
+
+            &__content {
+                grid-area: content;
+
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+
+            &__type-value {
+                text-transform: capitalize;
+            }
+
+            &__timestamp {
+                grid-area: timestamp;
+
+                text-align: right;
+                align-self: flex-end;
+                color: $-c-button-background-inactive;
+                font-size: 0.8rem;
+            }
+
+            &__nav {
+                grid-area: nav;
+
+                display: flex;
+                flex-direction: column;
+                justify-content: space-evenly;
+                align-items: flex-end;
+
+                padding-left: 0.7em;
+
+                &-item {
+                    border-radius: 50%;
+                    padding: 1em;
+
+                    .icon {
+                        width: 1.25em;
+                    }
+
+                    &:hover,
+                    &:focus {
+                        .chevron-right-icon {
+                            fill: $-c-accent;
+                            transform: translateX(0.2em);
+                        }
+                    }
                 }
 
-                .chevron-right-icon {
-                    fill: $-c-accent;
-                    transform: translateX(0.2em);
-                }
+                border-left: dashed 1px rgba($-c-header-background, 0.2);
+            }
+
+            &:hover {
+                @include neumorphism--hover;
             }
         }
-
-        border-left: dashed 1px $-c-neutral;
     }
+}
 
-    &:hover {
-        @include neumorphism--hover;
+@media (min-width: 600px) {
+    .tracklist {
+        &__items {
+            .list-item {
+                max-width: 48%;
+                border-radius: 4px;
+            }
+        }
     }
 }

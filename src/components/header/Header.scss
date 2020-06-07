@@ -1,29 +1,30 @@
 @import "../../variables.scss";
 
-.Header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
+.header {
     position: relative;
     z-index: 1;
-
     background: $-c-header-background;
 
-    .logo {
+    .container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    &__logo {
         a {
             text-decoration: none;
-        }
 
-        h1 {
-            padding: 0;
-            color: $-c-header-text;
-            font-size: 2rem;
-            transition: color 500ms ease;
+            h1 {
+                padding: 0;
+                color: $-c-header-text;
+                font-size: 2rem;
+                transition: color 500ms ease;
 
-            &:hover,
-            &:focus {
-                color: $-c-accent;
+                &:hover,
+                &:focus {
+                    color: $-c-accent;
+                }
             }
         }
     }

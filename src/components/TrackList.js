@@ -83,17 +83,18 @@ const TrackList = ({ refresh }) => {
 	}
 
 	return (
-		<div className="TrackList">
-			<h1>Your Tracks</h1>
-			{loading ? (
-				<p>Loading...</p>
-			) : trackItems.length === 0 ? (
-				<p>Make a new Track to see it here</p>
-			) : (
-				trackItems.map((track) => (
-					<TrackListItem key={track._id} track={track} handleDelete={handleDelete} />
-				))
-			)}
+		<div className="tracklist">
+			<div className="tracklist__items">
+				{loading ? (
+					<p>Loading...</p>
+				) : trackItems.length === 0 ? (
+					<p>Make a new Track to see it here</p>
+				) : (
+					trackItems.map((track) => (
+						<TrackListItem key={track._id} track={track} handleDelete={handleDelete} />
+					))
+				)}
+			</div>
 
 			<ConfirmDelete
 				show={showConfirmDelete}

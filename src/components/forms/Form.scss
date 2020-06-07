@@ -6,6 +6,8 @@
         font-size: 2rem;
         margin-bottom: 1.2rem;
     }
+
+    max-width: 800px;
 }
 
 .InputContainer {
@@ -116,6 +118,25 @@
 
 .Button {
     margin-right: 1rem;
+}
+
+@media (min-width: 600px) {
+    .form {
+        &.f-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+
+            .f-container__span-full {
+                width: 100%;
+            }
+
+            .f-container__span-half {
+                width: 48%;
+            }
+        }
+    }
 }
 
 @keyframes slideOut {
