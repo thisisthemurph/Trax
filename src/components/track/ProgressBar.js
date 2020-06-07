@@ -13,11 +13,11 @@ const ProgressBar = ({ percentage, target }) => {
 		],
 		good: [
 			`You are on your way to meeting your target of ${target}.`,
-			`The first steps are the most important, you are taking your first steps your ${target} goal!`,
+			`The first steps are the most important, you are taking your first steps to your ${target} goal!`,
 		],
 		better: [
 			`You are killing this, you will reach your ${target} goal in no time!`,
-			`You got this! You'll be achieving ${target} in no time.`,
+			`You got this! You'll be achieving ${target} in no time flat.`,
 		],
 	}
 
