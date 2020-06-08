@@ -11,6 +11,10 @@
 
     transition: background 200ms ease-in-out;
 
+    & + .Button {
+        margin-left: 1em;
+    }
+
     &:hover,
     &:focus {
         outline: none;
