@@ -5,7 +5,7 @@ import { Button } from "../form-components"
 import TrackChart from "./TrackChart"
 import TrackTable from "./TrackTable"
 import { UserContext } from "../../context/UserContext"
-import NewTrackPointForm from "../forms/NewTrackPointForm"
+import { NewTrackPointForm } from "../forms"
 import Popup from "../Popup"
 
 import "./TrackView.scss"

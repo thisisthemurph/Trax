@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import moment from "moment"
 import Popup from "../Popup"
-import NewTrackPointForm from "../forms/NewTrackPointForm"
+import { NewTrackPointForm } from "../forms"
 import { TrashIcon, EditIcon } from "../icons"
 
 import "./TrackTable.scss"

@@ -5,7 +5,7 @@ import { TrashIcon, SlidersIcon, ChevronRightIcon } from "./icons"
 
 import "./TrackListItem.scss"
 
-function TrackDetail({ track, handleDelete }) {
+function TrackListItem({ track, handleDelete, handleEdit }) {
 	const { _id: trackId, name, type, updatedAt } = track
 	const { dataPoints, metric } = track.data
 
@@ -32,20 +32,24 @@ function TrackDetail({ track, handleDelete }) {
 					e.preventDefault()
 					handleDelete(trackId)
 				}}
+				handleEdit={(e) => {
+					e.preventDefault()
+					handleEdit(track)
+				}}
 			/>
 		</section>
 	)
 }
 
-const TrackListItemNavigation = ({ trackId, handleDelete }) => {
+const TrackListItemNavigation = ({ trackId, handleDelete, handleEdit }) => {
 	return (
 		<nav className="list-item__nav">
 			<a className="list-item__nav-item" href="/" onClick={handleDelete}>
 				<TrashIcon />
 			</a>
-			<Link className="list-item__nav-item" to={`track/${trackId}`}>
+			<a className="list-item__nav-item" href="/" onClick={handleEdit}>
 				<SlidersIcon />
-			</Link>
+			</a>
 			<Link className="list-item__nav-item" to={`track/${trackId}`}>
 				<ChevronRightIcon />
 			</Link>
@@ -53,4 +57,4 @@ const TrackListItemNavigation = ({ trackId, handleDelete }) => {
 	)
 }
 
-export default TrackDetail
+export default TrackListItem

@@ -2,19 +2,23 @@ import React, { useState, useEffect, useContext } from "react"
 import { Input, Button, SelectInput } from "../form-components"
 import { UserContext } from "../../context/UserContext"
 
-const NewTrackForm = ({ onSuccess }) => {
-	const [name, setName] = useState("")
-	const [trackType, setTrackType] = useState("weight")
-	const [metric, setMetric] = useState("g")
-	const [target, setTarget] = useState("")
-	const [increaseOrDecrease, setIncreaseOrDecrease] = useState("decrease")
+const NewTrackForm = ({ onSuccess, edit = false, track = null }) => {
+	const hasTrack = track !== null
+
+	const [name, setName] = useState(hasTrack ? track.name : "")
+	const [trackType, setTrackType] = useState(hasTrack ? track.type : "weight")
+	const [metric, setMetric] = useState(hasTrack ? track.data.metric : "g")
+	const [target, setTarget] = useState(hasTrack && track.data?.target ? track.data.target : "")
+	const [increaseOrDecrease, setIncreaseOrDecrease] = useState(
+		hasTrack ? track.data.increaseOrDecrease : "decrease"
+	)
 
 	const [user] = useContext(UserContext)
 
 	const metrics = {
 		weight: {
 			g: "g",
-			kg: "KG",
+			kg: "Kg",
 			lb: "lb",
 			stone: "Stone",
 		},
@@ -33,9 +37,9 @@ const NewTrackForm = ({ onSuccess }) => {
 	useEffect(() => {
 		const firstMetric = Object.keys(metrics[trackType])[0]
 		setMetric(firstMetric)
-	}, [metrics, trackType])
+	}, [trackType])
 
-	const submitHandler = async () => {
+	const doCreateNewTrack = async () => {
 		if (!name) {
 			alert("A name is required")
 			return
@@ -60,12 +64,54 @@ const NewTrackForm = ({ onSuccess }) => {
 
 			if (result && result.success) {
 				onSuccess()
-				setName("")
 			} else {
 				alert("There has been an issue creating your track")
 			}
 		} catch (e) {
 			alert("There has been an issue creating your track")
+		}
+	}
+
+	const doUpdateTrack = async (trackId) => {
+		if (!name) {
+			alert("A name is required")
+			return
+		}
+
+		try {
+			const res = await fetch(`http://localhost:5000/trax/api/tracks/${trackId}`, {
+				method: "PUT",
+				headers: {
+					Accepts: "application/json",
+					"Content-Type": "application/json",
+					"auth-token": user.token,
+				},
+				body: JSON.stringify({
+					name,
+					target,
+					metric,
+					increaseOrDecrease,
+					type: trackType,
+				}),
+			})
+
+			const result = await res.json()
+
+			if (result && result.success) {
+				onSuccess()
+			} else {
+				alert("There has been an issue updating your track")
+			}
+		} catch (e) {
+			alert("There has been an issue updating your track")
+		}
+	}
+
+	const submitHandler = async () => {
+		if (edit) {
+			doUpdateTrack(track._id)
+		} else {
+			doCreateNewTrack()
 		}
 	}
 
@@ -99,9 +145,7 @@ const NewTrackForm = ({ onSuccess }) => {
 					label="Metric"
 					name="metric-select"
 					value={metric}
-					onChange={(value) => {
-						setMetric(value)
-					}}
+					onChange={(value) => setMetric(value)}
 					options={metrics[trackType]}
 					tabIndex={3}
 				/>
@@ -131,7 +175,7 @@ const NewTrackForm = ({ onSuccess }) => {
 				/>
 			</div>
 			<div className="f-container__span-full">
-				<Button text="Create" onClick={() => submitHandler()} />
+				<Button text={`${edit ? "Update" : "Create"}`} onClick={() => submitHandler()} />
 			</div>
 		</div>
 	)

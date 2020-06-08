@@ -9,6 +9,8 @@ import "./Profile.scss"
 
 const ProfilePage = () => {
 	const [showNewTrackForm, setShowNewTrackForm] = useState(false)
+	const [editTrack, setEditTrack] = useState(null)
+	const [showEditForm, setShowEditForm] = useState(false)
 	const [refreshTrackList, setRefreshTrackList] = useState(false)
 
 	return (
@@ -26,7 +28,11 @@ const ProfilePage = () => {
 				</FloatingActionButton>
 			</div>
 
-			<TrackList refresh={refreshTrackList} />
+			<TrackList
+				refresh={refreshTrackList}
+				setEditTrack={setEditTrack}
+				setShowEditForm={setShowEditForm}
+			/>
 
 			<Popup
 				heading="Create a new track"
@@ -40,7 +46,31 @@ const ProfilePage = () => {
 					}}
 				/>
 			</Popup>
+
+			<EditTrackPopupForm
+				show={showEditForm}
+				trackId={editTrack}
+				onClose={() => {
+					setShowEditForm(false)
+					setEditTrack(null)
+				}}
+				onSuccess={() => {
+					setShowEditForm(false)
+					setRefreshTrackList(!refreshTrackList)
+				}}
+				track={editTrack}
+			/>
 		</div>
+	)
+}
+
+const EditTrackPopupForm = ({ show, onClose, onSuccess, track }) => {
+	if (!track) return null
+
+	return (
+		<Popup heading="Edit track information..." show={show} onClose={onClose}>
+			<NewTrackForm edit onSuccess={onSuccess} track={track} />
+		</Popup>
 	)
 }
 

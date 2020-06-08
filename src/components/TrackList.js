@@ -4,7 +4,7 @@ import Popup from "../components/Popup"
 import { Button, GhostButton } from "../components/form-components"
 import { UserContext } from "../context/UserContext"
 
-const TrackList = ({ refresh }) => {
+const TrackList = ({ refresh, setEditTrack, setShowEditForm }) => {
 	const [loading, setLoading] = useState(true)
 	const [trackItems, setTrackItems] = useState([])
 	const [showConfirmDelete, setShowConfirmDelete] = useState(false)
@@ -49,6 +49,11 @@ const TrackList = ({ refresh }) => {
 		setShowConfirmDelete(true)
 	}
 
+	const handleEdit = (trackId) => {
+		setEditTrack(() => trackId)
+		setShowEditForm(true)
+	}
+
 	const completeDeletion = async (trackId) => {
 		const res = await fetch(`http://localhost:5000/trax/api/tracks/${trackId}`, {
 			method: "DELETE",
@@ -61,7 +66,7 @@ const TrackList = ({ refresh }) => {
 
 		const response = await res.json()
 
-		if (response.success) {
+		if (response && response.success) {
 			setLoading(true)
 		} else {
 			alert("It has not been possible to delete this track!")
@@ -91,7 +96,12 @@ const TrackList = ({ refresh }) => {
 					<p>Make a new Track to see it here</p>
 				) : (
 					trackItems.map((track) => (
-						<TrackListItem key={track._id} track={track} handleDelete={handleDelete} />
+						<TrackListItem
+							key={track._id}
+							track={track}
+							handleDelete={handleDelete}
+							handleEdit={handleEdit}
+						/>
 					))
 				)}
 			</div>
