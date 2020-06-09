@@ -1,6 +1,10 @@
 @import "../../variables.scss";
 
 .navigation {
+    // &__container {
+    //     z-index: 100;
+    //     display: none;
+    // }
     &__link {
         display: none;
 
@@ -50,6 +54,7 @@
     position: fixed;
     top: 6em;
     right: 1.5em;
+    // z-index: 10;
 
     min-width: 300px;
     border-radius: 12px;

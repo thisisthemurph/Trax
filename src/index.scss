@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;1,400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Pacifico&display=swap");
 @import "./variables.scss";
 
 *,
@@ -24,13 +24,34 @@ a {
     }
 }
 
+h1,
+h2,
+h3 {
+    font-family: "Pacifico", cursive;
+}
+
 h1 {
     font-size: 2rem;
     padding: 1em 0;
 }
 
+h3 {
+    color: green;
+}
+
 p {
-    line-height: 1.7;
+    line-height: 2;
+    padding-bottom: 1em;
+}
+
+h1 + p,
+h2 + p,
+h3 + p {
+    padding-top: 1em;
+}
+
+img {
+    max-width: 100%;
 }
 
 .container {
@@ -41,23 +62,16 @@ p {
 
     &__max {
         padding: 0;
-        max-width: 1200px;
     }
 }
 
-section {
+.primary {
     @include neumorphism;
 
     width: 100%;
-    max-width: 600px;
-    background: rgb(248, 248, 255);
-
+    padding: 1em;
     margin-bottom: 2em;
-
-    &.primary {
-        max-width: 100%;
-        padding: 1em;
-    }
+    background: rgb(248, 248, 255);
 }
 
 .error {
@@ -113,6 +127,45 @@ section {
     }
 }
 
+.card-container {
+    margin-top: 1em;
+
+    .c-card {
+        @include neumorphism;
+
+        padding: 1.5em;
+        text-align: center;
+        margin-bottom: 1em;
+        border-radius: 1em;
+
+        &__header {
+            font-size: 1.25rem;
+            font-family: "Pacifico", cursive;
+            margin-bottom: 1.5em;
+        }
+    }
+}
+
+@media (min-width: 600px) {
+    .primary {
+        margin-top: 2em;
+        margin-bottom: 0;
+        border-radius: 0.5em;
+    }
+
+    .card-container {
+        display: flex;
+        justify-content: space-between;
+
+        .c-card {
+            width: 33%;
+            & + .c-card {
+                margin-left: 2em;
+            }
+        }
+    }
+}
+
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -120,13 +173,5 @@ section {
 
     to {
         opacity: 1;
-    }
-}
-
-@media (min-width: 600px) {
-    section {
-        margin-top: 2em;
-        margin-bottom: 0;
-        border-radius: 0.5em;
     }
 }

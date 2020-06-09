@@ -7,6 +7,8 @@
         flex-wrap: wrap;
 
         .list-item {
+            @include neumorphism;
+
             display: grid;
             grid-template-columns: 5fr 0.75fr;
             grid-template-rows: 1fr 2fr auto;
@@ -15,7 +17,11 @@
                 "content nav"
                 "timestamp nav";
 
+            width: 100%;
+            max-width: 600px;
+            background: rgb(248, 248, 255);
             padding: 1em;
+            margin-bottom: 2em;
             border-radius: 0.5em;
 
             transition: all 0.2 ease;
