@@ -185,7 +185,7 @@ const TrackView = () => {
 				<TrackChart data={data} />
 			</section>
 
-			{trackProgress && (
+			{track.data.target && (
 				<section className="primary">
 					<ProgressBar
 						percentage={trackProgress}
