@@ -1,16 +1,16 @@
 import React, { useState, useEffect, useContext } from "react"
 import { useParams } from "react-router-dom"
 import moment from "moment"
-import { Button } from "../form-components"
-import TrackChart from "./TrackChart"
-import TrackTable from "./TrackTable"
-import { UserContext } from "../../context/UserContext"
 import { NewTrackPointForm } from "../forms"
+import { Button } from "../form-components"
+import { PlusIcon } from "../icons"
+import TrackChart from "./TrackChart"
+import ProgressBar from "./ProgressBar"
+import TrackTable from "./TrackTable"
 import Popup from "../Popup"
+import { UserContext } from "../../context/UserContext"
 
 import "./TrackView.scss"
-import "../form-components/Button.scss"
-import ProgressBar from "./ProgressBar"
 
 const TrackView = () => {
 	const { trackId } = useParams()
@@ -219,25 +219,8 @@ const TrackView = () => {
 const NewTrackPointPopup = ({ show, trackId, onClose, onSuccess }) => {
 	return (
 		<Popup heading="Add a new point..." show={show} onClose={onClose}>
-			<NewTrackPointForm trackId={trackId} onSuccess={onSuccess} />
+			<NewTrackPointForm trackId={trackId} onSuccess={onSuccess} onCancel={onClose} />
 		</Popup>
-	)
-}
-
-const PlusIcon = () => {
-	return (
-		<svg
-			viewBox="0 0 24 24"
-			fill="none"
-			stroke="white"
-			strokeWidth="2"
-			strokeLinecap="round"
-			strokeLinejoin="round"
-			className="feather feather-plus"
-		>
-			<line x1="12" y1="5" x2="12" y2="19"></line>
-			<line x1="5" y1="12" x2="19" y2="12"></line>
-		</svg>
 	)
 }
 

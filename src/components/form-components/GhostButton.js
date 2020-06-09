@@ -10,7 +10,7 @@ const GhostButton = ({ text, children, onClick, disabled, active, color = null }
 			onClick={onClick}
 			disabled={disabled}
 			active={active}
-			varyant="Button__ghost"
+			varyant="button__ghost"
 			color={color}
 		/>
 	)

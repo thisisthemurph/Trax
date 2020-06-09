@@ -3,10 +3,10 @@ import "./Button.scss"
 
 const FloatingActionButton = ({ children, onClick, hidden = false }) => {
 	const classes = [
-		"Button",
-		"Button__circle",
-		"Button__floatingaction",
-		hidden ? "Button__floatingaction--hidden" : null,
+		"button",
+		"button__circle",
+		"button__floatingaction",
+		hidden ? "button__floatingaction--hidden" : null,
 	]
 		.map((c) => c)
 		.join(" ")

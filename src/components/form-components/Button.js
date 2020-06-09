@@ -12,12 +12,11 @@ const Button = ({
 	circle = false,
 }) => {
 	const classes = [
-		"Button",
-		circle ? "Button__circle" : null,
+		"button",
+		circle ? "button__circle" : null,
 		disabled ? "disabled" : null,
-		active ? "active" : null,
+		active ? "button--active" : null,
 		varyant,
-		color,
 	]
 		.filter((c) => c)
 		.join(" ")

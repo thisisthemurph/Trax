@@ -1,7 +1,7 @@
 @import "../../variables.scss";
 
-.Button {
-    padding: 1em;
+.button {
+    padding: 1.5em 2em;
     border: solid 1px $-c-accent;
     color: $-c-button-text;
     background: $-c-accent;
@@ -9,9 +9,9 @@
     border-radius: 4px;
     cursor: pointer;
 
-    transition: background 200ms ease-in-out;
+    transition: background 250ms ease-in-out;
 
-    & + .Button {
+    & + .button {
         margin-left: 1em;
     }
 
@@ -28,10 +28,10 @@
     }
 
     &__circle {
-        margin: 0 1em 0 0;
+        padding: 0;
+        height: 3.5rem;
+        width: 3.5rem;
         border-radius: 100vh;
-        height: 3rem;
-        width: 3rem;
     }
 
     &__floatingaction {
@@ -69,7 +69,7 @@
         }
     }
 
-    &.warning {
+    &__warning {
         border-color: $-c-button-warning-background;
         background: $-c-button-warning-background;
 
@@ -77,19 +77,28 @@
             background: $-c-button-warning-background-highlight;
         }
     }
+
+    .icon {
+        stroke: white;
+        stroke-width: 2;
+        width: 22px;
+        height: 22px;
+    }
 }
 
 .filter-buttons {
-    .Button {
+    width: 100%;
+
+    .button {
+        width: 20%;
         margin: 0;
         border: none;
         border-radius: 0;
-        height: 100%;
 
         background-color: $-c-button-background-inactive;
         transition: background-color 300ms;
 
-        &.active {
+        &--active {
             font-weight: bold;
             background-color: $-c-accent;
         }

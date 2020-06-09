@@ -4,6 +4,7 @@ import TrackList from "../TrackList"
 import Popup from "../Popup"
 import NewTrackForm from "../forms/NewTrackForm"
 import { Button } from "../form-components"
+import { PlusIcon } from "../icons"
 
 import "./Profile.scss"
 
@@ -44,6 +45,7 @@ const ProfilePage = () => {
 						setShowNewTrackForm(false)
 						setRefreshTrackList(!refreshTrackList)
 					}}
+					onCancel={() => setShowNewTrackForm(false)}
 				/>
 			</Popup>
 
@@ -69,24 +71,8 @@ const EditTrackPopupForm = ({ show, onClose, onSuccess, track }) => {
 
 	return (
 		<Popup heading="Edit track information..." show={show} onClose={onClose}>
-			<NewTrackForm edit onSuccess={onSuccess} track={track} />
+			<NewTrackForm edit onSuccess={onSuccess} track={track} onCancel={onClose} />
 		</Popup>
-	)
-}
-
-const PlusIcon = () => {
-	return (
-		<svg
-			viewBox="0 0 24 24"
-			fill="none"
-			strokeWidth="2"
-			strokeLinecap="round"
-			strokeLinejoin="round"
-			className="feather feather-plus"
-		>
-			<line x1="12" y1="5" x2="12" y2="19"></line>
-			<line x1="5" y1="12" x2="19" y2="12"></line>
-		</svg>
 	)
 }
 

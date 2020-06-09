@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react"
-import { Input, Button } from "../form-components"
+import { Input, Button, GhostButton } from "../form-components"
 
 import { UserContext } from "../../context/UserContext"
 
@@ -9,6 +9,7 @@ const NewTrackPointForm = ({
 	defaults = { timestamp: null, value: null },
 	process = "ADD_NEW_TRACK_POINT",
 	pointId,
+	onCancel,
 }) => {
 	const baseDate = defaults.timestamp || new Date()
 	const d = String(baseDate.getDate()).padStart(2, "0")
@@ -105,7 +106,7 @@ const NewTrackPointForm = ({
 	}
 
 	return (
-		<div className="form">
+		<form className="form">
 			<Input
 				type="number"
 				value={value}
@@ -123,13 +124,14 @@ const NewTrackPointForm = ({
 				/>
 			</div>
 
+			<GhostButton text="Cancel" onClick={() => onCancel()} />
 			<Button
 				text={process === "ADD_NEW_TRACK_POINT" ? "Add point" : "Update"}
 				onClick={submitHandler}
 			/>
 
 			{error && <p className="error">{error}</p>}
-		</div>
+		</form>
 	)
 }
 

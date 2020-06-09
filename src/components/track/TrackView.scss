@@ -3,16 +3,50 @@
 .trackheader {
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
     margin-bottom: 2em;
 
     &__title {
+        max-width: 80%;
     }
 
     &__buttons {
         width: 100%;
         display: flex;
         justify-content: space-between;
+    }
+}
+
+.trackheader {
+    position: relative;
+
+    &__buttons {
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: flex-end;
+
+        .button__circle {
+            position: absolute;
+            top: 2.2em;
+            right: 0;
+        }
+    }
+}
+
+@media screen and (min-width: 600px) {
+    .trackheader {
+        &__buttons {
+            flex-direction: row;
+            justify-content: space-between;
+
+            .filter-buttons {
+                flex-basis: 80%;
+                max-width: 650px;
+            }
+
+            .button__circle {
+                position: initial;
+            }
+        }
     }
 }

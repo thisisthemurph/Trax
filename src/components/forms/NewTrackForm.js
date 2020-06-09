@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from "react"
-import { Input, Button, SelectInput } from "../form-components"
+import { Input, Button, GhostButton, SelectInput } from "../form-components"
 import { UserContext } from "../../context/UserContext"
 
-const NewTrackForm = ({ onSuccess, edit = false, track = null }) => {
+const NewTrackForm = ({ onSuccess, onCancel, edit = false, track = null }) => {
 	const hasTrack = track !== null
 
 	const [name, setName] = useState(hasTrack ? track.name : "")
@@ -116,7 +116,7 @@ const NewTrackForm = ({ onSuccess, edit = false, track = null }) => {
 	}
 
 	return (
-		<div className="form f-container">
+		<form className="form f-container">
 			<div className="f-container__span-full">
 				<Input
 					type="text"
@@ -175,9 +175,10 @@ const NewTrackForm = ({ onSuccess, edit = false, track = null }) => {
 				/>
 			</div>
 			<div className="f-container__span-full">
+				<GhostButton text="Cancel" onClick={() => onCancel()} />
 				<Button text={`${edit ? "Update" : "Create"}`} onClick={() => submitHandler()} />
 			</div>
-		</div>
+		</form>
 	)
 }
 

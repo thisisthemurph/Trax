@@ -24,8 +24,8 @@ $-c-overlay-background: rgba(90, 90, 90, 0.7);
         animation: fadeout 1.2s ease;
     }
 
-    .Popup {
-        padding: 1.5em 1.5em 0 1.5em;
+    .popup {
+        padding: 2em 1.5em 1.5em;
         background: whitesmoke;
         border-bottom-left-radius: 10px;
         border-bottom-right-radius: 10px;
@@ -34,20 +34,24 @@ $-c-overlay-background: rgba(90, 90, 90, 0.7);
 
         transition: all 0.3s ease-in;
 
-        &__heading {
-            font-size: 2rem;
+        &__title {
+            padding: 0;
+            margin-bottom: 1.5rem;
         }
 
         &__content {
             p + button {
-                margin-top: 2em;
+                margin-top: 1.5rem;
             }
+        }
+
+        &__footer {
+            padding: 2em 1em 0 1em;
         }
 
         &__close-button {
             cursor: pointer;
             background: none;
-            padding: 1em;
             border: none;
             width: 100%;
             outline: none;
@@ -55,6 +59,7 @@ $-c-overlay-background: rgba(90, 90, 90, 0.7);
             &--icon {
                 width: 30px;
                 fill: $-c-neutral;
+                stroke: none;
             }
 
             &:hover,
@@ -81,11 +86,16 @@ $-c-overlay-background: rgba(90, 90, 90, 0.7);
         justify-content: center;
         align-items: center;
 
-        .Popup {
+        .popup {
+            width: 80%;
+            max-width: 580px;
             border-radius: 0.5em;
-            max-width: 600px;
             max-height: 90vh;
             overflow: auto;
+
+            &__footer {
+                display: none;
+            }
         }
     }
 }

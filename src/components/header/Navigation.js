@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react"
 import { Link, useHistory } from "react-router-dom"
 import { UserContext } from "../../context/UserContext"
 import { logout } from "../../auth/Auth"
+import { HamburgerIcon } from "../icons"
 
 import "./Navigation.scss"
 
@@ -15,6 +16,7 @@ const Navigation = () => {
 
 		logout()
 		setUser(null)
+		setHidden(true)
 
 		history.push("/login")
 	}
@@ -59,7 +61,7 @@ const SideNavigation = ({ hidden, setHidden, user, logoutHandler }) => {
 		<nav className={navClasses}>
 			<div className="navigation__container side-navigation__heading">
 				<div>
-					<h2>{`${user?.name}!` || "Hey!"}</h2>
+					<h2>{`${user?.name || "Hey!"}`}</h2>
 				</div>
 				<div className="emoji" onClick={() => setHidden(!hidden)}>
 					<span role="img" aria-label="wave hand emoji">
@@ -142,26 +144,6 @@ const NavigationLinks = ({ user, hidden, setHidden, logoutHandler, navigationTyp
 			</div>
 		)
 	}
-}
-
-const HamburgerIcon = () => {
-	return (
-		<svg
-			xmlns="http://www.w3.org/2000/svg"
-			width="24"
-			height="24"
-			viewBox="0 0 24 24"
-			fill="none"
-			stroke="currentColor"
-			strokeWidth="2"
-			strokeLinecap="round"
-			strokeLinejoin="round"
-		>
-			<line x1="3" y1="12" x2="21" y2="12"></line>
-			<line x1="3" y1="6" x2="21" y2="6"></line>
-			<line x1="3" y1="18" x2="21" y2="18"></line>
-		</svg>
-	)
 }
 
 export default Navigation

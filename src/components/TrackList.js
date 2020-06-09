@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react"
 import TrackListItem from "./TrackListItem"
 import Popup from "../components/Popup"
-import { Button, GhostButton } from "../components/form-components"
+import { WarningButton, GhostButton } from "../components/form-components"
 import { UserContext } from "../context/UserContext"
 
 const TrackList = ({ refresh, setEditTrack, setShowEditForm }) => {
@@ -126,7 +126,7 @@ const ConfirmDelete = ({ show, item, onClose, onCancel, onConfirm }) => {
 					<em>{item.name}</em>
 				</p>
 				<GhostButton text="Cancel" onClick={onCancel} />
-				<Button text="Yes" onClick={onConfirm} color="warning" />
+				<WarningButton text="Yes" onClick={onConfirm} />
 			</Popup>
 		)
 	} else {

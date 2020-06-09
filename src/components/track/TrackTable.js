@@ -3,9 +3,9 @@ import moment from "moment"
 import Popup from "../Popup"
 import { NewTrackPointForm } from "../forms"
 import { TrashIcon, EditIcon } from "../icons"
+import { WarningButton, GhostButton } from "../form-components"
 
 import "./TrackTable.scss"
-import { Button, GhostButton } from "../form-components"
 
 function TrackTable({ trackId, data, deleteHandler, setLoading }) {
 	const [checked, setChecked] = useState({})
@@ -67,7 +67,6 @@ function TrackTable({ trackId, data, deleteHandler, setLoading }) {
 							onClick={() => {
 								for (const pointId in checked) {
 									if (checked[pointId]) {
-										// deleteHandler(pointId)
 										setPointsToDelete(true)
 									}
 								}
@@ -161,9 +160,7 @@ const DeletePointPopupForm = ({ show, text, cancel, confirm }) => {
 			<div>
 				<p>{text}</p>
 				<GhostButton onClick={cancel}>Cancel</GhostButton>
-				<Button color="warning" onClick={confirm}>
-					Delete
-				</Button>
+				<WarningButton onClick={confirm}>Delete</WarningButton>
 			</div>
 		</Popup>
 	)
@@ -175,6 +172,7 @@ const UpdatePointPopupForm = ({ trackId, point, show, onClose, onSuccess }) => {
 			<NewTrackPointForm
 				trackId={trackId}
 				onSuccess={onSuccess}
+				onCancel={onClose}
 				defaults={{ timestamp: new Date(point.timestamp), value: point.value }}
 				process="EDIT_TRACK_POINT"
 				pointId={point._id}

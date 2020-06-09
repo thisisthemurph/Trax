@@ -2,12 +2,9 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+
     &__button {
         display: none;
-    }
-
-    .Button__floatingaction {
-        display: absolute;
     }
 }
 
@@ -17,8 +14,8 @@
             display: block;
         }
 
-        .Button__floatingaction {
-            display: none;
+        .button__floatingaction {
+            bottom: -100vh;
         }
     }
 }
