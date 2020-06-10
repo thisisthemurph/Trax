@@ -28,7 +28,6 @@ const App = () => {
 			<div className="App">
 				<Header />
 
-				{/* <main> */}
 				<Switch>
 					<Route exact path="/">
 						<Home />
@@ -48,7 +47,6 @@ const App = () => {
 						<h2>You didn't say the magic word!</h2>
 					</Route>
 				</Switch>
-				{/* </main> */}
 			</div>
 		</UserContext.Provider>
 	)
