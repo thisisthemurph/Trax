@@ -121,7 +121,7 @@ const TrackView = () => {
 
 	if (track.data.dataPoints.length < 1) {
 		return (
-			<>
+			<div className="container">
 				<div className="trackheader">
 					<h1 className="trackheader__title">{track.name}</h1>
 					<p>Enter your forst point to get this track going...</p>
@@ -133,7 +133,7 @@ const TrackView = () => {
 						setLoading(true)
 					}}
 				/>
-			</>
+			</div>
 		)
 	}
 
