@@ -1,7 +1,6 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import hero from "../../images/hero-medium.jpg"
-import { Button } from "../form-components"
 import "./Home.scss"
 
 const HomePage = () => {
