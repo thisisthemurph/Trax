@@ -49,7 +49,7 @@ const NewTrackForm = ({ onSuccess, onCancel, edit = false, track = null }) => {
 			const res = await fetch("http://mmurphy.co.uk/trax/api/tracks/", {
 				method: "POST",
 				headers: {
-					Accepts: "application/json",
+					Accept: "application/json",
 					"Content-Type": "application/json",
 					"auth-token": user.token,
 				},
