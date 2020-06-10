@@ -87,13 +87,20 @@ const TrackList = ({ refresh, setEditTrack, setShowEditForm }) => {
 		}
 	}
 
+	if (trackItems.length === 0)
+		return (
+			<>
+				<p>WOW! So much empty...</p>
+				<p>How about we create a new Track to have it fill some space?</p>
+				<p>You can track just about anything, the possibilities are endless!</p>
+			</>
+		)
+
 	return (
 		<div className="tracklist">
 			<div className="tracklist__items">
 				{loading ? (
 					<p>Loading...</p>
-				) : trackItems.length === 0 ? (
-					<p>Make a new Track to see it here</p>
 				) : (
 					trackItems.map((track) => (
 						<TrackListItem
