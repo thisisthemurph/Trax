@@ -87,6 +87,8 @@ const TrackList = ({ refresh, setEditTrack, setShowEditForm }) => {
 		}
 	}
 
+	if (loading) return <p>Loading...</p>
+
 	if (trackItems.length === 0)
 		return (
 			<>
@@ -99,18 +101,14 @@ const TrackList = ({ refresh, setEditTrack, setShowEditForm }) => {
 	return (
 		<div className="tracklist">
 			<div className="tracklist__items">
-				{loading ? (
-					<p>Loading...</p>
-				) : (
-					trackItems.map((track) => (
-						<TrackListItem
-							key={track._id}
-							track={track}
-							handleDelete={handleDelete}
-							handleEdit={handleEdit}
-						/>
-					))
-				)}
+				{trackItems.map((track) => (
+					<TrackListItem
+						key={track._id}
+						track={track}
+						handleDelete={handleDelete}
+						handleEdit={handleEdit}
+					/>
+				))}
 			</div>
 
 			<ConfirmDelete
