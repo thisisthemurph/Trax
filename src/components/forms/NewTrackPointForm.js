@@ -38,7 +38,7 @@ const NewTrackPointForm = ({
 		}
 
 		try {
-			const res = await fetch(`http://localhost:5000/trax/api/tracks/${trackId}`, {
+			const res = await fetch(`http://mmurphy.co.uk/trax/api/tracks/${trackId}`, {
 				method: "POST",
 				headers: {
 					Accepts: "application/json",
@@ -72,7 +72,7 @@ const NewTrackPointForm = ({
 
 		try {
 			const res = await fetch(
-				`http://localhost:5000/trax/api/tracks/${trackId}/point/${pointId}`,
+				`http://mmurphy.co.uk/trax/api/tracks/${trackId}/point/${pointId}`,
 				{
 					method: "PUT",
 					headers: {

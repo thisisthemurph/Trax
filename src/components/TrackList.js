@@ -15,7 +15,7 @@ const TrackList = ({ refresh, setEditTrack, setShowEditForm }) => {
 	useEffect(() => {
 		const getTracks = async (userId, token) => {
 			try {
-				const res = await fetch(`http://localhost:5000/trax/api/tracks/user/${userId}`, {
+				const res = await fetch(`http://mmurphy.co.uk/trax/api/tracks/user/${userId}`, {
 					headers: {
 						Accept: "application/json",
 						"Content-Type": "application/json",
@@ -55,7 +55,7 @@ const TrackList = ({ refresh, setEditTrack, setShowEditForm }) => {
 	}
 
 	const completeDeletion = async (trackId) => {
-		const res = await fetch(`http://localhost:5000/trax/api/tracks/${trackId}`, {
+		const res = await fetch(`http://mmurphy.co.uk/trax/api/tracks/${trackId}`, {
 			method: "DELETE",
 			headers: {
 				Accepts: "application/json",

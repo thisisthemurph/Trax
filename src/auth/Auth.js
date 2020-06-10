@@ -13,7 +13,7 @@ export const login = async (email, password) => {
 	}
 
 	try {
-		const res = await fetch("http://localhost:5000/trax/api/auth/login", {
+		const res = await fetch("http://mmurphy.co.uk/trax/api/auth/login", {
 			method: "POST",
 			headers: {
 				Accept: "application/json",
@@ -66,7 +66,7 @@ export const verifyUserToken = async (verifyToken = null) => {
 
 	if (token) {
 		try {
-			const res = await fetch("http://localhost:5000/trax/api/auth/authenticate_token", {
+			const res = await fetch("http://mmurphy.co.uk/trax/api/auth/authenticate_token", {
 				method: "post",
 				headers: {
 					Accept: "application/json",

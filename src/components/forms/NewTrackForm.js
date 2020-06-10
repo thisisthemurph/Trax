@@ -46,7 +46,7 @@ const NewTrackForm = ({ onSuccess, onCancel, edit = false, track = null }) => {
 		}
 
 		try {
-			const res = await fetch("http://localhost:5000/trax/api/tracks/", {
+			const res = await fetch("http://mmurphy.co.uk/trax/api/tracks/", {
 				method: "POST",
 				headers: {
 					Accepts: "application/json",
@@ -79,7 +79,7 @@ const NewTrackForm = ({ onSuccess, onCancel, edit = false, track = null }) => {
 		}
 
 		try {
-			const res = await fetch(`http://localhost:5000/trax/api/tracks/${trackId}`, {
+			const res = await fetch(`http://mmurphy.co.uk/trax/api/tracks/${trackId}`, {
 				method: "PUT",
 				headers: {
 					Accepts: "application/json",
