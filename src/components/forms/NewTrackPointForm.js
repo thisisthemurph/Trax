@@ -106,7 +106,7 @@ const NewTrackPointForm = ({
 	}
 
 	return (
-		<form className="form">
+		<form method="POST" className="form">
 			<Input
 				type="number"
 				value={value}

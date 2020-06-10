@@ -116,7 +116,7 @@ const NewTrackForm = ({ onSuccess, onCancel, edit = false, track = null }) => {
 	}
 
 	return (
-		<form className="form f-container">
+		<form method="POST" className="form f-container">
 			<div className="f-container__span-full">
 				<Input
 					type="text"
@@ -175,11 +175,21 @@ const NewTrackForm = ({ onSuccess, onCancel, edit = false, track = null }) => {
 				/>
 			</div>
 			<div className="f-container__span-full">
-				<GhostButton formButton={true} text="Cancel" onClick={() => onCancel()} />
+				<GhostButton
+					formButton={true}
+					text="Cancel"
+					onClick={(e) => {
+						e.preventDefault()
+						onCancel()
+					}}
+				/>
 				<Button
 					submitButton={true}
 					text={`${edit ? "Update" : "Create"}`}
-					onClick={() => submitHandler()}
+					onClick={(e) => {
+						e.preventDefault()
+						submitHandler()
+					}}
 				/>
 			</div>
 		</form>
