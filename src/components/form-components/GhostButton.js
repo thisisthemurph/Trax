@@ -2,7 +2,15 @@ import React from "react"
 import { Button } from "."
 import "./Button.scss"
 
-const GhostButton = ({ text, children, onClick, disabled, active, color = null }) => {
+const GhostButton = ({
+	text,
+	children,
+	onClick,
+	disabled,
+	active,
+	formButton = false,
+	color = null,
+}) => {
 	return (
 		<Button
 			text={text}
@@ -12,6 +20,7 @@ const GhostButton = ({ text, children, onClick, disabled, active, color = null }
 			active={active}
 			varyant="button__ghost"
 			color={color}
+			formButton={formButton}
 		/>
 	)
 }

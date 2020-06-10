@@ -98,7 +98,12 @@ const LoginForm = (props) => {
 				onChange={(value) => setInputValue("password", value)}
 			/>
 
-			<Button text="Log in" disabled={buttonDisabled} onClick={loginHandler} />
+			<Button
+				submitButton={true}
+				text="Log in"
+				disabled={buttonDisabled}
+				onClick={loginHandler}
+			/>
 			<Link to="/signup">Sign up...</Link>
 		</form>
 	)

@@ -136,6 +136,7 @@ const RegistrationForm = () => {
 			/>
 
 			<Button
+				submitButton={true}
 				text="Sign up"
 				disabled={buttonDisabled}
 				onClick={() => this.doRegistration()}

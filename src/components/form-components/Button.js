@@ -10,6 +10,8 @@ const Button = ({
 	varyant = null,
 	color = null,
 	circle = false,
+	formButton = false,
+	submitButton = false,
 }) => {
 	const classes = [
 		"button",
@@ -20,6 +22,18 @@ const Button = ({
 	]
 		.filter((c) => c)
 		.join(" ")
+
+	if (submitButton || formButton) {
+		return (
+			<input
+				className={classes}
+				type={submitButton ? "submit" : "button"}
+				value={text}
+				onClick={onClick}
+				disabled={disabled ? disabled : false}
+			/>
+		)
+	}
 
 	return (
 		<button className={classes} onClick={onClick} disabled={disabled ? disabled : false}>

@@ -124,10 +124,21 @@ const NewTrackPointForm = ({
 				/>
 			</div>
 
-			<GhostButton text="Cancel" onClick={() => onCancel()} />
+			<GhostButton
+				formButton={true}
+				text="Cancel"
+				onClick={(e) => {
+					e.preventDefault()
+					onCancel()
+				}}
+			/>
 			<Button
+				submitButton={true}
 				text={process === "ADD_NEW_TRACK_POINT" ? "Add point" : "Update"}
-				onClick={submitHandler}
+				onClick={(e) => {
+					e.preventDefault()
+					submitHandler()
+				}}
 			/>
 
 			{error && <p className="error">{error}</p>}

@@ -175,8 +175,12 @@ const NewTrackForm = ({ onSuccess, onCancel, edit = false, track = null }) => {
 				/>
 			</div>
 			<div className="f-container__span-full">
-				<GhostButton text="Cancel" onClick={() => onCancel()} />
-				<Button text={`${edit ? "Update" : "Create"}`} onClick={() => submitHandler()} />
+				<GhostButton formButton={true} text="Cancel" onClick={() => onCancel()} />
+				<Button
+					submitButton={true}
+					text={`${edit ? "Update" : "Create"}`}
+					onClick={() => submitHandler()}
+				/>
 			</div>
 		</form>
 	)
