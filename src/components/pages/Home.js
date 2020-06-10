@@ -1,4 +1,5 @@
 import React from "react"
+import { Link } from "react-router-dom"
 import hero from "../../images/hero-medium.jpg"
 import { Button } from "../form-components"
 import "./Home.scss"
@@ -10,7 +11,9 @@ const HomePage = () => {
 				<div className="hero__content">
 					<h1 className="hero__heading">Trax!</h1>
 					<p className="hero__subtitle">Track the things that mean the most!</p>
-					<Button text="Lets start tracking" />
+					<Link to="/signup" className="link__cta">
+						Let's get tracking!
+					</Link>
 				</div>
 				<img className="hero__image" src={hero} alt="man running up steps" />
 			</div>
