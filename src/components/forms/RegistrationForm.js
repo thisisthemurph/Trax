@@ -20,10 +20,11 @@ const initailFormErrorState = {
 	password2: { hasError: false, msg: null },
 }
 
-const RegistrationForm = () => {
+const RegistrationForm = (props) => {
 	const [buttonDisabled, setButtonDisabled] = useState(true)
 	const [formData, setFormData] = useState(initailFormDataState)
 	const [formErrors, setFormErrors] = useState(initailFormErrorState)
+	const [error, setError] = useState(null)
 
 	const [user] = useContext(UserContext)
 
@@ -85,13 +86,48 @@ const RegistrationForm = () => {
 		})
 	}
 
+	const handleRegistration = async () => {
+		try {
+			const res = await fetch("http://mmurphy.co.uk/trax/api/auth/register", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					name: formData.name,
+					email: formData.email,
+					sex: formData.sex,
+					password: formData.password,
+					password2: formData.password2,
+				}),
+			})
+
+			const response = await res.json()
+
+			if (response && response.success) {
+				props.history.push({
+					pathname: "/login",
+					state: { newUser: true },
+				})
+			} else {
+				setError(response.msg)
+			}
+		} catch (err) {
+			setError(
+				"There has been an issue signing you up, please try again or come back another time."
+			)
+		}
+	}
+
 	if (user) {
 		return <Redirect to="/profile" />
 	}
 
 	return (
-		<form className="form container">
+		<form method="POST" className="form container">
 			<h2 className="form__heading">Sign up</h2>
+
+			{error && <p className="error">{error}</p>}
 
 			<Input
 				type="text"
@@ -139,7 +175,10 @@ const RegistrationForm = () => {
 				submitButton={true}
 				text="Sign up"
 				disabled={buttonDisabled}
-				onClick={() => this.doRegistration()}
+				onClick={(e) => {
+					e.preventDefault()
+					handleRegistration()
+				}}
 			/>
 
 			<Link to="/login">Log in instead...</Link>
