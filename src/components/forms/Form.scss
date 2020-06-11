@@ -78,7 +78,7 @@
         margin-bottom: 1em;
         color: white;
         background: $-c-error-background;
-        border-left: 2px solid $-c-error;
+        border-left: 2px solid $-c-error-text;
 
         display: none;
 
@@ -86,11 +86,20 @@
             display: block;
             animation: slideOut 1s ease;
         }
+
+        p {
+            color: $-c-error-text;
+            padding: 0;
+        }
     }
 
     &__info {
         background: rgb(73, 185, 202);
         border-color: rgb(0, 53, 199);
+
+        p {
+            color: rgb(234, 254, 255);
+        }
     }
 
     input,
