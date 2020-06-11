@@ -72,7 +72,7 @@ const LoginForm = (props) => {
 	}
 
 	return (
-		<form className="form container">
+		<form method="POST" className="form container">
 			<h2 className="form__heading">Log in</h2>
 
 			{error && <p className="error">{error}</p>}
@@ -102,7 +102,10 @@ const LoginForm = (props) => {
 				submitButton={true}
 				text="Log in"
 				disabled={buttonDisabled}
-				onClick={loginHandler}
+				onClick={(e) => {
+					e.preventDefault()
+					loginHandler()
+				}}
 			/>
 			<Link to="/signup">Sign up...</Link>
 		</form>
