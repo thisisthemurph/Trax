@@ -4,7 +4,7 @@ import { UserContext } from "../../context/UserContext"
 import { logout } from "../../auth/Auth"
 import { HamburgerIcon } from "../icons"
 
-import "..Nav.scss"
+import "./Nav.scss"
 
 const Nav = () => {
 	const history = useHistory()

@@ -1,13 +1,16 @@
 import React, { useState, useEffect, useContext } from "react"
 import { useParams } from "react-router-dom"
+
 import moment from "moment"
-import { NewTrackPointForm } from "../components/forms"
+
 import { Button } from "../components/form-components"
+import { NewTrackPointForm } from "../components/forms"
 import { PlusIcon } from "../components/icons"
 import TrackChart from "../components/track/TrackChart"
-import ProgressBar from "../components/track/ProgressBar"
+import ProgressBar from "../components/track/TrackProgressBar"
 import TrackTable from "../components/track/TrackTable"
-import Popup from "../components/Popup"
+import Popup from "../components/popup"
+
 import { UserContext } from "../context/UserContext"
 
 import "./TrackView.scss"

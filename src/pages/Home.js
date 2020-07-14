@@ -1,6 +1,8 @@
 import React from "react"
 import { Link } from "react-router-dom"
-import hero from "../../images/hero-medium.jpg"
+
+import heroImage from "../images/hero-medium.jpg"
+
 import "./Home.scss"
 
 const HomePage = () => {
@@ -14,7 +16,7 @@ const HomePage = () => {
 						Let's get tracking!
 					</Link>
 				</div>
-				<img className="hero__image" src={hero} alt="man running up steps" />
+				<img className="hero__image" src={heroImage} alt="man running up steps" />
 			</div>
 
 			<div className="container">

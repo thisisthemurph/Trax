@@ -1,4 +1,4 @@
-@import "../../variables.scss";
+@import "../variables.scss";
 
 .hero {
     position: relative;
@@ -13,6 +13,8 @@
         position: relative;
         z-index: -1;
         filter: brightness(75%);
+        width: 100vw;
+        max-width: unset;
     }
 
     &__content {

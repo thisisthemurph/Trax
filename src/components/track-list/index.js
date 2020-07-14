@@ -1,8 +1,12 @@
 import React, { useState, useEffect, useContext } from "react"
+
 import TrackListItem from "./TrackListItem"
-import Popup from "../components/Popup"
-import { WarningButton, GhostButton } from "../components/form-components"
-import { UserContext } from "../context/UserContext"
+import Popup from "../popup"
+import { WarningButton, GhostButton } from "../form-components"
+
+import { UserContext } from "../../context/UserContext"
+
+import "./TrackList.scss"
 
 let API_URL
 if (process.env.NODE_ENV === "production") {

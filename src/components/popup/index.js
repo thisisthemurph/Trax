@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { ArrowUpIcon } from "./icons"
+import { ArrowUpIcon } from "../icons"
 
 import "./Popup.scss"
 

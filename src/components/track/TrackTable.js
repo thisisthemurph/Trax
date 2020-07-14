@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react"
+
 import moment from "moment"
-import Popup from "../Popup"
+
+import Popup from "../popup"
 import { NewTrackPointForm } from "../forms"
 import { TrashIcon, EditIcon } from "../icons"
 import { WarningButton, GhostButton } from "../form-components"

@@ -44,6 +44,7 @@ const NewTrackForm = ({ onSuccess, onCancel, edit = false, track = null }) => {
 	useEffect(() => {
 		const firstMetric = Object.keys(metrics[trackType])[0]
 		setMetric(firstMetric)
+		// eslint-disable-next-line
 	}, [trackType])
 
 	const doCreateNewTrack = async () => {

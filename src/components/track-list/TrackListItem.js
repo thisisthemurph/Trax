@@ -1,9 +1,7 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import moment from "moment"
-import { TrashIcon, SlidersIcon, ChevronRightIcon } from "./icons"
-
-import "./TrackListItem.scss"
+import { TrashIcon, SlidersIcon, ChevronRightIcon } from "../icons"
 
 function TrackListItem({ track, handleDelete, handleEdit }) {
 	const { _id: trackId, name, type, updatedAt } = track

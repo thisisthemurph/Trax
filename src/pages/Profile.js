@@ -1,10 +1,10 @@
 import React, { useState } from "react"
-import { FloatingActionButton } from "../form-components"
-import TrackList from "../TrackList"
-import Popup from "../Popup"
-import NewTrackForm from "../forms/NewTrackForm"
-import { Button } from "../form-components"
-import { PlusIcon } from "../icons"
+
+import TrackList from "../components/track-list"
+import Popup from "../components/popup"
+import { NewTrackForm } from "../components/forms"
+import { Button, FloatingActionButton } from "../components/form-components"
+import { PlusIcon } from "../components/icons"
 
 import "./Profile.scss"
 
