@@ -1,6 +1,6 @@
 import React from "react"
 
-import "./ProgressBar.scss"
+import "./TrackProgressBar.scss"
 
 const ProgressBar = ({ percentage, target }) => {
 	const progress = Math.min(Math.floor(percentage), 100)
