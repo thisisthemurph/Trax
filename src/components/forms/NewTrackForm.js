@@ -2,6 +2,13 @@ import React, { useState, useEffect, useContext } from "react"
 import { Input, Button, GhostButton, SelectInput } from "../form-components"
 import { UserContext } from "../../context/UserContext"
 
+let API_URL
+if (process.env.NODE_ENV === "production") {
+	API_URL = process.env.REACT_APP_API_BASE_URL
+} else {
+	API_URL = process.env.REACT_APP_API_BASE_URL_DEV
+}
+
 const NewTrackForm = ({ onSuccess, onCancel, edit = false, track = null }) => {
 	const hasTrack = track !== null
 
@@ -46,7 +53,7 @@ const NewTrackForm = ({ onSuccess, onCancel, edit = false, track = null }) => {
 		}
 
 		try {
-			const res = await fetch("http://mmurphy.co.uk/trax/api/tracks/", {
+			const res = await fetch(`${API_URL}/tracks/`, {
 				method: "POST",
 				headers: {
 					Accept: "application/json",
@@ -79,7 +86,7 @@ const NewTrackForm = ({ onSuccess, onCancel, edit = false, track = null }) => {
 		}
 
 		try {
-			const res = await fetch(`http://mmurphy.co.uk/trax/api/tracks/${trackId}`, {
+			const res = await fetch(`${API_URL}/tracks/${trackId}`, {
 				method: "PUT",
 				headers: {
 					Accepts: "application/json",

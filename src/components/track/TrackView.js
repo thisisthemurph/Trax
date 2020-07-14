@@ -4,13 +4,20 @@ import moment from "moment"
 import { NewTrackPointForm } from "../forms"
 import { Button } from "../form-components"
 import { PlusIcon } from "../icons"
-import TrackChart from "./TrackChart"
-import ProgressBar from "./ProgressBar"
-import TrackTable from "./TrackTable"
+import TrackChart from "../track/TrackChart"
+import ProgressBar from "../track/TrackProgressBar"
+import TrackTable from "../track/TrackTable"
 import Popup from "../Popup"
 import { UserContext } from "../../context/UserContext"
 
 import "./TrackView.scss"
+
+let API_URL
+if (process.env.NODE_ENV === "production") {
+	API_URL = process.env.REACT_APP_API_BASE_URL
+} else {
+	API_URL = process.env.REACT_APP_API_BASE_URL_DEV
+}
 
 const TrackView = () => {
 	const { trackId } = useParams()
@@ -28,7 +35,7 @@ const TrackView = () => {
 	useEffect(() => {
 		const getTrack = async (trackId, token) => {
 			try {
-				const res = await fetch(`http://mmurphy.co.uk/trax/api/tracks/${trackId}`, {
+				const res = await fetch(`${API_URL}/tracks/${trackId}`, {
 					headers: {
 						Accept: "application/json",
 						"Content-Type": "application/json",
@@ -71,17 +78,14 @@ const TrackView = () => {
 
 	const deletePointHandler = async (pointId) => {
 		try {
-			const res = await fetch(
-				`http://mmurphy.co.uk/trax/api/tracks/${trackId}/point/${pointId}`,
-				{
-					method: "DELETE",
-					headers: {
-						Accept: "application/json",
-						"Content-Type": "application/json",
-						"auth-token": user.token,
-					},
-				}
-			)
+			const res = await fetch(`${API_URL}/tracks/${trackId}/point/${pointId}`, {
+				method: "DELETE",
+				headers: {
+					Accept: "application/json",
+					"Content-Type": "application/json",
+					"auth-token": user.token,
+				},
+			})
 
 			const response = await res.json()
 

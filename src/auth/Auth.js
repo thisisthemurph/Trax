@@ -1,3 +1,10 @@
+let API_URL
+if (process.env.NODE_ENV === "production") {
+	API_URL = process.env.REACT_APP_API_BASE_URL
+} else {
+	API_URL = process.env.REACT_APP_API_BASE_URL_DEV
+}
+
 export const logout = () => {
 	localStorage.removeItem("token")
 }
@@ -13,7 +20,8 @@ export const login = async (email, password) => {
 	}
 
 	try {
-		const res = await fetch("http://mmurphy.co.uk/trax/api/auth/login", {
+		const url = `${API_URL}/auth/login`
+		const res = await fetch(url, {
 			method: "POST",
 			headers: {
 				Accept: "application/json",
@@ -66,7 +74,7 @@ export const verifyUserToken = async (verifyToken = null) => {
 
 	if (token) {
 		try {
-			const res = await fetch("http://mmurphy.co.uk/trax/api/auth/authenticate_token", {
+			const res = await fetch(`${API_URL}/auth/authenticate_token`, {
 				method: "post",
 				headers: {
 					Accept: "application/json",

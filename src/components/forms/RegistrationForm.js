@@ -4,6 +4,13 @@ import { Input, Button, GenderElement } from "../form-components"
 
 import { UserContext } from "../../context/UserContext"
 
+let API_URL
+if (process.env.NODE_ENV === "production") {
+	API_URL = process.env.REACT_APP_API_BASE_URL
+} else {
+	API_URL = process.env.REACT_APP_API_BASE_URL_DEV
+}
+
 const initailFormDataState = {
 	name: null,
 	email: null,
@@ -88,7 +95,7 @@ const RegistrationForm = (props) => {
 
 	const handleRegistration = async () => {
 		try {
-			const res = await fetch("http://mmurphy.co.uk/trax/api/auth/register", {
+			const res = await fetch(`${API_URL}/auth/register`, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
