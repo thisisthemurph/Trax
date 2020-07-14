@@ -3,7 +3,7 @@ import { Switch, Route } from "react-router-dom"
 import { ProtectedRoute } from "./components/ProtectedRoute"
 import { LoginForm, RegistrationForm } from "./components/forms"
 import { Home, Profile } from "./components/pages"
-import TrackView from "./components/track"
+import TrackView from "./pages/TrackView"
 import Header from "./components/header"
 import { verifyUserToken } from "./auth/Auth"
 

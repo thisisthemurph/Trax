@@ -1,3 +1,3 @@
-import TrackView from "../pages/TrackView"
+import TrackView from "./TrackView"
 
 export default TrackView
