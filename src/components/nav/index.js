@@ -4,9 +4,9 @@ import { UserContext } from "../../context/UserContext"
 import { logout } from "../../auth/Auth"
 import { HamburgerIcon } from "../icons"
 
-import "./Navigation.scss"
+import "..Nav.scss"
 
-const Navigation = () => {
+const Nav = () => {
 	const history = useHistory()
 	const [user, setUser] = useContext(UserContext)
 	const [hidden, setHidden] = useState(true)
@@ -146,4 +146,4 @@ const NavigationLinks = ({ user, hidden, setHidden, logoutHandler, navigationTyp
 	}
 }
 
-export default Navigation
+export default Nav
