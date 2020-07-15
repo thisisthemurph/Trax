@@ -1,13 +1,4 @@
-let API_URL
-if (process.env.NODE_ENV === "production") {
-	API_URL = process.env.REACT_APP_API_BASE_URL
-} else {
-	API_URL = process.env.REACT_APP_API_BASE_URL_DEV
-}
-
-export const logout = () => {
-	localStorage.removeItem("token")
-}
+import client from "../api/api-client"
 
 const genericLoginError = {
 	success: false,
@@ -20,48 +11,32 @@ export const login = async (email, password) => {
 	}
 
 	try {
-		const url = `${API_URL}/auth/login`
-		const res = await fetch(url, {
-			method: "POST",
-			headers: {
-				Accept: "application/json",
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({ email, password }),
-		})
+		const result = await client("auth/login", { body: { email, password } })
 
-		if (res.ok) {
-			const result = await res.json()
+		if (result && result.success) {
+			localStorage.setItem("token", result.token)
 
-			if (result && result.success) {
-				localStorage.setItem("token", result.token)
-
-				return {
-					success: true,
-					user: {
-						...result.user,
-						token: result.token,
-					},
-				}
-			} else {
-				logout()
-				return genericLoginError
+			return {
+				success: true,
+				user: {
+					...result.user,
+					token: result.token,
+				},
 			}
 		} else {
-			// The credentials did not match any in the database
 			logout()
-			if (res.status === 404 || res.status === 401) {
-				return {
-					success: false,
-					error:
-						"An account cannot be found with the given email and password combination.",
-				}
-			}
-
 			return genericLoginError
 		}
 	} catch (err) {
 		logout()
+
+		if (err?.msg) {
+			return {
+				success: false,
+				error: "An account cannot be found with the given email and password combination.",
+			}
+		}
+
 		return genericLoginError
 	}
 }
@@ -74,16 +49,12 @@ export const verifyUserToken = async (verifyToken = null) => {
 
 	if (token) {
 		try {
-			const res = await fetch(`${API_URL}/auth/authenticate_token`, {
-				method: "post",
+			const result = await client("/auth/authenticate_token", {
+				method: "POST",
 				headers: {
-					Accept: "application/json",
-					"Content-Type": "application/json",
 					"auth-token": token,
 				},
 			})
-
-			const result = await res.json()
 
 			if (result && result.success) {
 				return {
@@ -102,4 +73,8 @@ export const verifyUserToken = async (verifyToken = null) => {
 		logout()
 		return null
 	}
+}
+
+export const logout = () => {
+	localStorage.removeItem("token")
 }
