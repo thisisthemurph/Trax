@@ -49,7 +49,7 @@ export const verifyUserToken = async (verifyToken = null) => {
 
 	if (token) {
 		try {
-			const result = await client("/auth/authenticate_token", {
+			const result = await client("auth/authenticate_token", {
 				method: "POST",
 				headers: {
 					"auth-token": token,
