@@ -1,4 +1,4 @@
-import client from "../api/api-client"
+import client from "../api-client"
 
 const genericLoginError = {
 	success: false,

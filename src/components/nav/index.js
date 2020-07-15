@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react"
 import { Link, useHistory } from "react-router-dom"
 import { UserContext } from "../../context/UserContext"
-import { logout } from "../../auth/Auth"
+import { logout } from "../../api/auth"
 import { HamburgerIcon } from "../icons"
 
 import "./Nav.scss"

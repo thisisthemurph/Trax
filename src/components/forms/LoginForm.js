@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react"
 import { Link, Redirect } from "react-router-dom"
 import { Input, Button } from "../form-components"
 import { UserContext } from "../../context/UserContext"
-import { login } from "../../auth/Auth"
+import { login } from "../../api/auth"
 
 import "./Form.scss"
 

@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { Switch, Route } from "react-router-dom"
 
-import { verifyUserToken } from "./auth/Auth"
+import { verifyUserToken } from "./api/auth"
 import { ProtectedRoute } from "./components/ProtectedRoute"
 import { LoginForm, RegistrationForm } from "./components/forms"
 import Header from "./components/header"
