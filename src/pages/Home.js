@@ -1,7 +1,9 @@
 import React from "react"
 import { Link } from "react-router-dom"
 
-import heroImage from "../images/hero-medium.jpg"
+import heroSmall from "../images/hero-small.jpg"
+import heroMedium from "../images/hero-medium.jpg"
+import heroLarge from "../images/hero-full.jpg"
 
 import "./Home.scss"
 
@@ -16,7 +18,12 @@ const HomePage = () => {
 						Let's get tracking!
 					</Link>
 				</div>
-				<img className="hero__image" src={heroImage} alt="man running up steps" />
+				<img
+					className="hero__image"
+					src={heroSmall}
+					srcSet={`${heroSmall} 300w, ${heroMedium} 500w, ${heroLarge} 1920w`}
+					alt="man running up steps"
+				/>
 			</div>
 
 			<div className="container">
