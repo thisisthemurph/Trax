@@ -1,19 +1,13 @@
 import React, { useState, useEffect, useContext } from "react"
 
-import TrackListItem from "./TrackListItem"
 import Popup from "../popup"
+import TrackListItem from "./TrackListItem"
 import { WarningButton, GhostButton } from "../form-components"
 
 import { UserContext } from "../../context/UserContext"
+import { getTracks, deleteTrack } from "../../api/track"
 
 import "./TrackList.scss"
-
-let API_URL
-if (process.env.NODE_ENV === "production") {
-	API_URL = process.env.REACT_APP_API_BASE_URL
-} else {
-	API_URL = process.env.REACT_APP_API_BASE_URL_DEV
-}
 
 const TrackList = ({ refresh, setEditTrack, setShowEditForm }) => {
 	const [loading, setLoading] = useState(true)
@@ -24,33 +18,13 @@ const TrackList = ({ refresh, setEditTrack, setShowEditForm }) => {
 	const [user] = useContext(UserContext)
 
 	useEffect(() => {
-		const getTracks = async (userId, token) => {
-			try {
-				const res = await fetch(`${API_URL}/tracks/user/${userId}`, {
-					headers: {
-						Accept: "application/json",
-						"Content-Type": "application/json",
-						"auth-token": token,
-					},
-				})
-
-				const tracks = await res.json()
-
-				if (tracks) {
-					setTrackItems(tracks)
-				} else {
-					setTrackItems([])
-				}
-			} catch (e) {
-				setTrackItems([])
-			}
-		}
-
 		setLoading(true)
-
-		if (user && user.token) {
-			getTracks(user.id, user.token)
-		}
+		;(async () => {
+			if (user && user.token) {
+				const tracks = await getTracks(user)
+				setTrackItems(tracks)
+			}
+		})()
 
 		setLoading(false)
 	}, [user, refresh, loading])
@@ -66,18 +40,9 @@ const TrackList = ({ refresh, setEditTrack, setShowEditForm }) => {
 	}
 
 	const completeDeletion = async (trackId) => {
-		const res = await fetch(`${API_URL}/tracks/${trackId}`, {
-			method: "DELETE",
-			headers: {
-				Accepts: "application/json",
-				"Content-Type": "application/json",
-				"auth-token": user.token,
-			},
-		})
+		const isDeleted = deleteTrack(user, trackId)
 
-		const response = await res.json()
-
-		if (response && response.success) {
+		if (isDeleted) {
 			setLoading(true)
 		} else {
 			alert("It has not been possible to delete this track!")

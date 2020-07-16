@@ -2,14 +2,8 @@ import React, { useState, useEffect, useContext } from "react"
 import { Link, Redirect } from "react-router-dom"
 import { Input, Button, GenderElement } from "../form-components"
 
+import { register } from "../../api/auth"
 import { UserContext } from "../../context/UserContext"
-
-let API_URL
-if (process.env.NODE_ENV === "production") {
-	API_URL = process.env.REACT_APP_API_BASE_URL
-} else {
-	API_URL = process.env.REACT_APP_API_BASE_URL_DEV
-}
 
 const initailFormDataState = {
 	name: null,
@@ -94,35 +88,23 @@ const RegistrationForm = (props) => {
 	}
 
 	const handleRegistration = async () => {
-		try {
-			const res = await fetch(`${API_URL}/auth/register`, {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					name: formData.name,
-					email: formData.email,
-					sex: formData.sex,
-					password: formData.password,
-					password2: formData.password2,
-				}),
+		const response = await register({
+			name: formData.name,
+			email: formData.email,
+			sex: formData.sex,
+			password: formData.password,
+			password2: formData.password2,
+		})
+
+		console.log(response)
+
+		if (response.success) {
+			props.history.push({
+				pathname: "/login",
+				state: { newUser: true },
 			})
-
-			const response = await res.json()
-
-			if (response && response.success) {
-				props.history.push({
-					pathname: "/login",
-					state: { newUser: true },
-				})
-			} else {
-				setError(response.msg)
-			}
-		} catch (err) {
-			setError(
-				"There has been an issue signing you up, please try again or come back another time."
-			)
+		} else {
+			setError(response.msg)
 		}
 	}
 

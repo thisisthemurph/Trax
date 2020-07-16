@@ -1,5 +1,8 @@
 import React, { useState, useEffect, useContext } from "react"
+
 import { Input, Button, GhostButton, SelectInput } from "../form-components"
+
+import { createTrack, updateTrack } from "../../api/track"
 import { UserContext } from "../../context/UserContext"
 
 let API_URL
@@ -53,29 +56,15 @@ const NewTrackForm = ({ onSuccess, onCancel, edit = false, track = null }) => {
 			return
 		}
 
-		try {
-			const res = await fetch(`${API_URL}/tracks/`, {
-				method: "POST",
-				headers: {
-					Accept: "application/json",
-					"Content-Type": "application/json",
-					"auth-token": user.token,
-				},
-				body: JSON.stringify({
-					name,
-					type: trackType,
-					data: { metric, target, increaseOrDecrease },
-				}),
-			})
+		const trackWasCreated = await createTrack(user, {
+			name,
+			type: trackType,
+			data: { metric, target, increaseOrDecrease },
+		})
 
-			const result = await res.json()
-
-			if (result && result.success) {
-				onSuccess()
-			} else {
-				alert("There has been an issue creating your track")
-			}
-		} catch (e) {
+		if (trackWasCreated) {
+			onSuccess()
+		} else {
 			alert("There has been an issue creating your track")
 		}
 	}
@@ -86,31 +75,17 @@ const NewTrackForm = ({ onSuccess, onCancel, edit = false, track = null }) => {
 			return
 		}
 
-		try {
-			const res = await fetch(`${API_URL}/tracks/${trackId}`, {
-				method: "PUT",
-				headers: {
-					Accepts: "application/json",
-					"Content-Type": "application/json",
-					"auth-token": user.token,
-				},
-				body: JSON.stringify({
-					name,
-					target,
-					metric,
-					increaseOrDecrease,
-					type: trackType,
-				}),
-			})
+		const wasUpdated = await updateTrack(user, trackId, {
+			name,
+			target,
+			metric,
+			increaseOrDecrease,
+			type: trackType,
+		})
 
-			const result = await res.json()
-
-			if (result && result.success) {
-				onSuccess()
-			} else {
-				alert("There has been an issue updating your track")
-			}
-		} catch (e) {
+		if (wasUpdated) {
+			onSuccess()
+		} else {
 			alert("There has been an issue updating your track")
 		}
 	}

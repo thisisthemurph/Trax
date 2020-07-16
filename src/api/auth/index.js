@@ -5,6 +5,21 @@ const genericLoginError = {
 	error: "There has been an error logging you in, please check your details and try again.",
 }
 
+export const register = async (user) => {
+	try {
+		const result = await client("auth/register", {
+			body: user,
+		})
+
+		return result
+	} catch (err) {
+		return {
+			success: false,
+			msg: "There's been an issue registering, please try again or come back later.",
+		}
+	}
+}
+
 export const login = async (email, password) => {
 	if (!email || !password) {
 		return { success: false, error: "You must enter both the email address and password." }

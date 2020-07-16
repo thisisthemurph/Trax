@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react"
 import { Input, Button, GhostButton } from "../form-components"
 
+import { addPointToTrack, updatePoint } from "../../api/track"
 import { UserContext } from "../../context/UserContext"
 
 let API_URL
@@ -35,7 +36,7 @@ const NewTrackPointForm = ({
 			return
 		}
 
-		const postData = {
+		const newPoint = {
 			dataPoints: [
 				{
 					value,
@@ -44,60 +45,30 @@ const NewTrackPointForm = ({
 			],
 		}
 
-		try {
-			const res = await fetch(`${API_URL}/tracks/${trackId}`, {
-				method: "POST",
-				headers: {
-					Accepts: "application/json",
-					"Content-Type": "application/json",
-					"auth-token": user.token,
-				},
-				body: JSON.stringify(postData),
-			})
+		const success = await addPointToTrack(user, trackId, newPoint)
 
-			const result = await res.json()
-
-			if (result && result.success) {
-				onSuccess()
-			} else {
-				setError(
-					"There seem to be problems adding this data to the database, maybe try again..."
-				)
-			}
-		} catch (e) {
-			setError("Something unexpected has happened, maybe try refreshing :?")
+		if (success) {
+			onSuccess()
+		} else {
+			setError(
+				"There seem to be problems adding this data to the database, maybe try again..."
+			)
 		}
 	}
 
-	const updatePoint = async (pointId) => {
+	const handlePointUpdate = async (pointId) => {
 		if (!(value && date)) {
 			setError("Please fill the  entire form")
 			return
 		}
 
-		const putData = { value, timestamp: date }
+		const newPointData = { value, timestamp: date }
+		const success = updatePoint(user, trackId, pointId, newPointData)
 
-		try {
-			const res = await fetch(`${API_URL}/tracks/${trackId}/point/${pointId}`, {
-				method: "PUT",
-				headers: {
-					Accept: "application/json",
-					"Content-Type": "application/json",
-					"auth-token": user.token,
-				},
-				body: JSON.stringify(putData),
-			})
-
-			const response = await res.json()
-
-			if (response && response.success) {
-				onSuccess()
-			} else {
-				throw Error("Could not update the point")
-			}
-		} catch (err) {
-			console.error(err)
-			alert("It has not been possible to update the Track point at this time...")
+		if (success) {
+			onSuccess()
+		} else {
+			throw Error("Could not update the point")
 		}
 	}
 
@@ -105,7 +76,7 @@ const NewTrackPointForm = ({
 		if (process === "ADD_NEW_TRACK_POINT") {
 			submitNewPoint()
 		} else if (process === "EDIT_TRACK_POINT") {
-			updatePoint(pointId)
+			handlePointUpdate(pointId)
 		}
 	}
 

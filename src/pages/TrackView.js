@@ -11,16 +11,10 @@ import ProgressBar from "../components/track/TrackProgressBar"
 import TrackTable from "../components/track/TrackTable"
 import Popup from "../components/popup"
 
+import { getTrack, deletePoint } from "../api/track"
 import { UserContext } from "../context/UserContext"
 
 import "./TrackView.scss"
-
-let API_URL
-if (process.env.NODE_ENV === "production") {
-	API_URL = process.env.REACT_APP_API_BASE_URL
-} else {
-	API_URL = process.env.REACT_APP_API_BASE_URL_DEV
-}
 
 const TrackView = () => {
 	const { trackId } = useParams()
@@ -36,69 +30,41 @@ const TrackView = () => {
 	const [user] = useContext(UserContext)
 
 	useEffect(() => {
-		const getTrack = async (trackId, token) => {
-			try {
-				const res = await fetch(`${API_URL}/tracks/${trackId}`, {
-					headers: {
-						Accept: "application/json",
-						"Content-Type": "application/json",
-						"auth-token": token,
-					},
-				})
+		;(async () => {
+			if (user && user.token) {
+				const track = await getTrack(user, trackId)
 
-				const response = await res.json()
+				if (track !== null) {
+					setTrack(track)
+					setData(track.data.dataPoints)
 
-				if (response && response.success) {
-					const trk = response.track
-
-					setTrack(trk)
-					setData(trk.data.dataPoints)
-
-					if ("target" in trk.data && trk.data.dataPoints.length > 1) {
-						const target = trk.data.target
-						const firstPoint = trk.data.dataPoints[0]
-						const lastPoint = trk.data.dataPoints[trk.data.dataPoints.length - 1]
+					if ("target" in track.data && track.data.dataPoints.length > 1) {
+						const target = track.data.target
+						const firstPoint = track.data.dataPoints[0]
+						const lastPoint = track.data.dataPoints[track.data.dataPoints.length - 1]
 
 						const diff = firstPoint.value - target
 						const progress = (lastPoint.value - firstPoint.value) * -1
 						setTrackProgress((progress / diff) * 100)
 					}
+				} else {
+					setError(
+						"There has been an issue fetching the Track, please check it still exists."
+					)
 				}
 
 				setLoading(false)
-			} catch (err) {
-				setError(
-					"There has been a problem loading your data at this time, please ensure that this Track still exists."
-				)
-				setLoading(false)
 			}
-		}
-
-		if (user && user.token) {
-			getTrack(trackId, user.token)
-		}
+		})()
 	}, [trackId, user, loading])
 
 	const deletePointHandler = async (pointId) => {
-		try {
-			const res = await fetch(`${API_URL}/tracks/${trackId}/point/${pointId}`, {
-				method: "DELETE",
-				headers: {
-					Accept: "application/json",
-					"Content-Type": "application/json",
-					"auth-token": user.token,
-				},
-			})
+		const success = await deletePoint(user, trackId, pointId)
 
-			const response = await res.json()
-
-			if (response && response.success) {
-				setLoading(true)
-			} else {
-				alert("There has been an issue deleting this Track point!")
-			}
-		} catch (err) {
-			alert("It has not been possible to delete the Track point at this time...")
+		if (success) {
+			setLoading(true)
+		} else {
+			alert("Something went wrong, the point hasn't been deleted.")
 		}
 	}
 
