@@ -6,12 +6,6 @@ if (process.env.NODE_ENV === "production") {
 }
 
 const client = (endpoint, { body, ...customConfig } = {}) => {
-	console.log({
-		endpoint,
-		body,
-		customConfig,
-	})
-
 	const config = {
 		method: body ? "POST" : "GET",
 		...customConfig,
