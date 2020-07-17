@@ -1,8 +1,8 @@
 import React from "react"
 
-import "./GenderElement.scss"
+import "./GenderSelect.scss"
 
-const GenderElement = ({ sex, updateSelected }) => {
+const GenderSelect = ({ sex, updateSelected }) => {
 	const maleFocusRef = React.createRef()
 	const femaleFocusRef = React.createRef()
 
@@ -20,7 +20,7 @@ const GenderElement = ({ sex, updateSelected }) => {
 	}
 
 	return (
-		<div className={"GenderElement"}>
+		<div className="GenderSelect">
 			<div
 				className={getClassNames("m")}
 				onClick={() => maleFocusRef.current && maleFocusRef.current.focus()}
@@ -66,4 +66,4 @@ const GenderElement = ({ sex, updateSelected }) => {
 	)
 }
 
-export default GenderElement
+export default GenderSelect

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react"
 import { Link, Redirect } from "react-router-dom"
-import { Input, Button, GenderElement } from "../form-components"
+import { Input, Button, GenderSelect } from "../form-components"
 
 import { register } from "../../api/auth"
 import { UserContext } from "../../context/UserContext"
@@ -137,7 +137,7 @@ const RegistrationForm = (props) => {
 				onChange={(value) => setInputValue("email", value)}
 			/>
 
-			<GenderElement
+			<GenderSelect
 				sex={formData.sex ? formData.sex : "f"}
 				updateSelected={(value) => setInputValue("sex", value)}
 			/>

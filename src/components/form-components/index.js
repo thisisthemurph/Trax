@@ -2,7 +2,7 @@ import Input from "./Input"
 import SelectInput from "./SelectInput"
 import Button from "./Button"
 import GhostButton from "./GhostButton"
-import GenderElement from "./GenderElement"
+import GenderSelect from "./GenderSelect"
 import FloatingActionButton from "./FloatingActionButton"
 import WarningButton from "./WarningButton"
 
@@ -13,5 +13,5 @@ export {
 	GhostButton,
 	WarningButton,
 	FloatingActionButton,
-	GenderElement,
+	GenderSelect,
 }
