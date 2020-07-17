@@ -8,7 +8,7 @@ import { UserContext } from "../../context/UserContext"
 const initailFormDataState = {
 	name: null,
 	email: null,
-	sex: null,
+	sex: "f",
 	password: null,
 	password2: null,
 }
